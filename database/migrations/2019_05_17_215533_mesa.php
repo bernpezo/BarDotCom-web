@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AdministradorSistema extends Migration
+class Mesa extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class AdministradorSistema extends Migration
      */
     public function up()
     {
-        Schema::create('administrador_sistemas', function (Blueprint $table) {
-            $table->bigIncrements('idAdmin');
-            $table->unsignedBigInteger('id');
+        Schema::create('mesas', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('idLocal');
+            $table->integer('numero');
             $table->timestamps();
-            $table->foreign('id')->references('id')->on('users');
+            $table->foreign('idLocal')->references('id')->on('local_comercials');
         });
     }
 
@@ -28,6 +29,6 @@ class AdministradorSistema extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('administrador_sistemas');
+        Schema::dropIfExists('mesas');
     }
 }

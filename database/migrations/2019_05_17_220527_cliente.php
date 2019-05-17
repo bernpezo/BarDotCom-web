@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AdministradorSistema extends Migration
+class Cliente extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class AdministradorSistema extends Migration
      */
     public function up()
     {
-        Schema::create('administrador_sistemas', function (Blueprint $table) {
-            $table->bigIncrements('idAdmin');
+        Schema::create('clientes', function (Blueprint $table) {
             $table->unsignedBigInteger('id');
+            $table->integer('nfc');
             $table->timestamps();
+            $table->primary('id');
             $table->foreign('id')->references('id')->on('users');
         });
     }
@@ -28,6 +29,6 @@ class AdministradorSistema extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('administrador_sistemas');
+        Schema::dropIfExists('clientes');
     }
 }

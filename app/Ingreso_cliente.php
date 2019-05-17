@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Administrador_local extends Model
+class Ingreso_cliente extends Model
 {
     protected $fillable = [
-        'idLocal',
+        'idUsuario', 'idCliente', 'idLocal', 'idMesa',
     ];
 }

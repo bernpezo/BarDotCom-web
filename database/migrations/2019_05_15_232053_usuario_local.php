@@ -15,11 +15,11 @@ class UsuarioLocal extends Migration
     {
         Schema::create('usuario_locals', function (Blueprint $table) {
             $table->unsignedBigInteger('id');
-            $table->unsignedBigInteger('id_local');
+            $table->unsignedBigInteger('idLocal');
             $table->timestamps();
             $table->primary('id');
             $table->foreign('id')->references('id')->on('users');
-            $table->foreign('id_local')->references('id')-on('local_comercial');
+            $table->foreign('idLocal')->references('id')->on('local_comercials');
         });
     }
 

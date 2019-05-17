@@ -15,7 +15,7 @@ class LocalComercial extends Migration
     {
         Schema::create('local_comercials', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('id_admin');
+            $table->unsignedBigInteger('idAdmin');
             $table->string('rut')->unique();
             $table->string('nombre');
             $table->string('logo');
@@ -27,7 +27,7 @@ class LocalComercial extends Migration
             $table->string('descripcion',500);
             $table->timestamps();
             $table->foreign('rubro')->references('id')->on('rubros');
-            $table->foreign('id_admin')->references('id_admin')->on('administrador_sistemas');
+            $table->foreign('idAdmin')->references('idAdmin')->on('administrador_sistemas');
         });
     }
 

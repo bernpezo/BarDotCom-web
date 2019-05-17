@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Aviso extends Migration
+class Promocion extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class Aviso extends Migration
      */
     public function up()
     {
-        Schema::create('avisos', function (Blueprint $table) {
+        Schema::create('promocions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('idAdmin');
+            $table->unsignedBigInteger('idLocal');
             $table->string('nombre');
             $table->string('descripcion',500);
+            $table->string('imagen');
             $table->timestamps();
-            $table->foreign('idAdmin')->references('idAdmin')->on('administrador_sistemas');
+            $table->foreign('idLocal')->references('id')->on('local_comercials');
         });
     }
 
@@ -30,6 +31,6 @@ class Aviso extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('avisos');
+        Schema::dropIfExists('promocions');
     }
 }

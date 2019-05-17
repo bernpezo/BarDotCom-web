@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Administrador_local extends Model
+class Reporte extends Model
 {
     protected $fillable = [
-        'idLocal',
+        'nombre', 'fecha', 'idLocal',
     ];
 }
