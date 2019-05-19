@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Reporte extends Migration
+class Cuenta extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,18 @@ class Reporte extends Migration
      */
     public function up()
     {
-        Schema::create('reportes', function (Blueprint $table) {
+        Schema::create('cuentas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('idLocal');
-            $table->string('nombre');
-            $table->date('fecha');
+            $table->unsignedBigInteger('idUsuario');
+            $table->unsignedBigInteger('idCliente');
+            $table->integer('total');
+            $table->boolean('estado');
+            $table->timestamp('fecha');
             $table->timestamps();
             $table->foreign('idLocal')->references('id')->on('local_comercials');
+            $table->foreign('idUsuario')->references('id')->on('usuario_locals');
+            $table->foreign('idCliente')->references('id')->on('clientes');
         });
     }
 
@@ -30,6 +35,6 @@ class Reporte extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reportes');
+        Schema::dropIfExists('cuentas');
     }
 }
