@@ -1,6 +1,11 @@
-@extends('layouts.app')
-
-@section('content')
+@extends('layouts.template')
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/session.css') }}">
+@endsection
+@section('contenido')
+    
+@endsection
+<!--
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -44,4 +49,4 @@
         </div>
     </div>
 </div>
-@endsection
+-->

@@ -14,13 +14,6 @@
     <title>@yield('titulo')</title>
 </head>
 <body>
-    <!-- Inicio navbar
-        Mostrar navbar solo si hay una sesión iniciada -->
-    @guest    
-    @else
-        @yield('navbar')
-    @endguest
-    <!-- Fin navbar -->
     @yield('contenido')
     <!-- Inicio JavaScript -->
     <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>

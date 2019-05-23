@@ -10,10 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('home');
-});
-
+/*
+ * Rutas control de sesión
+ */
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+/*
+ * Ruta vista inicio
+ */
+Route::get('/', 'HomeController@index')->name('home');
