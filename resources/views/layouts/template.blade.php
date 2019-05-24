@@ -8,9 +8,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Inicio CSS general -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <!-- Fin CSS general -->
     <!-- CSS particular -->
     @yield('css')
+    <!-- Fin CSS general -->
+    <!-- Título -->
     <title>@yield('titulo')</title>
 </head>
 <body>
@@ -21,6 +22,8 @@
     <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <!-- JavaScript particular -->
+    @yield('js')
     <!-- Fin JavaScript -->
 </body>
 </html>

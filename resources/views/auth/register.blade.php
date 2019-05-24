@@ -2,8 +2,13 @@
 <!-- CSS de session -->
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/session.css') }}">
+<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
 @endsection
 <!-- Fin CSS -->
+<!-- Título -->
+@section('titulo')
+Registro
+@endsection
 @section('contenido')
     <div class="container">
         <div class="row cuerpo">
@@ -25,7 +30,8 @@
                             <input type="number" name="telefono" id="telefono" placeholder="Teléfono" class="form-control">
                             <!-- calendario!! 
                             fecha nacimiento -->
-    
+                            
+                            
                         </div>
                         <div class="col-md-6 form-group">
                             <h3 class="text-center">Sobre tu cuenta</h3>
@@ -43,6 +49,10 @@
         </div>
 
     </div>
+@endsection
+@section('js')
+
+<script src="js/session.js"></script>
 @endsection
 
 <!--
