@@ -2,7 +2,7 @@
 <!-- CSS de session -->
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/session.css') }}">
-<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+<link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.css') }}">
 @endsection
 <!-- Fin CSS -->
 <!-- Título -->
@@ -24,22 +24,30 @@ Registro
                     <div class="row cuerpo margen-control">
                         <div class="col-md-6 form-group">
                             <h3 class="text-center">Sobre tí</h3>
-                            <input type="text" name="nombre" id="nombre" placeholder="Nombre" class="form-control">
-                            <input type="text" name="apellido" id="apellido" placeholder="Apellido" class="form-control">
+                            <input type="text" name="nombre" id="nombre" placeholder="Nombre" class="form-control @error('nombre') is-invalid @enderror" value="{{ old('nombre') }}">
+                            @error('nombre')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <input type="text" name="apellido" id="apellido" placeholder="Apellido" class="form-control @error('apellido') is-invalid @enderror" value="{{ old('apellido') }}">
+                            @error('apellido')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <select name="comuna" id="comuna" class="form-control"></select>
                             <input type="number" name="telefono" id="telefono" placeholder="Teléfono" class="form-control">
-                            <!-- calendario!! 
-                            fecha nacimiento -->
-                            
-                            
+                            <input type="text" name="fechaNacimiento" id="fechaNacimiento" placeholder="Fecha de Nacimiento" class="form-control"/>
                         </div>
                         <div class="col-md-6 form-group">
                             <h3 class="text-center">Sobre tu cuenta</h3>
-                            <input type="text" name="correo" id="correo" placeholder="Correo electrónico" class="form-control">
+                            <input type="text" name="email" id="email" placeholder="Correo electrónico" class="form-control">
                             <input type="number" name="tarjeta" id="tarjeta" placeholder="Número de tarjeta" class="form-control">
-                            <input type="password" name="pass" id="pass" placeholder="Contraseña" class="form-control">
-                            <input type="password" name="pass2" id="pass2" placeholder="Repita la contraseña" class="form-control">
-                            <a href="#" name="btnRegistrar" id="btnRegistrar" class="btn btn-success">Guardar</a>
+                            <input type="password" name="password" id="password" placeholder="Contraseña" class="form-control">
+                            <input type="password" name="password" id="password" placeholder="Repita la contraseña" class="form-control">
+                            <button type="submit" class="btn btn-primary">{{ __('Register') }}</button>
+                            <a href="{{ route('register') }}" name="btnRegistrar" id="btnRegistrar" class="btn btn-success">Guardar</a>
                             <a href="{{ route('home') }}" name="btnVolver" id="btnVolver" class="btn btn-info">Volver</a>
                         </div>
                     </div>
@@ -51,8 +59,8 @@ Registro
     </div>
 @endsection
 @section('js')
-
-<script src="js/session.js"></script>
+<script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('js/session.js') }}"></script>
 @endsection
 
 <!--
