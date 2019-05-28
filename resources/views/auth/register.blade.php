@@ -36,18 +36,42 @@ Registro
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            <select name="comuna" id="comuna" class="form-control"></select>
-                            <input type="number" name="telefono" id="telefono" placeholder="Teléfono" class="form-control">
-                            <input type="text" name="fechaNacimiento" id="fechaNacimiento" placeholder="Fecha de Nacimiento" class="form-control"/>
+                            <input name="comuna" id="comuna" class="form-control @error('comuna') is-invalid @enderror" value="{{ old('comuna') }}">
+                            @error('comuna')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <input type="number" name="telefono" id="telefono" placeholder="Teléfono" class="form-control @error('telefono') is-invalid @enderror" value="{{ old('telefono') }}">
+                            @error('telefono')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <input type="text" name="fechaNacimiento" id="fechaNacimiento" placeholder="Fecha de Nacimiento" class="form-control @error('fechaNacimiento') is-invalid @enderror" value="{{ old('fechaNacimiento') }}"/>
                         </div>
                         <div class="col-md-6 form-group">
                             <h3 class="text-center">Sobre tu cuenta</h3>
-                            <input type="text" name="email" id="email" placeholder="Correo electrónico" class="form-control">
-                            <input type="number" name="tarjeta" id="tarjeta" placeholder="Número de tarjeta" class="form-control">
-                            <input type="password" name="password" id="password" placeholder="Contraseña" class="form-control">
-                            <input type="password" name="password" id="password" placeholder="Repita la contraseña" class="form-control">
-                            <button type="submit" class="btn btn-primary">{{ __('Register') }}</button>
-                            <a href="{{ route('register') }}" name="btnRegistrar" id="btnRegistrar" class="btn btn-success">Guardar</a>
+                            <input type="text" name="email" id="email" placeholder="Correo electrónico" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <input type="number" name="nfc" id="nfc" placeholder="Número de tarjeta" class="form-control @error('nfc') is-invalid @enderror" value="{{ old('nfc') }}">
+                            @error('nfc')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <input type="password" name="password" id="password" placeholder="Contraseña" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <input type="password" name="password_confirmation" id="password-confirm" placeholder="Repita la contraseña" class="form-control">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                             <a href="{{ route('home') }}" name="btnVolver" id="btnVolver" class="btn btn-info">Volver</a>
                         </div>
                     </div>
@@ -62,79 +86,3 @@ Registro
 <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('js/session.js') }}"></script>
 @endsection
-
-<!--
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
--->

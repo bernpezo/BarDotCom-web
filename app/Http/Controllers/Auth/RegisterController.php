@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Cliente;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -67,6 +68,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        /* usar el id del usuario para crear el cliente
+        if('nfc'!==null){
+            $clientes=new Cliente;
+            $clientes->id=''
+            $clientes->nfc='nfc';
+            Cliente::create(clientes);
+        }
+        */
+        $clientes=new Cliente;
         return User::create([
             'nombre' => $data['nombre'],
             'apellido' => $data['apellido'],
