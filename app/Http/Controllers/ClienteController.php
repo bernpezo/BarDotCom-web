@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Administrador_sistema;
+use App\Cliente;
 use Illuminate\Http\Request;
 
-class AdminSys extends Controller
+class ClienteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,7 @@ class AdminSys extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.dashCliente');
     }
 
     /**
@@ -41,10 +45,10 @@ class AdminSys extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Administrador_sistema  $administrador_sistema
+     * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function show(Administrador_sistema $administrador_sistema)
+    public function show(Cliente $cliente)
     {
         //
     }
@@ -52,10 +56,10 @@ class AdminSys extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Administrador_sistema  $administrador_sistema
+     * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Administrador_sistema $administrador_sistema)
+    public function edit(Cliente $cliente)
     {
         //
     }
@@ -64,10 +68,10 @@ class AdminSys extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Administrador_sistema  $administrador_sistema
+     * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Administrador_sistema $administrador_sistema)
+    public function update(Request $request, Cliente $cliente)
     {
         //
     }
@@ -75,10 +79,10 @@ class AdminSys extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Administrador_sistema  $administrador_sistema
+     * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Administrador_sistema $administrador_sistema)
+    public function destroy(Cliente $cliente)
     {
         //
     }

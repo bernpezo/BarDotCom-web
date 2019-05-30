@@ -6,19 +6,21 @@
 <!-- Fin CSS -->
 @section('contenido')
     <div class="container">
-        <div class="row">
-            <div class="col-md-2"></div>
+        <div class="row justify-content-center">
+            
             <div class="col-md-8">
-                <div>
-                    <!-- Inicio formulario de Log-in -->
-                    <form action="" method="POST">
-                        <h1 class="text-centered">Bienvenido</h1>
-
-                    </form>
-                    <!-- Fin formulario de Log-in -->
+                <div class="card cuerpo">
+                    <div class="card-body">
+                        <!-- Inicio formulario de Log-in -->
+                        <form action="{{ route('login') }}" method="POST">
+                            <h1 class="text-center">Bienvenido</h1>
+    
+                        </form>
+                        <!-- Fin formulario de Log-in -->
+                    </div>
                 </div>
             </div>
-            <div class="col-md-2"></div>
+            
         </div>
     </div>
 @endsection

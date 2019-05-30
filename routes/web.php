@@ -17,4 +17,10 @@ Auth::routes();
 /*
  * Ruta vista inicio
  */
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index')->name('home');
+
+/*
+ * Rutas cliente
+ */
+Route::get('dashCliente', 'ClienteController@index')->name('dashCliente');
