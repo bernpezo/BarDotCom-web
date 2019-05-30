@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = 'home';
 
     /**
      * Create a new controller instance.
@@ -68,16 +68,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        /* usar el id del usuario para crear el cliente
-        if('nfc'!==null){
-            $clientes=new Cliente;
-            $clientes->id=''
-            $clientes->nfc='nfc';
-            Cliente::create(clientes);
-        }
-        */
-        $clientes=new Cliente;
-        return User::create([
+        $users=User::create([
             'nombre' => $data['nombre'],
             'apellido' => $data['apellido'],
             'comuna' => $data['comuna'],
@@ -86,5 +77,17 @@ class RegisterController extends Controller
             'fechaNacimiento' => $data['fechaNacimiento'],
             'telefono' => $data['telefono'],
         ]);
+        $usersCli=User::where('email',$users->email)->first();
+        $clientes=new Cliente;
+        $clientes->id=$usersCli->id;
+        if($data['nfc']!==null)
+        {
+            $clientes->nfc=$data['nfc'];
+            $clientes->update();
+        }else{
+            $clientes->nfc=0;
+        }
+        $clientes->save();
+        return $users;
     }
 }
