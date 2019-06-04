@@ -79,7 +79,6 @@ Registro
             </div>
             <!-- Fin formulario de registro -->
         </div>
-
     </div>
 @endsection
 @section('js')

@@ -1,7 +1,7 @@
 .cuerpo{
     margin-top: 40px;
 }
-.margen-control input,select{
+.margen-control input,select,label{
     margin-top: 20px;
     margin-bottom: 20px;
 }
