@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use \Illuminate\Support\Facades\DB;
+use App\User;
 
 class UserSeeder extends Seeder
 {
@@ -12,14 +12,15 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert(
-            ['nombre' => 'admin',
+        $user=[
+            'nombre' => 'admin',
             'apellido' => 'admin',
             'email' => 'admin@bardotcom.cl',
             'password' => '$2y$10$2b6gp1kfnm3Q4ESUWpgxh.Ry7ksNlPTJ2zfVNR1vdo6j/fGxfMvaa',
             'fechaNacimiento' => '1991-02-15',
             'comuna' => '99',
-            'telefono' => '7486532',]
-        );
+            'telefono' => '7486532',
+        ];
+        User::create($user);
     }
 }

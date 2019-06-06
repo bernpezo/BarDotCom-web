@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Administrador_sistema;
 
 class AdminSysSeeder extends Seeder
 {
@@ -11,8 +12,9 @@ class AdminSysSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('administrador_sistemas')->insert(
-            ['id' => '1',]
-        );
+        $adminsys=[
+            'id' => '1',
+        ];
+        Administrador_sistema::create($adminsys);
     }
 }
