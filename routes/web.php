@@ -19,8 +19,12 @@ Auth::routes();
  */
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/fromHome', 'HomeController@miPanel')->name('miPanel');
 /*
  * Rutas cliente
  */
 Route::get('dashCliente', 'ClienteController@index')->name('dashCliente');
+/*
+ * Rutas AdminSys
+ */
+Route::get('dashAdminSys', 'AdminSysController@index')->name('dashAdminSys');

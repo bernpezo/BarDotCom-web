@@ -14,8 +14,9 @@ class Comuna extends Migration
     public function up()
     {
         Schema::create('comunas', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->unsignedBigInteger('id');
             $table->string('nombre');
+            $table->primary('id');
             $table->timestamps();
         });
     }

@@ -1,12 +1,6 @@
-@extends('layouts.template')
-@section('css')
-    
-@endsection
-@section('contenido')
+@extends('layouts.navCliente')
+@section('contenidodash')
     <div class="container">
-        Vacio aun!!
+        Vacio aun!! Para cliente
     </div>
-@endsection
-@section('js')
-    
 @endsection

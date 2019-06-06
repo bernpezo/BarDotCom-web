@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Cliente;
+use App\Administrador_sistema;
 
 class LoginController extends Controller
 {
@@ -33,9 +34,14 @@ class LoginController extends Controller
     public function redirectTo(){
         $user=Auth::user();
         $cliente=Cliente::find($user->id);
+        $adminsys=Administrador_sistema::find($user->id);
         if($cliente!==null)
         {
             return '/dashCliente';
+        }
+        if($adminsys!==null)
+        {
+            return '/dashAdminSys';
         }
     }
 

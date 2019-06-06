@@ -1,5 +1,5 @@
 @extends('layouts.template')
-<!-- CSS de session -->
+<!-- CSS session -->
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/session.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.css') }}">
@@ -81,7 +81,9 @@ Registro
         </div>
     </div>
 @endsection
+<!-- JS session -->
 @section('js')
 <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('js/session.js') }}"></script>
 @endsection
+<!-- Fin jS -->
