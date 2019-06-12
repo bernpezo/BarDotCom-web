@@ -21,6 +21,14 @@ class ClienteController extends Controller
         return view('dashboard.dashCliente');
     }
 
+
+    
+
+    public function perfil()
+    {
+        return view ('dashboard.dashCliente.perfil');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -2,16 +2,13 @@
 <!-- CSS -->
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 @endsection
 <!-- fin -->
-<!-- Título -->
-@section('titulo')
-Panel cliente
-@endsection
 @section('contenido')
 <!-- Inicio navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <a class="navbar-brand" href="#">BarDotCom</a>
+    <a class="navbar-brand" href="home">BarDotCom</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -28,7 +25,7 @@ Panel cliente
             <!-- Inicio menú de usuario -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a id="navbarDropdown" class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                <a id="navbarDropdown" class="nav-link" href="{{ route('dashClienteperfil') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
                     {{ Auth::user()->nombre }} <span class="caret"></span></a>
             </li>
         </ul>
@@ -40,6 +37,12 @@ Panel cliente
 <div class="area"></div>
 <nav class="main-menu">
     <ul>
+        <li>
+            <a href="#">
+                <i class="fa fa-home fa-2x"></i>
+                <span class="nav-text">Inicio</span>
+            </a>
+        </li>
         <li>
             <a href="#">
                 <i class="fa fa-home fa-2x"></i>

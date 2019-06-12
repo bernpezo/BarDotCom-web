@@ -1,10 +1,10 @@
 @extends('layouts.navCliente')
 <!-- Título -->
 @section('titulo')
-Inicio
+Perfil de usuario
 @endsection
 @section('contenidodash')
     <div class="container cuerpo">
-        inicio
+        perfil
     </div>
 @endsection

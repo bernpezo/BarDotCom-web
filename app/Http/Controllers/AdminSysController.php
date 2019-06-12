@@ -17,6 +17,36 @@ class AdminSysController extends Controller
         return view('dashboard.dashAdminSys');
     }
 
+    public function locales()
+    {
+        return view('dashboard.dashAdminSys.locales');
+    }
+
+    public function administradores()
+    {
+        return view ('dashboard.dashAdminSys.administradores');
+    }
+
+    public function usuarios()
+    {
+        return view ('dashboard.dashAdminSys.usuarios');
+    }
+
+    public function avisos()
+    {
+        return view ('dashboard.dashAdminSys.avisos');
+    }
+
+    public function reportes()
+    {
+        return view ('dashboard.dashAdminSys.reportes');
+    }
+
+    public function perfil()
+    {
+        return view ('dashboard.dashAdminSys.perfil');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -1,10 +1,10 @@
-@extends('layouts.navCliente')
+@extends('layouts.navAdminSys')
 <!-- Título -->
 @section('titulo')
-Inicio
+Reportes
 @endsection
 @section('contenidodash')
     <div class="container cuerpo">
-        inicio
+        reportes
     </div>
 @endsection
