@@ -83,7 +83,8 @@ Registro
 @endsection
 <!-- JS session -->
 @section('js')
-<script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-datepicker.min.js') }}" charset="UTF-8"></script>
+<script src="{{ asset('js/bootstrap-datepicker.es.js') }}"></script>
 <script src="{{ asset('js/session.js') }}"></script>
 @endsection
 <!-- Fin jS -->

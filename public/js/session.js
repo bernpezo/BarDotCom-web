@@ -7,6 +7,7 @@ $(document).ready(function() {
         container: container,
         todayHighlight: true,
         autoclose: true,
+        language: 'es'
     };
     date_input.datepicker(options);
     /* Fin DatePicker*/

@@ -31,8 +31,15 @@ Route::get('dashClienteperfil', 'ClienteController@perfil')->name('dashClientepe
  */
 Route::get('dashAdminSys', 'AdminSysController@index')->name('dashAdminSys');
 Route::get('dashAdminSyslocales', 'AdminSysController@locales')->name('dashAdminSyslocales');
+Route::post('dashAdminSyslocalesCrear', 'AdminSysController@localesCrear')->name('dashAdminSyslocalesCrear');
+Route::post('dashAdminsSyslocalesEditar', 'AdminSysController@localesEditar')->name('dashAdminSyslocalesEditar');
 Route::get('dashAdminSysadministradores', 'AdminSysController@administradores')->name('dashAdminSysadministradores');
+Route::post('dashAdminSysadministradoresCrear', 'AdminSysController@administradoresCrear')->name('dashAdminSysadministradoresCrear');
+Route::post('dashAdminSysadministradoresEditar', 'AdminSysController@administradoresEditar')->name('dashAdminSysadministradoresEditar');
 Route::get('dashAdminSysusuarios', 'AdminSysController@usuarios')->name('dashAdminSysusuarios');
+Route::post('dashAdminSysusuariosCrear', 'AdminSysController@usuariosCrear')->name('dashAdminSysusuariosCrear');
+Route::post('dashAdminSysusuariosEditar', 'AdminSysController@usuariosEditar')->name('dashAdminSysusuariosEditar');
 Route::get('dashAdminSysavisos', 'AdminSysController@avisos')->name('dashAdminSysavisos');
-Route::get('dashAdminSysreportes', 'AdminSysController@reportes')->name('dashAdminSysreportes');
+Route::post('dashAdminSysavisosCrear', 'AdminSysController@avisosCrear')->name('dashAdminSysavisosCrear');
+Route::post('dashAdminSysavisosEditar', 'AdminSysController@avisosEditar')->name('dashAdminSysavisosEditar');
 Route::get('dashAdminSysperfil', 'AdminSysController@perfil')->name('dashAdminSysperfil');

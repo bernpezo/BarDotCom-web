@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Administrador_sistema;
 use Illuminate\Http\Request;
+use App\Local_comercial;
+use App\Administrador_loca;
+use App\Usuario_local;
+use App\Aviso;
 
 class AdminSysController extends Controller
 {
@@ -21,10 +25,30 @@ class AdminSysController extends Controller
     {
         return view('dashboard.dashAdminSys.locales');
     }
+    
+    public function localesCrear()
+    {
+        return view('dashboard.dashAdminSys.localesCrear');
+    }
+
+    public function localesEditar()
+    {
+        return view('dashboard.dashAdminSys.localesEditar');
+    }
 
     public function administradores()
     {
         return view ('dashboard.dashAdminSys.administradores');
+    }
+
+    public function administradoresCrear()
+    {
+        return view ('dashboard.dashAdminSys.administradoresCrear');
+    }
+
+    public function administradoresEditar()
+    {
+        return view ('dashboard.dashAdminSys.administradoresEditar');
     }
 
     public function usuarios()
@@ -32,14 +56,29 @@ class AdminSysController extends Controller
         return view ('dashboard.dashAdminSys.usuarios');
     }
 
+    public function usuariosCrear()
+    {
+        return view ('dashboard.dashAdminSys.usuariosCrear');
+    }
+
+    public function usuariosEditar()
+    {
+        return view ('dashboard.dashAdminSys.usuariosEditar');
+    }
+
     public function avisos()
     {
         return view ('dashboard.dashAdminSys.avisos');
     }
 
-    public function reportes()
+    public function avisosCrear()
     {
-        return view ('dashboard.dashAdminSys.reportes');
+        return view ('dashboard.dashAdminSys.avisosCrear');
+    }
+
+    public function avisosEditar()
+    {
+        return view ('dashboard.dashAdminSys.avisosEditar');
     }
 
     public function perfil()
@@ -52,7 +91,22 @@ class AdminSysController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createLocalComercial()
+    {
+        //
+    }
+    
+    public function createAdministrador_local()
+    {
+        //
+    }
+
+    public function createUsuario_local()
+    {
+        //
+    }
+
+    public function createAviso()
     {
         //
     }
@@ -74,7 +128,22 @@ class AdminSysController extends Controller
      * @param  \App\Administrador_sistema  $administrador_sistema
      * @return \Illuminate\Http\Response
      */
-    public function show(Administrador_sistema $administrador_sistema)
+    public function showLocalComercial(Administrador_sistema $administrador_sistema)
+    {
+        //
+    }
+
+    public function showAdministradorLocal(Administrador_sistema $administrador_sistema)
+    {
+        //
+    }
+
+    public function showUsuarioLocal(Administrador_sistema $administrador_sistema)
+    {
+        //
+    }
+
+    public function showAviso(Administrador_sistema $administrador_sistema)
     {
         //
     }
@@ -85,7 +154,22 @@ class AdminSysController extends Controller
      * @param  \App\Administrador_sistema  $administrador_sistema
      * @return \Illuminate\Http\Response
      */
-    public function edit(Administrador_sistema $administrador_sistema)
+    public function editLocalComercial(Administrador_sistema $administrador_sistema)
+    {
+        //
+    }
+
+    public function editAdministradorLocal(Administrador_sistema $administrador_sistema)
+    {
+        //
+    }
+
+    public function editUsuarioLocal(Administrador_sistema $administrador_sistema)
+    {
+        //
+    }
+
+    public function editAviso(Administrador_sistema $administrador_sistema)
     {
         //
     }
@@ -108,7 +192,22 @@ class AdminSysController extends Controller
      * @param  \App\Administrador_sistema  $administrador_sistema
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Administrador_sistema $administrador_sistema)
+    public function destroyLocalComercial(Administrador_sistema $administrador_sistema)
+    {
+        //
+    }
+
+    public function destroyAdministadorLocal(Administrador_sistema $administrador_sistema)
+    {
+        //
+    }
+
+    public function destroyUsuarioLocal(Administrador_sistema $administrador_sistema)
+    {
+        //
+    }
+
+    public function destroyAviso(Administrador_sistema $administrador_sistema)
     {
         //
     }

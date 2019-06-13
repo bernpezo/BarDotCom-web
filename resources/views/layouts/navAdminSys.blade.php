@@ -67,12 +67,6 @@
                 <span class="nav-text">Avisos</span>
             </a>
         </li>
-        <li>
-            <a href="{{ route('dashAdminSysreportes') }}">
-                <i class="fa fa-bar-chart-o fa-2x"></i>
-                <span class="nav-text">Informes</span>
-            </a>
-        </li>
     </ul>
 </nav>
 <!-- Fin sidebar -->
