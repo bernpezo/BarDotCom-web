@@ -3,3 +3,10 @@
     margin-right: 50px;
     margin-top: 70px;
 }
+.margen-control input,button,textarea{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.margen-control label{
+    margin-top: 30px;
+}

@@ -38,11 +38,11 @@ Ingreso
                             </div>
                             <div class="form-group">
                                 <div class="row justify-content-center">
-                                    <div class="col">
-                                        <button type="submit" class="btn btn-primary">Ingresar</button>
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
                                     </div>
-                                    <div class="col">
-                                        <a href="{{ route('home') }}" name="btnVolver" id="btnVolver" class="btn btn-info">Volver</a>
+                                    <div class="col-md-6">
+                                        <a href="{{ route('home') }}" name="btnVolver" id="btnVolver" class="btn btn-info btn-block">Volver</a>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center">

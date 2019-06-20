@@ -3,6 +3,7 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+@yield('css2')
 @endsection
 <!-- fin -->
 @section('contenido')
@@ -74,6 +75,6 @@
 @endsection
 <!-- JS -->
 @section('js')
-
+@yield('js2')
 @endsection
 <!-- Fin JS -->

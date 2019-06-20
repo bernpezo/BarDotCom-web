@@ -3,6 +3,7 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/session.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.css') }}">
+<link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
 @endsection
 <!-- Fin CSS -->
 <!-- Título -->
@@ -36,7 +37,7 @@ Registro
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            <input name="comuna" id="comuna" class="form-control @error('comuna') is-invalid @enderror" value="{{ old('comuna') }}">
+                            <select class="js-data-example-ajax form-control @error('comuna') is-invalid @enderror" name="comuna" id="comuna" data-url="{{ route('selectComuna') }}"></select>
                             @error('comuna')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -71,8 +72,16 @@ Registro
                                 </span>
                             @enderror
                             <input type="password" name="password_confirmation" id="password-confirm" placeholder="Repita la contraseña" class="form-control">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                            <a href="{{ route('home') }}" name="btnVolver" id="btnVolver" class="btn btn-info">Volver</a>
+                            <div class="form-group">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="{{ route('home') }}" name="btnVolver" id="btnVolver" class="btn btn-info btn-block">Volver</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -86,5 +95,6 @@ Registro
 <script src="{{ asset('js/bootstrap-datepicker.min.js') }}" charset="UTF-8"></script>
 <script src="{{ asset('js/bootstrap-datepicker.es.js') }}"></script>
 <script src="{{ asset('js/session.js') }}"></script>
+<script src="{{ asset('js/select2.min.js') }}"></script>
 @endsection
 <!-- Fin jS -->

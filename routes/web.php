@@ -15,6 +15,11 @@
  */
 Auth::routes();
 /*
+ * Rutas generales
+ */
+Route::post('selectComuna', 'HomeController@selectComuna')->name('selectComuna');
+Route::post('selectRubro', 'HomeController@selectRubro')->name('selectRubro');
+/*
  * Ruta vista inicio
  */
 Route::get('/', 'HomeController@index');
@@ -31,7 +36,7 @@ Route::get('dashClienteperfil', 'ClienteController@perfil')->name('dashClientepe
  */
 Route::get('dashAdminSys', 'AdminSysController@index')->name('dashAdminSys');
 Route::get('dashAdminSyslocales', 'AdminSysController@locales')->name('dashAdminSyslocales');
-Route::post('dashAdminSyslocalesCrear', 'AdminSysController@localesCrear')->name('dashAdminSyslocalesCrear');
+Route::get('dashAdminSyslocalesCrear', 'AdminSysController@localesCrear')->name('dashAdminSyslocalesCrear');
 Route::post('dashAdminsSyslocalesEditar', 'AdminSysController@localesEditar')->name('dashAdminSyslocalesEditar');
 Route::get('dashAdminSysadministradores', 'AdminSysController@administradores')->name('dashAdminSysadministradores');
 Route::post('dashAdminSysadministradoresCrear', 'AdminSysController@administradoresCrear')->name('dashAdminSysadministradoresCrear');
