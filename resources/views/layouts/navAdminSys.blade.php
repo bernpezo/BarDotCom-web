@@ -51,18 +51,6 @@
                 <span class="nav-text">Locales</span>
             </a>
         </li>
-        <li class="has-subnav">
-            <a href="{{ route('dashAdminSysadministradores') }}">
-               <i class="fa fa-list fa-2x"></i>
-                <span class="nav-text">Administradores</span>
-            </a>
-        </li>
-        <li class="has-subnav">
-            <a href="{{ route('dashAdminSysusuarios') }}">
-               <i class="fa fa-folder-open fa-2x"></i>
-                <span class="nav-text">Usuarios</span>
-            </a>
-        </li>
         <li>
             <a href="{{ route('dashAdminSysavisos') }}">
                 <i class="fa fa-bar-chart-o fa-2x"></i>

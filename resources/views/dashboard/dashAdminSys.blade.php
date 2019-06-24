@@ -11,9 +11,6 @@ Panel de administración
                     <a href="{{ route('dashAdminSyslocalesCrear') }}" class="btn btn-primary btn-block from-control">Nuevo local comercial</a>
                 </div>
                 <div class="form-group">
-                    <a href="{{ route('dashAdminSysadministradoresCrear') }}" class="btn btn-primary btn-block from-control">Nuevo administrador de local</a>
-                </div>
-                <div class="form-group">
                     <a href="{{ route('dashAdminSysavisosCrear') }}" class="btn btn-primary btn-block from-control">Nuevo Aviso de sistema</a>
                 </div>
             </div>

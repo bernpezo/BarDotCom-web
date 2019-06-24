@@ -48,22 +48,6 @@ Route::get('getOneLocalComercial', 'AdminSysController@getOneLocalComercial')->n
 Route::post('editLocalComercial', 'AdminSysController@editLocalComercial')->name('editLocalComercial');
 Route::post('destroyLocalComercial', 'AdminSysController@destroyLocalComercial')->name('destroyLocalComercial');
 /*
- * CRUD administrador de local
- */
-Route::get('dashAdminSysadministradores', 'AdminSysController@administradores')->name('dashAdminSysadministradores');
-Route::get('dashAdminSysadministradoresCrear', 'AdminSysController@administradoresCrear')->name('dashAdminSysadministradoresCrear');
-Route::post('createAdministrador_local', 'AdminSysController@createAdministrador_local')->name('createAdministrador_local');
-Route::post('showAdministradorLocal', 'AdminSysController@showAdministradorLocal')->name('showAdministradorLocal');
-Route::get('getOneAdministrador', 'AdminSysController@getOneAdministrador')->name('getOneAdministrador');
-Route::post('destroyAdministadorLocal', 'AdminSysController@destroyAdministadorLocal')->name('destroyAdministadorLocal');
-Route::post('dashAdminSysadministradoresEditar', 'AdminSysController@administradoresEditar')->name('dashAdminSysadministradoresEditar');
-/*
- * CRUD usuarios de local
- */
-Route::get('dashAdminSysusuarios', 'AdminSysController@usuarios')->name('dashAdminSysusuarios');
-Route::post('dashAdminSysusuariosCrear', 'AdminSysController@usuariosCrear')->name('dashAdminSysusuariosCrear');
-Route::post('dashAdminSysusuariosEditar', 'AdminSysController@usuariosEditar')->name('dashAdminSysusuariosEditar');
-/*
  * CRUD avisos
  */
 Route::get('dashAdminSysavisos', 'AdminSysController@avisos')->name('dashAdminSysavisos');
@@ -78,3 +62,4 @@ Route::post('dashAdminSysavisosEditar', 'AdminSysController@avisosEditar')->name
  * Perfil
  */
 Route::get('dashAdminSysperfil', 'AdminSysController@perfil')->name('dashAdminSysperfil');
+Route::post('editPerfil', 'AdminSysController@editPerfil')->name('editPerfil');

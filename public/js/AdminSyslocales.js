@@ -86,7 +86,7 @@ $(document).ready( function () {
     	$('.btn-eliminar').click(function(event) {
 			swal.fire({
 			  title: '¿Está seguro?',
-			  text: '¿Desea eliminar el local: '+$(this).data("ing")+'?',
+			  text: '¿Desea eliminar el local: '+$(this).data("ing")+', incluyendo sus datos?',
 			  type: 'warning',
 			  showCancelButton: true,
 			  confirmButtonColor: '#d33',

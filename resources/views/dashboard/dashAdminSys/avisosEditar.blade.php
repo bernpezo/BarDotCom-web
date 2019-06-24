@@ -17,7 +17,7 @@ Editar avisos
                             <label for="nombre">Título</label>
                         </div>
                         <div class="col-md-9">
-                        <input type="text" name="nombre" id="nombre" class="form-control" required value="{{$data['avisos']->nombre}}">
+                            <input type="text" name="nombre" id="nombre" class="form-control" required value="{{$data['avisos']->nombre}}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -25,7 +25,7 @@ Editar avisos
                             <label for="descripcion">Descripción</label>
                         </div>
                         <div class="col-md-9">
-                        <textarea name="descripcion" id="descripcion" rows="3" class="form-control" required>{{$data['avisos']->descripcion}}</textarea>
+                            <textarea name="descripcion" id="descripcion" rows="3" class="form-control" required>{{$data['avisos']->descripcion}}</textarea>
                         </div>
                     </div>
                 </div>
