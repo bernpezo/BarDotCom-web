@@ -69,6 +69,10 @@ Route::post('dashAdminSysusuariosEditar', 'AdminSysController@usuariosEditar')->
 Route::get('dashAdminSysavisos', 'AdminSysController@avisos')->name('dashAdminSysavisos');
 Route::get('dashAdminSysavisosCrear', 'AdminSysController@avisosCrear')->name('dashAdminSysavisosCrear');
 Route::post('createAviso', 'AdminSysController@createAviso')->name('createAviso');
+Route::post('showAviso', 'AdminSysController@showAviso')->name('showAviso');
+Route::get('getOneAviso', 'AdminSysController@getOneAviso')->name('getOneAviso');
+Route::post('editAviso', 'AdminSysController@editAviso')->name('editAviso');
+Route::post('destroyAviso', 'AdminSysController@destroyAviso')->name('destroyAviso');
 Route::post('dashAdminSysavisosEditar', 'AdminSysController@avisosEditar')->name('dashAdminSysavisosEditar');
 /*
  * Perfil

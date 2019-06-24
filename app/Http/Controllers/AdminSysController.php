@@ -76,11 +76,6 @@ class AdminSysController extends Controller
         return view ('dashboard.dashAdminSys.avisosCrear')->with('respuesta',$this->respuesta);
     }
 
-    public function avisosEditar()
-    {
-        return view ('dashboard.dashAdminSys.avisosEditar');
-    }
-
     public function perfil()
     {
         return view ('dashboard.dashAdminSys.perfil');
@@ -162,7 +157,6 @@ class AdminSysController extends Controller
                 'nombre' => 'required',
                 'descripcion' => 'required',
             ]);
-            return "ok";
             Aviso::create($validar);
             $respuesta = 1;
             return view('dashboard.dashAdminSys.avisosCrear')->with('respuesta',$respuesta);
@@ -304,9 +298,65 @@ class AdminSysController extends Controller
         //
     }
 
-    public function showAviso(Administrador_sistema $administrador_sistema)
+    public function showAviso(Request $request)
     {
-        //
+        $search = $order = $start = $length = $draw = null;
+        /*Se valida que vengan todos los parametros*/
+        if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
+            return "data errors";
+        }else{
+            $search = $request->search;
+            $order = $request->order;
+            $start = $request->start;
+            $length = $request->length;
+            $draw = $request->draw;
+            $columns = $totalRecords = $data = array();
+            //definir indices de las columnas
+            $columns = array(
+              0 => 'id',    
+              1 => 'nombre',
+              2 => 'created_at'
+            );
+           //si vienen criterios de busqueda
+           if(!empty($request->search['value'])){
+                $totalRegistros = Aviso::where('nombre','like','%'.$request->search['value'].'%')
+                                            ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                            ->count();
+                $registros = Aviso::latest('created_at')	
+                							->where('nombre','like','%'.$request->search['value'].'%')
+                                            ->offset($start)
+                                            ->limit($length)
+                                            ->get();
+           }else{
+                $totalRegistros = Aviso::where('nombre','like','%'.$request->search['value'].'%')
+                								->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                                ->count();
+                $registros = Aviso::latest('created_at')              													
+                								->Where('nombre','like','%'.$request->search['value'].'%')
+                                                ->offset($start)
+                                                ->limit($length)
+                                                ->get();
+           }
+           //agregamos los botones html edit/delete
+           foreach ($registros as $avisos) {
+                $avisos->parametros= '<a href="'.route('getOneAviso', ['id64'=>base64_encode($avisos->id)]).'" class="btn btn-info btn-actions btn-editar">
+                <i class="fa fa-edit"></i>
+            </a>
+            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($avisos->id).'" data-url="'.route('destroyAviso').'" data-ing="'.$avisos->nombre.'">
+                <i class="fa fa-remove"></i>
+            </buttom>';
+                $data[] = $avisos;
+           }
+           //se crea la data
+           $json_data = array(
+             "draw"            => intval($draw ),   
+             "recordsTotal"    => intval($totalRegistros ),  
+             "recordsFiltered" => intval($totalRegistros),
+             "data"            => $data   // total data array
+           );
+        }
+        //se retorna en formato JSON
+        return json_encode($json_data);
     }
 
     public function getOneLocalComercial(Request $request)
@@ -330,6 +380,19 @@ class AdminSysController extends Controller
             $data['administrador_local'] = $administrador_local;
             $data['respuesta'] = $this->respuesta;
             return view('dashboard.dashAdminSys.administradoresEditar')->with('data',$data);
+        } catch (\Throwable $th) {
+            return "error";
+        }
+    }
+
+    public function getOneAviso(Request $request)
+    {
+        try {
+            $avisos=Aviso::find(base64_decode($request->id64));
+            $data=array();
+            $data['avisos'] = $avisos;
+            $data['respuesta'] = $this->respuesta;
+            return view('dashboard.dashAdminSys.avisosEditar')->with('data',$data);
         } catch (\Throwable $th) {
             return "error";
         }
@@ -366,6 +429,7 @@ class AdminSysController extends Controller
             $data['respuesta'] = $this->respuesta = 1;
             return view('dashboard.dashAdminSys.localesEditar')->with('data',$data);
         } catch (\Throwable $th) {
+            $local_comercial=new Local_comercial;
             $data=array();
             $data['local_comercial'] = $local_comercial;
             $data['respuesta'] = $this->respuesta = 0;
@@ -383,9 +447,29 @@ class AdminSysController extends Controller
         //
     }
 
-    public function editAviso(Administrador_sistema $administrador_sistema)
+    public function editAviso(Request $request)
     {
-        //
+        try {
+            $avisos=Aviso::find($request->id);
+            $data=array();
+            $data['avisos'] = $avisos;
+            $Admin = Administrador_sistema::where('id',Auth::user()->id)->first();
+            $request->request->add(['idAdmin' => $Admin->idAdmin]);
+            $validar = $request->validate([
+                'idAdmin' => 'required',
+                'nombre' => 'required',
+                'descripcion' => 'required',
+            ]);
+            $avisos->update($validar);
+            $data['respuesta'] = $this->respuesta = 1;
+            return view('dashboard.dashAdminSys.avisosEditar')->with('data',$data);
+        } catch (\Throwable $th) {
+            $avisos=new Aviso;
+            $data=array();
+            $data['avisos'] = $avisos;
+            $data['respuesta'] = $this->respuesta = 0;
+            return view('dashboard.dashAdminSys.avisosEditar')->with('data',$data);
+        }
     }
 
     /**
@@ -414,8 +498,13 @@ class AdminSysController extends Controller
         //
     }
 
-    public function destroyAviso(Administrador_sistema $administrador_sistema)
+    public function destroyAviso(Request $request)
     {
-        //
+        try {
+            $avisos=Aviso::find(base64_decode($request->id));
+            $avisos->delete();
+        } catch (\Throwable $th) {
+            return "error";
+        }
     }
 }

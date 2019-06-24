@@ -7,7 +7,7 @@
 Editar local comercial
 @endsection
 @section('contenidodash')
-<div class="container cuerpo">
+    <div class="container cuerpo">
         <h3 class="text-center">Editar local comercial</h3>
         <h5 class="text-center">Complete el siguiente formulario para editar el nuevo local comercial</h5>
         <form action="{{ route('editLocalComercial') }}" method="POST" enctype="multipart/form-data">
