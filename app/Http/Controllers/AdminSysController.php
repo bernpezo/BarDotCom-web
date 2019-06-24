@@ -89,6 +89,7 @@ class AdminSysController extends Controller
     public function createLocalComercial(Request $request)
     {
         try {
+            //Crear local
             $Admin = Administrador_sistema::where('id',Auth::user()->id)->first();
             $request->request->add(['idAdmin' => $Admin->idAdmin]);
             $validar = $request->validate([
@@ -105,7 +106,35 @@ class AdminSysController extends Controller
                 'descripcion' => 'required',
             ]);
             /*agregar logo pendiente*/
-            Local_comercial::create($validar);
+            $local_comercial=Local_comercial::create($validar);
+            //Crear Admin
+            $datosAdmin=[
+                'nombre' => 'Administrador',
+                'comuna' => ''.$local_comercial->comuna.'',
+                'email' => ''.$local_comercial->email.'',
+                'password' => ''.Hash::make($local_comercial->nombre).'',
+            ];
+            $admin=User::create($datosAdmin);
+            $usuario=User::where('email',$admin->email)->first();
+            $administrador_local=new Administrador_local;
+            $administrador_local->id=$usuario->id;
+            $administrador_local->idLocal=$local_comercial->id;
+            $administrador_local->save();
+            //Crear 5 usuarios
+            for ($i=0; $i < 5; $i++) { 
+                $datosUsuario=[
+                    'nombre' => 'Usuario'.$i.'',
+                    'comuna' => ''.$local_comercial->comuna.'',
+                    'email' => ''.$i.'.'.$local_comercial->email.'',
+                    'password' => ''.Hash::make($local_comercial->nombre).'',
+                ];
+                $users=User::create($datosUsuario);
+                $usuario=User::where('email',$users->email)->first();
+                $usuarioLocal=new Usuario_local;
+                $usuarioLocal->id=$usuario->id;
+                $usuarioLocal->idLocal=$local_comercial->id;
+                $usuarioLocal->save();
+            }
             $respuesta = 1;
             return view('dashboard.dashAdminSys.localesCrear')->with('respuesta',$respuesta);
         } catch (\Throwable $th) {
