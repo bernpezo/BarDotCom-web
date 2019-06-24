@@ -13,7 +13,6 @@ class ComunaSeeder extends Seeder
     public function run()
     {
         $comunas=[
-            ['id' => '99','nombre' => 'nada'],
             ['id' => '5406','nombre' => 'ALGARROBO'],
             ['id' => '14605','nombre' => 'ALHUE'],
             ['id' => '8414','nombre' => 'ALTO BIOBIO'],

@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             ComunaSeeder::class,
             UserSeeder::class,
             AdminSysSeeder::class,
+            RubroSeeder::class,
         ]);
     }
 }

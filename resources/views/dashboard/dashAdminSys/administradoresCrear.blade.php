@@ -1,26 +1,34 @@
 @extends('layouts.navAdminSys')
 @section('css2')
+<link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
 @endsection
 <!-- Título -->
 @section('titulo')
-Editar local comercial
+Crear administrador local
 @endsection
 @section('contenidodash')
-<div class="container cuerpo">
-        <h3 class="text-center">Editar local comercial</h3>
-        <h5 class="text-center">Complete el siguiente formulario para editar el nuevo local comercial</h5>
-        <form action="{{ route('editLocalComercial') }}" method="POST" enctype="multipart/form-data">
+    <div class="container cuerpo">
+        <h3 class="text-center">Crear administrador de local</h3>
+        <h5 class="text-center">Complete el siguiente formulario para crear un nuevo administrador de local</h5>
+        <form action="{{ route('createAdministrador_local') }}" method="POST" enctype="multipart/form-data">
             @csrf
-        <input type="hidden" name="id" id="id" value="{{$data['local_comercial']->id}}">
             <div class="row">
                 <div class="col-md-4 offset-md-2">
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="local">Local comercial</label>
+                        </div>
+                        <div class="col-md-9">
+                            <select class="js-data-example-ajax form-control" name="local" id="local" data-url="{{ route('selectLocal') }}" required></select>
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <div class="col-md-3">
                             <label for="rut">RUT</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" name="rut" id="rut" class="form-control" required value="{{$data['local_comercial']->rut}}">
+                            <input type="text" name="rut" id="rut" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -28,15 +36,15 @@ Editar local comercial
                             <label for="nombre">Nombre</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" name="nombre" id="nombre" class="form-control" required value="{{$data['local_comercial']->nombre}}">
+                            <input type="text" name="nombre" id="nombre" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-3">
-                            <label for="direccion">Dirección</label>
+                            <label for="apellido">Apellido</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" name="direccion" id="direccion" class="form-control" required value="{{$data['local_comercial']->direccion}}">
+                            <input type="text" name="apellido" id="apellido" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -47,22 +55,14 @@ Editar local comercial
                             <select class="js-data-example-ajax form-control" name="comuna" id="comuna" data-url="{{ route('selectComuna') }}" required></select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-3">
-                            <label for="rubro">Rubro</label>
-                        </div>
-                        <div class="col-md-9">
-                            <select class="js-data-example-ajax form-control" name="rubro" id="rubro" data-url="{{ route('selectRubro') }}" required></select>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group row">
                         <div class="col-md-3">
-                            <label for="logo">Logo</label>
+                            <label for="fechaNacimiento">Fecha de nacimiento</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="file" name="logo" id="logo" class="form-control-file" required value="{{$data['local_comercial']->logo}}">
+                            <input type="text" name="fechaNacimiento" id="fechaNacimiento" class="form-control" required/>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -70,7 +70,7 @@ Editar local comercial
                             <label for="email">Email</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="email" name="email" id="email" class="form-control" required value="{{$data['local_comercial']->email}}">
+                            <input type="email" name="email" id="email" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -78,15 +78,15 @@ Editar local comercial
                             <label for="telefono">Teléfono</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="number" name="telefono" id="telefono" class="form-control" required value="{{$data['local_comercial']->telefono}}">
+                            <input type="number" name="telefono" id="telefono" class="form-control"required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-3">
-                            <label for="descripcion">Descripción</label>
+                            <label for="password">Contraseña</label>
                         </div>
                         <div class="col-md-9">
-                            <textarea name="descripcion" id="descripcion" rows="3" class="form-control" required>{{$data['local_comercial']->descripcion}}</textarea>
+                            <input type="password" name="password" id="password" class="form-control" required/>
                         </div>
                     </div>
                 </div>
@@ -96,14 +96,17 @@ Editar local comercial
                     <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
                 </div>
                 <div class="col-md-2">
-                    <a href="{{ route('dashAdminSyslocales') }}" name="btnCancelar" id="btnCancelar" class="btn btn-info btn-block">Cancelar</a>
+                    <a href="{{ route('dashAdminSys') }}" name="btnCancelar" id="btnCancelar" class="btn btn-info btn-block">Cancelar</a>
                 </div>
             </div>
         </form>
     </div>
 @endsection
 @section('js2')
-<script>var respuesta = {{{$data['respuesta']}}}</script>
+<script>var respuesta = {{{$respuesta}}}</script>
+<script src="{{ asset('js/bootstrap-datepicker.min.js') }}" charset="UTF-8"></script>
+<script src="{{ asset('js/bootstrap-datepicker.es.js') }}"></script>
+<script src="{{ asset('js/session.js') }}"></script>
 <script src="{{ asset('js/select2.min.js') }}"></script>
 <script src="{{ asset('js/AdminSyslocalCRUD.js') }}"></script>
 @endsection

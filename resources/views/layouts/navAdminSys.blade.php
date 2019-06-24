@@ -3,6 +3,7 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}">
 @yield('css2')
 @endsection
 <!-- fin -->
@@ -75,6 +76,7 @@
 @endsection
 <!-- JS -->
 @section('js')
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 @yield('js2')
 @endsection
 <!-- Fin JS -->

@@ -18,7 +18,6 @@ class UserSeeder extends Seeder
             'email' => 'admin@bardotcom.cl',
             'password' => '$2y$10$2b6gp1kfnm3Q4ESUWpgxh.Ry7ksNlPTJ2zfVNR1vdo6j/fGxfMvaa',
             'fechaNacimiento' => '1991-02-15',
-            'comuna' => '99',
             'telefono' => '7486532',
         ];
         User::create($user);

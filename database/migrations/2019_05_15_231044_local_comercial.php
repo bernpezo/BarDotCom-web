@@ -26,6 +26,7 @@ class LocalComercial extends Migration
             $table->unsignedBigInteger('rubro');
             $table->string('descripcion',500);
             $table->timestamps();
+            $table->foreign('comuna')->references('id')->on('comunas');
             $table->foreign('rubro')->references('id')->on('rubros');
             $table->foreign('idAdmin')->references('idAdmin')->on('administrador_sistemas');
         });

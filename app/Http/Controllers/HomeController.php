@@ -9,6 +9,7 @@ use App\Rubro;
 use App\User;
 use App\Cliente;
 use App\Administrador_sistema;
+use App\Local_comercial;
 
 class HomeController extends Controller
 {
@@ -64,5 +65,17 @@ class HomeController extends Controller
             $rubrosEnviar[]=['id' => $rubro->id, 'text' => $rubro->nombre];
         }
         return \Response::json($rubrosEnviar);
+    }
+
+    public function selectLocal(Request $request)
+    {
+        $term=$request->term ?: '';
+        $local_comercial=Local_comercial::where('nombre', 'like', $term.'%')->limit(5)->get();
+        $localesEnviar=[];
+        foreach ($local_comercial as $local)
+        {
+            $localesEnviar[]=['id' => $local->id, 'text' => $local->nombre];
+        }
+        return \Response::json($localesEnviar);
     }
 }

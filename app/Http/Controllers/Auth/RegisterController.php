@@ -69,26 +69,31 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $users=User::create([
-            'nombre' => $data['nombre'],
-            'apellido' => $data['apellido'],
-            'comuna' => $data['comuna'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'fechaNacimiento' => $data['fechaNacimiento'],
-            'telefono' => $data['telefono'],
-        ]);
-        $usersCli=User::where('email',$users->email)->first();
-        $clientes=new Cliente;
-        $clientes->id=$usersCli->id;
-        if($data['nfc']!==null)
-        {
-            $clientes->nfc=$data['nfc'];
-            $clientes->update();
-        }else{
-            $clientes->nfc=0;
+        try {
+            $users=User::create([
+                'nombre' => $data['nombre'],
+                'apellido' => $data['apellido'],
+                'comuna' => $data['comuna'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'fechaNacimiento' => $data['fechaNacimiento'],
+                'telefono' => $data['telefono'],
+            ]);
+            $usersCli=User::where('email',$users->email)->first();
+            $clientes=new Cliente;
+            $clientes->id=$usersCli->id;
+            if($data['nfc']!==null)
+            {
+                $clientes->nfc=$data['nfc'];
+                $clientes->update();
+            }else{
+                $clientes->nfc=0;
+            }
+            $clientes->save();
+            return $users;
+        } catch (\Throwable $th) {
+            return "error";
         }
-        $clientes->save();
-        return $users;
+        
     }
 }

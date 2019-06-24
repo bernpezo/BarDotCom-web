@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->date('fechaNacimiento');
-            $table->unsignedBigInteger('comuna');
+            $table->unsignedBigInteger('comuna')->nullable();
             $table->integer('telefono');
             $table->timestamps();
             $table->foreign('comuna')->references('id')->on('comunas');

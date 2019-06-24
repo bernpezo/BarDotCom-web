@@ -7,7 +7,7 @@ $(document).ready( function () {
     /*
      * Data table
      */
-    var tabla=$('#tablaLocales').DataTable({
+    var tabla=$('#tablaAdministradores').DataTable({
 		//idioma de datatable
 		"bProcessing": false,
 		"serverSide": true,
@@ -38,7 +38,7 @@ $(document).ready( function () {
         },
         //configuracion de la peticion ajax
 		"ajax":{
-            url: $('#tablaLocales').data('url'),
+            url: $('#tablaAdministradores').data('url'),
 			type: 'post',
 			error: function(error){
 				//en caso de error
@@ -53,12 +53,11 @@ $(document).ready( function () {
 		"columns": [
 			{ "data": "id"},
 			{ "data": "nombre"},
-			{ "data": "direccion"},
         ],
         //se le agrega la columna con los botones
 		"columnDefs": [
 			{
-			  "targets": 3,
+			  "targets": 2,
 			  "data": "parametros",
 			  "render": function ( data, type, full, meta ) { 
 			    return data;
@@ -67,26 +66,26 @@ $(document).ready( function () {
 		],
 		"initComplete": function(settings, json) {
 			//se le cargan los eventos a los botones
-            editarLocal();
-            eliminarLocal();
+            editarAdministrador();
+            eliminarAdministrador();
 		},
 		"createdRow": function ( row, data, index ) {
             $(row).find("td").eq(2).addClass("actions");
 		}
     });
     /*
-     * Editar local
+     * Editar administrador
      */
-    function editarLocal() {
+    function editarAdministrador() {
 	}
     /*
-     * Eliminar local
+     * Eliminar alocaldministrador
      */
-    function eliminarLocal() {
+    function eliminarAdministrador() {
     	$('.btn-eliminar').click(function(event) {
 			swal.fire({
 			  title: '¿Está seguro?',
-			  text: '¿Desea eliminar el local: '+$(this).data("ing")+'?',
+			  text: '¿Desea eliminar al administrador: '+$(this).data("ing")+'?',
 			  type: 'warning',
 			  showCancelButton: true,
 			  confirmButtonColor: '#d33',
@@ -94,12 +93,12 @@ $(document).ready( function () {
 			  confirmButtonText: 'Si, eliminar!'
 			}).then((result) => {
 				if (result.value) {
-					destroyLocalComercial($(this).data('url'),$(this).data('id'));
+					destroyAdministrador($(this).data('url'),$(this).data('id'));
 				}
 			})
 		});
     }
-    function destroyLocalComercial(url, id) {
+    function destroyAdministrador(url, id) {
 		$.ajax({                        
 			type: 'post',                 
 			url: url,                     
@@ -107,8 +106,8 @@ $(document).ready( function () {
 			success: function(data)             
 			{
                 tabla.ajax.reload(function(){
-                    editarLocal();
-            		eliminarLocal();
+                    editarAdministrador();
+            		eliminarAdministrador();
                 });
                 Swal.fire(
                     'Realizado exitósamente',
