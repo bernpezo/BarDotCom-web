@@ -86,6 +86,11 @@ Route::post('destroyMesa', 'AdminLocalController@destroyMesa')->name('destroyMes
  */
 Route::get('dashAdminLocalItems', 'AdminLocalController@items')->name('dashAdminLocalItems');
 Route::get('itemsCrear', 'AdminLocalController@itemsCrear')->name('itemsCrear');
+Route::post('createItem', 'AdminLocalController@createItem')->name('createItem');
+Route::post('showItem', 'AdminLocalController@showItem')->name('showItem');
+Route::get('getOneItem', 'AdminLocalController@getOneItem')->name('getOneItem');
+Route::post('editItem', 'AdminLocalController@editItem')->name('editItem');
+Route::post('destroyItem', 'AdminLocalController@destroyItem')->name('destroyItem');
 /*
  * Perfil
  */

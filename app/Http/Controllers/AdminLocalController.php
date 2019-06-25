@@ -10,6 +10,7 @@ use App\User;
 use App\Administrador_local;
 use App\Promocion;
 use App\Mesa;
+use App\Item;
 
 class AdminLocalController extends Controller
 {
@@ -93,7 +94,7 @@ class AdminLocalController extends Controller
             $request->request->add(['idLocal' => $admin->idLocal ]);
             $validar = $request->validate([
                 'idLocal' => 'required',
-                'numero' => 'required',
+                'numero' => 'required|integer',
             ]);
             /*agregar imagen pendiente*/
             Mesa::create($validar);
@@ -102,6 +103,31 @@ class AdminLocalController extends Controller
         } catch (\Throwable $th) {
             $respuesta = 0;
             return view('dashboard.dashAdminLocal.mesasCrear')->with('respuesta',$respuesta);
+        }
+    }
+
+    public function createItem(Request $request)
+    {
+        try {
+            $admin = Administrador_local::where('id',Auth::user()->id)->first();
+            $request->request->add(['idLocal' => $admin->idLocal ]);
+            $validar = $request->validate([
+                'idLocal' => 'required',
+                'nombre' => 'required',
+                'imagen' => 'required',
+                'imagen.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'precio' => 'required|integer',
+                'stock' => 'required|integer',
+                'estado' => 'required|integer',
+                'descripcion' => 'required',
+            ]);
+            /*agregar imagen pendiente*/
+            Item::create($validar);
+            $respuesta = 1;
+            return view('dashboard.dashAdminLocal.itemsCrear')->with('respuesta',$respuesta);
+        } catch (\Throwable $th) {
+            $respuesta = 0;
+            return view('dashboard.dashAdminLocal.itemsCrear')->with('respuesta',$respuesta);
         }
     }
 
@@ -239,6 +265,70 @@ class AdminLocalController extends Controller
         return json_encode($json_data);
     }
 
+    public function showItem(Request $request)
+    {
+        $admin = Administrador_local::where('id',Auth::user()->id)->first();
+        $search = $order = $start = $length = $draw = null;
+        /*Se valida que vengan todos los parametros*/
+        if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
+            return "data errors";
+        }else{
+            $search = $request->search;
+            $order = $request->order;
+            $start = $request->start;
+            $length = $request->length;
+            $draw = $request->draw;
+            $columns = $totalRecords = $data = array();
+            //definir indices de las columnas
+            $columns = array(
+              0 => 'id',    
+              1 => 'nombre',
+              2 => 'stock'
+            );
+           //si vienen criterios de busqueda
+           if(!empty($request->search['value'])){
+                $totalRegistros = Item::where('idLocal','like','%'.$admin->idLocal.'%')
+                                            ->where('nombre','like','%'.$request->search['value'].'%')
+                                            ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                            ->count();
+                $registros = Item::latest('created_at')
+                                            ->where('idLocal','like','%'.$admin->idLocal.'%')	
+                							->where('nombre','like','%'.$request->search['value'].'%')
+                                            ->offset($start)
+                                            ->limit($length)
+                                            ->get();
+           }else{
+                $totalRegistros = Item::where('idLocal','like','%'.$admin->idLocal.'%')
+                								->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                                ->count();
+                $registros = Item::latest('created_at')     
+                                                ->where('idLocal','like','%'.$admin->idLocal.'%')
+                                                ->offset($start)
+                                                ->limit($length)
+                                                ->get();
+           }
+           //agregamos los botones html edit/delete
+           foreach ($registros as $items) {
+                $items->parametros= '<a href="'.route('getOneItem', ['id64'=>base64_encode($items->id)]).'" class="btn btn-info btn-actions btn-editar">
+                <i class="fa fa-edit"></i>
+            </a>
+            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($items->id).'" data-url="'.route('destroyItem').'" data-ing="'.$items->nombre.'">
+                <i class="fa fa-remove"></i>
+            </buttom>';
+                $data[] = $items;
+           }
+           //se crea la data
+           $json_data = array(
+             "draw"            => intval($draw ),   
+             "recordsTotal"    => intval($totalRegistros ),  
+             "recordsFiltered" => intval($totalRegistros),
+             "data"            => $data   // total data array
+           );
+        }
+        //se retorna en formato JSON
+        return json_encode($json_data);
+    }
+
     public function getOnePromocion(Request $request)
     {
         try {
@@ -260,6 +350,19 @@ class AdminLocalController extends Controller
             $data['mesa'] = $mesa;
             $data['respuesta'] = $this->respuesta;
             return view('dashboard.dashAdminLocal.mesasEditar')->with('data',$data);
+        } catch (\Throwable $th) {
+            return "error";
+        }
+    }
+
+    public function getOneItem(Request $request)
+    {
+        try {
+            $item=Item::find(base64_decode($request->id64));
+            $data=array();
+            $data['item'] = $item;
+            $data['respuesta'] = $this->respuesta;
+            return view('dashboard.dashAdminLocal.itemsEditar')->with('data',$data);
         } catch (\Throwable $th) {
             return "error";
         }
@@ -315,6 +418,33 @@ class AdminLocalController extends Controller
         }
     }
 
+    public function editItem(Request $request)
+    {
+        $item=Item::find($request->id);
+        $data=array();
+        $data['item'] = $item;
+        try {
+            $Admin = Administrador_Local::where('id',Auth::user()->id)->first();
+            $request->request->add(['idLocal' => $Admin->idLocal]);
+            $validar = $request->validate([
+                'idLocal' => 'required',
+                'nombre' => 'required',
+                'imagen' => 'required',
+                'imagen.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'precio' => 'required|integer',
+                'stock' => 'required|integer',
+                'estado' => 'required|integer',
+                'descripcion' => 'required',
+            ]);
+            $item->update($validar);
+            $data['respuesta'] = $this->respuesta = 1;
+            return view('dashboard.dashAdminLocal.itemsEditar')->with('data',$data);
+        } catch (\Throwable $th) {
+            $data['respuesta'] = $this->respuesta = 0;
+            return view('dashboard.dashAdminLocal.itemsEditar')->with('data',$data);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -336,6 +466,16 @@ class AdminLocalController extends Controller
         try {
             $mesa=Mesa::find(base64_decode($request->id));
             $mesa->delete();
+        } catch (\Throwable $th) {
+            return "error";
+        }
+    }
+
+    public function destroyItem(Request $request)
+    {
+        try {
+            $item=Item::find(base64_decode($request->id));
+            $item->delete();
         } catch (\Throwable $th) {
             return "error";
         }
