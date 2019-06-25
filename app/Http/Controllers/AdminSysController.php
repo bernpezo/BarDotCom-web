@@ -362,7 +362,7 @@ class AdminSysController extends Controller
     {
         try {
             $usuario_local=Usuario_local::where('idLocal',base64_decode($request->id))->delete();
-            $admin_local=Administrador_loca::where('idLocal',base64_decode($request->id))->delete();
+            $admin_local=Administrador_local::where('idLocal',base64_decode($request->id))->delete();
             $local_comercial=Local_comercial::where('id',base64_decode($request->id))->delete();
         } catch (\Throwable $th) {
             return "error";
