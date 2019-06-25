@@ -1,4 +1,4 @@
-@extends('layouts.navCliente')
+@extends('layouts.navAdminLocal')
 @section('css2')
 <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">

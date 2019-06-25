@@ -27,7 +27,7 @@
             <!-- Inicio menú de usuario -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a id="navbarDropdown" class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                <a id="navbarDropdown" class="nav-link" href="{{ route('dashAdminLocalperfil') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
                     {{ Auth::user()->nombre }} <span class="caret"></span></a>
             </li>
         </ul>

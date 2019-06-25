@@ -30,8 +30,6 @@ Route::get('/fromHome', 'HomeController@miPanel')->name('miPanel');
  * Rutas cliente
  */
 Route::get('dashCliente', 'ClienteController@index')->name('dashCliente');
-
-Route::get('dashClienteperfil', 'ClienteController@perfil')->name('dashClienteperfil');
 /*
  * Rutas AdminSys
  */
@@ -95,4 +93,7 @@ Route::post('destroyItem', 'AdminLocalController@destroyItem')->name('destroyIte
  * Perfil
  */
 Route::get('dashAdminSysperfil', 'AdminSysController@perfil')->name('dashAdminSysperfil');
-Route::post('editPerfil', 'AdminSysController@editPerfil')->name('editPerfil');
+Route::get('dashAdminLocalperfil', 'AdminLocalController@perfil')->name('dashAdminLocalperfil');
+Route::get('dashClienteperfil', 'ClienteController@perfil')->name('dashClienteperfil');
+Route::post('AdminSyseditPerfil', 'AdminSysController@editPerfil')->name('AdminSyseditPerfil');
+Route::post('AdminLocaleditPerfil', 'AdminLocalController@editPerfil')->name('AdminLocaleditPerfil');

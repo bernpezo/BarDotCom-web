@@ -1,10 +1,14 @@
 @extends('layouts.navCliente')
 <!-- Título -->
 @section('titulo')
-Inicio
+Panel de administración
 @endsection
 @section('contenidodash')
     <div class="container cuerpo">
-        inicio
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                
+            </div>
+        </div>
     </div>
 @endsection

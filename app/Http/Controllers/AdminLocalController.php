@@ -60,6 +60,14 @@ class AdminLocalController extends Controller
         return view('dashboard.dashAdminLocal.itemsCrear')->with('respuesta',$this->respuesta);
     }
 
+    public function perfil()
+    {
+        $data=array();
+        $data['user']=Auth::user();
+        $data['respuesta'] = $this->respuesta;
+        return view ('dashboard.dashAdminLocal.perfil')->with('data',$data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -478,6 +486,39 @@ class AdminLocalController extends Controller
             $item->delete();
         } catch (\Throwable $th) {
             return "error";
+        }
+    }
+
+    public function editPerfil(Request $request)
+    {
+        $user=User::find($request->id);
+        $data=array();
+        $data['user'] = $user;
+        try {
+            $validar = $request->validate([
+                'nombre' => 'required|string|max:255',
+                'apellido' => 'required|string|max:255',
+                'comuna' => 'required|integer',
+                'fechaNacimiento' => 'required|date',
+                'telefono' => 'required|integer',
+                'email' => 'required|string|email|max:255',
+                'passwordActual' => 'required|string|min:8',
+            ]);
+            if((Hash::check($request->passwordActual, $user->password))){
+                $user->update($validar);
+                if($request->password!=''){
+                    $user->password=Hash::make($request->password);
+                    $user->update();
+                }
+                $data['respuesta'] = $this->respuesta = 1;
+                return view('dashboard.dashAdminLocal.perfil')->with('data',$data);
+            }else{
+                $data['respuesta'] = $this->respuesta = 2;
+                return view('dashboard.dashAdminLocal.perfil')->with('data',$data);
+            }
+        } catch (\Throwable $th) {
+            $data['respuesta'] = $this->respuesta = 0;
+            return view('dashboard.dashAdminLocal.perfil')->with('data',$data);
         }
     }
 }

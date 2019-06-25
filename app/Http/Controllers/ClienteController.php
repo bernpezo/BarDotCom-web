@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use Illuminate\Http\Request;
+use Auth;
 
 class ClienteController extends Controller
 {
+    private $respuesta = -1;
+    
     public function __construct()
     {
         $this->middleware('auth');
@@ -21,12 +24,12 @@ class ClienteController extends Controller
         return view('dashboard.dashCliente');
     }
 
-
-    
-
     public function perfil()
     {
-        return view ('dashboard.dashCliente.perfil');
+        $data=array();
+        $data['user']=Auth::user();
+        $data['respuesta'] = $this->respuesta;
+        return view ('dashboard.dashAdminSys.perfil')->with('data',$data);
     }
 
     /**
