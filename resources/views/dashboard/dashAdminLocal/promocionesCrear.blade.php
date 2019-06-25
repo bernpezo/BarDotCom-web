@@ -6,7 +6,7 @@ Crear Promociones
 @section('contenidodash')
     <div class="container cuerpo">
         <h3 class="text-center">Crear nueva promoción</h3>
-        <form action="#" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('createPromocion') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-8 offset-md-2">
@@ -49,5 +49,5 @@ Crear Promociones
 @endsection
 @section('js2')
 <script>var respuesta = {{{$respuesta}}}</script>
-<script src="{{ asset('js/AdminSysAvisosCRUD.js') }}"></script>
+<script src="{{ asset('js/AdminLocalPromocionesCRUD.js') }}"></script>
 @endsection

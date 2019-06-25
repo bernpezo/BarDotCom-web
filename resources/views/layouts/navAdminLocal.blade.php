@@ -40,7 +40,7 @@
 <nav class="main-menu">
     <ul>
         <li>
-            <a href="#">
+            <a href="{{ route('dashAdminLocal') }}">
                 <i class="fa fa-home fa-2x"></i>
                 <span class="nav-text">Administración</span>
             </a>

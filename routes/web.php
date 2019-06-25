@@ -61,12 +61,16 @@ Route::post('showAviso', 'AdminSysController@showAviso')->name('showAviso');
 Route::get('getOneAviso', 'AdminSysController@getOneAviso')->name('getOneAviso');
 Route::post('editAviso', 'AdminSysController@editAviso')->name('editAviso');
 Route::post('destroyAviso', 'AdminSysController@destroyAviso')->name('destroyAviso');
-Route::post('dashAdminSysavisosEditar', 'AdminSysController@avisosEditar')->name('dashAdminSysavisosEditar');
 /*
  * CRUD promociones
  */
 Route::get('dashAdminLocalPromociones', 'AdminLocalController@promociones')->name('dashAdminLocalPromociones');
 Route::get('promocionesCrear', 'AdminLocalController@promocionesCrear')->name('promocionesCrear');
+Route::post('createPromocion', 'AdminLocalController@createPromocion')->name('createPromocion');
+Route::post('showPromocion', 'AdminLocalController@showPromocion')->name('showPromocion');
+Route::get('getOnePromocion', 'AdminLocalController@getOnePromocion')->name('getOnePromocion');
+Route::post('editPromocion', 'AdminLocalController@editPromocion')->name('editPromocion');
+Route::post('destroyPromocion', 'AdminLocalController@destroyPromocion')->name('destroyPromocion');
 /*
  * Perfil
  */

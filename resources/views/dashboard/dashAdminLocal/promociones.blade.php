@@ -12,11 +12,12 @@ Promociones
         <form action="" method="POST">
             @csrf
             <div>
-                <table class="table table-striped" id="tablaPromociones" data-url="#">
+                <table class="table table-striped" id="tablaPromociones" data-url="{{ route('showPromocion') }}">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Nombre</th>
+                            <th scope="col">Fecha</th>
                             <th scope="col">Editar / Eliminar</th>
                         </tr>
                     </thead>
