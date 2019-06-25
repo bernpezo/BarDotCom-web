@@ -11,7 +11,10 @@ Panel de administración
                     <a href="{{ route('promocionesCrear') }}" class="btn btn-primary btn-block from-control">Crear promoción</a>
                 </div>
                 <div class="form-group">
-                    <a href="#" class="btn btn-primary btn-block from-control">Boton 2</a>
+                    <a href="{{ route('mesasCrear') }}" class="btn btn-primary btn-block from-control">Crear mesa local</a>
+                </div>
+                <div class="form-group">
+                    <a href="{{ route('itemsCrear') }}" class="btn btn-primary btn-block from-control">Crear ítem</a>
                 </div>
             </div>
         </div>

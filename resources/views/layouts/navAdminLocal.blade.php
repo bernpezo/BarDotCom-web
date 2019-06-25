@@ -52,13 +52,13 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{ route('dashAdminLocalMesas') }}">
                 <i class="fa fa-bar-chart-o fa-2x"></i>
                 <span class="nav-text">Mesas</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{ route('dashAdminLocalItems') }}">
                 <i class="fa fa-bar-chart-o fa-2x"></i>
                 <span class="nav-text">Ítems</span>
             </a>

@@ -72,6 +72,21 @@ Route::get('getOnePromocion', 'AdminLocalController@getOnePromocion')->name('get
 Route::post('editPromocion', 'AdminLocalController@editPromocion')->name('editPromocion');
 Route::post('destroyPromocion', 'AdminLocalController@destroyPromocion')->name('destroyPromocion');
 /*
+ * CRUD mesas
+ */
+Route::get('dashAdminLocalMesas', 'AdminLocalController@mesas')->name('dashAdminLocalMesas');
+Route::get('mesasCrear', 'AdminLocalController@mesasCrear')->name('mesasCrear');
+Route::post('createMesa', 'AdminLocalController@createMesa')->name('createMesa');
+Route::post('showMesa', 'AdminLocalController@showMesa')->name('showMesa');
+Route::get('getOneMesa', 'AdminLocalController@getOneMesa')->name('getOneMesa');
+Route::post('editMesa', 'AdminLocalController@editMesa')->name('editMesa');
+Route::post('destroyMesa', 'AdminLocalController@destroyMesa')->name('destroyMesa');
+/*
+ * CRUD items
+ */
+Route::get('dashAdminLocalItems', 'AdminLocalController@items')->name('dashAdminLocalItems');
+Route::get('itemsCrear', 'AdminLocalController@itemsCrear')->name('itemsCrear');
+/*
  * Perfil
  */
 Route::get('dashAdminSysperfil', 'AdminSysController@perfil')->name('dashAdminSysperfil');
