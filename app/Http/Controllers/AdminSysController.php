@@ -395,11 +395,11 @@ class AdminSysController extends Controller
                 'passwordActual' => 'required|string|min:8',
             ]);
             if((Hash::check($request->passwordActual, $user->password))){
-                if(!empty($request->password)){//arreglar
-                    $user->update($validar);
+                $user->update($validar);
+                if($request->password!=''){
                     $user->password=Hash::make($request->password);
+                    $user->update();
                 }
-                $user->update();
                 $data['respuesta'] = $this->respuesta = 1;
                 return view('dashboard.dashAdminSys.perfil')->with('data',$data);
             }else{
