@@ -37,6 +37,10 @@ Route::get('dashClienteperfil', 'ClienteController@perfil')->name('dashClientepe
  */
 Route::get('dashAdminSys', 'AdminSysController@index')->name('dashAdminSys');
 /*
+ * Rutas AdminLocal
+ */
+Route::get('dashAdminLocal', 'AdminLocalController@index')->name('dashAdminLocal');
+/*
  * CRUD local comercial
  */
 Route::get('dashAdminSyslocales', 'AdminSysController@locales')->name('dashAdminSyslocales');
@@ -58,6 +62,11 @@ Route::get('getOneAviso', 'AdminSysController@getOneAviso')->name('getOneAviso')
 Route::post('editAviso', 'AdminSysController@editAviso')->name('editAviso');
 Route::post('destroyAviso', 'AdminSysController@destroyAviso')->name('destroyAviso');
 Route::post('dashAdminSysavisosEditar', 'AdminSysController@avisosEditar')->name('dashAdminSysavisosEditar');
+/*
+ * CRUD promociones
+ */
+Route::get('dashAdminLocalPromociones', 'AdminLocalController@promociones')->name('dashAdminLocalPromociones');
+Route::get('promocionesCrear', 'AdminLocalController@promocionesCrear')->name('promocionesCrear');
 /*
  * Perfil
  */

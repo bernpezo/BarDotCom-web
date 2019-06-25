@@ -9,6 +9,7 @@ use App\Rubro;
 use App\User;
 use App\Cliente;
 use App\Administrador_sistema;
+use App\Administrador_local;
 use App\Local_comercial;
 
 class HomeController extends Controller
@@ -28,6 +29,7 @@ class HomeController extends Controller
         $user=Auth::user();
         $cliente=Cliente::find($user->id);
         $adminsys=Administrador_sistema::find($user->id);
+        $adminlocal=Administrador_local::find($user->id);
         if($cliente!==null)
         {
             return view ('dashboard.dashCliente');
@@ -35,6 +37,9 @@ class HomeController extends Controller
         if($adminsys!==null)
         {
             return view ('dashboard.dashAdminSys');
+        }
+        if($adminlocal!==null){
+            return view ('dashboard.dashAdminLocal');
         }
     }
 

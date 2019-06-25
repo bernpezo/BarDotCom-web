@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Cliente;
 use App\Administrador_sistema;
+use App\Administrador_local;
 
 class LoginController extends Controller
 {
@@ -36,6 +37,7 @@ class LoginController extends Controller
             $user=Auth::user();
             $cliente=Cliente::find($user->id);
             $adminsys=Administrador_sistema::find($user->id);
+            $adminlocal=Administrador_local::find($user->id);
             if($cliente!==null)
             {
                 return '/dashCliente';
@@ -43,6 +45,10 @@ class LoginController extends Controller
             if($adminsys!==null)
             {
                 return '/dashAdminSys';
+            }
+            if($adminlocal!==null)
+            {
+                return '/dashAdminLocal';
             }
         } catch (\Throwable $th) {
             return "error";
