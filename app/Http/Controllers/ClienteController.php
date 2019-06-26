@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 use Auth;
+use App\User;
 
 class ClienteController extends Controller
 {
@@ -43,7 +46,7 @@ class ClienteController extends Controller
         $data=array();
         $data['user']=Auth::user();
         $data['respuesta'] = $this->respuesta;
-        return view ('dashboard.dashAdminSys.perfil')->with('data',$data);
+        return view ('dashboard.dashCliente.perfil')->with('data',$data);
     }
 
     /**
@@ -137,6 +140,27 @@ class ClienteController extends Controller
                 }
                 $data['respuesta'] = $this->respuesta = 1;
                 return view('dashboard.dashCliente.perfil')->with('data',$data);
+            }else{
+                $data['respuesta'] = $this->respuesta = 2;
+                return view('dashboard.dashCliente.perfil')->with('data',$data);
+            }
+        } catch (\Throwable $th) {
+            $data['respuesta'] = $this->respuesta = 0;
+            return view('dashboard.dashCliente.perfil')->with('data',$data);
+        }
+    }
+    /*
+     * Eliminar cuenta
+     */
+    public function eliminarCuenta(Request $request)
+    {
+        $user=User::find($request->id);
+        $data=array();
+        $data['user'] = $user;
+        try {
+            if((Hash::check($request->passwordEliminar, $user->password))){// Validar contraseña
+                $user->delete();
+                return view('home');
             }else{
                 $data['respuesta'] = $this->respuesta = 2;
                 return view('dashboard.dashCliente.perfil')->with('data',$data);

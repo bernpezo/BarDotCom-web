@@ -132,3 +132,4 @@ Route::post('AdminSyseditPerfil', 'AdminSysController@editPerfil')->name('AdminS
 Route::post('AdminLocaleditPerfil', 'AdminLocalController@editPerfil')->name('AdminLocaleditPerfil');
 Route::post('UsuarioLocaleditPerfil', 'UsuarioLocalController@editPerfil')->name('UsuarioLocaleditPerfil');
 Route::post('ClienteeditPerfil', 'ClienteController@editPerfil')->name('ClienteeditPerfil');
+Route::post('ClienteeliminarCuenta', 'ClienteController@eliminarCuenta')->name('ClienteeliminarCuenta');

@@ -93,6 +93,28 @@ Perfil de usuario
                 </div>
             </div>
         </form>
+        <form action="{{ route('ClienteeliminarCuenta') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="id" id="id" value="{{$data['user']->id}}">
+            <h5 class="text-center">Eliminar cuenta</h5>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="passwordEliminar">Contraseña</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="password" name="passwordEliminar" id="passwordEliminar" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 offset-md-4">
+                            <button type="submit" class="btn btn-primary btn-block">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 @endsection
 @section('js2')

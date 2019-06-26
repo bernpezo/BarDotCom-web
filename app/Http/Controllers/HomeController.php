@@ -29,22 +29,26 @@ class HomeController extends Controller
      */
     public function miPanel()
     {
-        $user=Auth::user();// Obtener usuario autenticado
-        if(Cliente::where('idUser',$user->id)!==null)// Verificar que tipo de usuario es y redirigir
-        {
-            return view ('dashboard.dashCliente');
-        }
-        if(Administrador_sistema::where('idUser',$user->id)!==null)
-        {
-            return view ('dashboard.dashAdminSys');
-        }
-        if(Administrador_local::where('idUser',$user->id)!==null)
-        {
-            return view ('dashboard.dashAdminLocal');
-        }
-        if(Usuario_local::where('idUser',$user->id)!==null)
-        {
-            return view ('dashboard.dashUsuarioLocal');
+        try {
+            $user=Auth::user();// Obtener usuario autenticado
+            if(Cliente::where('idUser',$user->id)!==null)// Verificar que tipo de usuario es y redirigir
+            {
+                return view ('dashboard.dashCliente');
+            }
+            if(Administrador_sistema::where('idUser',$user->id)!==null)
+            {
+                return view ('dashboard.dashAdminSys');
+            }
+            if(Administrador_local::where('idUser',$user->id)!==null)
+            {
+                return view ('dashboard.dashAdminLocal');
+            }
+            if(Usuario_local::where('idUser',$user->id)!==null)
+            {
+                return view ('dashboard.dashUsuarioLocal');
+            }
+        } catch (\Throwable $th) {
+            return view('home');
         }
     }
     /*
