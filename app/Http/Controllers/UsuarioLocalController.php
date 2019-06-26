@@ -82,13 +82,13 @@ class UsuarioLocalController extends Controller
            if(!empty($request->search['value'])){
                 $totalRegistros = Pedido::where('idLocal','like','%'.$usuario->idLocal.'%')// Mostrar solo los pertenecientes al local
                                             ->where('estado','like','1')// Mostrar solo los pedido con estado 1 (pendiente)
-                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->where('idItem','like','%'.$request->search['value'].'%')
                                             ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                             ->count();
                 $registros = Pedido::latest('created_at')
                                             ->where('idLocal','like','%'.$usuario->idLocal.'%')	
                                             ->where('estado','like','1')
-                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->where('idItem','like','%'.$request->search['value'].'%')
                                             ->offset($start)
                                             ->limit($length)
                                             ->get();
@@ -149,13 +149,13 @@ class UsuarioLocalController extends Controller
            if(!empty($request->search['value'])){
                 $totalRegistros = Cuenta::where('idLocal','like','%'.$usuario->idLocal.'%')
                                             ->where('estado','like','1')
-                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->where('total','like','%'.$request->search['value'].'%')
                                             ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                             ->count();
                 $registros = Cuenta::latest('created_at')
                                             ->where('idLocal','like','%'.$usuario->idLocal.'%')	
                                             ->where('estado','like','1')
-                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->where('total','like','%'.$request->search['value'].'%')
                                             ->offset($start)
                                             ->limit($length)
                                             ->get();
@@ -217,13 +217,13 @@ class UsuarioLocalController extends Controller
            if(!empty($request->search['value'])){
                 $totalRegistros = Pedido::where('idLocal','like','%'.$usuario->idLocal.'%')
                                             ->where('estado','like','0')// Mostrar solo pedidos con estado 0 (Entregados)
-                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->where('idItem','like','%'.$request->search['value'].'%')
                                             ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                             ->count();
                 $registros = Pedido::latest('created_at')
                                             ->where('idLocal','like','%'.$usuario->idLocal.'%')	
                                             ->where('estado','like','0')
-                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->where('idItem','like','%'.$request->search['value'].'%')
                                             ->offset($start)
                                             ->limit($length)
                                             ->get();
@@ -284,13 +284,13 @@ class UsuarioLocalController extends Controller
            if(!empty($request->search['value'])){
                 $totalRegistros = Cuenta::where('idLocal','like','%'.$usuario->idLocal.'%')
                                             ->where('estado','like','0')// Mostrar solo cuentas con estado 0 (Entregados)
-                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->where('idMesa','like','%'.$request->search['value'].'%')
                                             ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                             ->count();
                 $registros = Cuenta::latest('created_at')
                                             ->where('idLocal','like','%'.$usuario->idLocal.'%')	
                                             ->where('estado','like','0')
-                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->where('idMesa','like','%'.$request->search['value'].'%')
                                             ->offset($start)
                                             ->limit($length)
                                             ->get();
