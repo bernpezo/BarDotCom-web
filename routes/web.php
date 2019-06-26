@@ -100,7 +100,7 @@ Route::post('showPedidosPendientes', 'UsuarioLocalController@showPedidosPendient
 Route::get('entregarPedido', 'UsuarioLocalController@entregarPedido')->name('entregarPedido');
 Route::post('destroyPedido', 'UsuarioLocalController@destroyPedido')->name('destroyPedido');
 Route::post('showCuentasPendientes', 'UsuarioLocalController@showCuentasPendientes')->name('showCuentasPendientes');
-Route::post('entregarCuenta', 'UsuarioLocalController@entregarCuenta')->name('entregarCuenta');
+Route::get('entregarCuenta', 'UsuarioLocalController@entregarCuenta')->name('entregarCuenta');
 Route::post('destroyCuenta', 'UsuarioLocalController@destroyCuenta')->name('destroyCuenta');
 /*
  * Historial pedido y cuenta

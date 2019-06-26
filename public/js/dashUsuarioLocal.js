@@ -161,7 +161,7 @@ $(document).ready( function () {
      * Eliminar pedido
      */
     function eliminarPedido() {
-    	$('.btn-eliminar').click(function(event) {
+    	$('.btn-eliminarPedido').click(function(event) {
 			swal.fire({
 			  title: '¿Está seguro?',
 			  text: '¿Desea eliminar el pedido hecho en: '+$(this).data("ing")+'?',
@@ -207,7 +207,7 @@ $(document).ready( function () {
      * Eliminar cuenta
      */
     function eliminarCuenta() {
-    	$('.btn-eliminar').click(function(event) {
+    	$('.btn-eliminarCuenta').click(function(event) {
 			swal.fire({
 			  title: '¿Está seguro?',
 			  text: '¿Desea eliminar la cuenta hecha en: '+$(this).data("ing")+'?',
@@ -231,8 +231,8 @@ $(document).ready( function () {
 			success: function(data)             
 			{
                 tablaCuentas.ajax.reload(function(){
-                    entregarPedido();
-            		eliminarPedido();
+                    entregarCuenta();
+            		eliminarCuenta();
                 });
                 Swal.fire(
                     'Realizado exitósamente',

@@ -107,7 +107,7 @@ class UsuarioLocalController extends Controller
            //agregamos los botones entregar y eliminar
            foreach ($registros as $pedido) {
                 $pedido->parametros= '<a href="'.route('entregarPedido', ['id64'=>base64_encode($pedido->id)]).'" class="btn btn-info btn-actions btn-editar">Entregar</a>
-            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($pedido->id).'" data-url="'.route('destroyPedido').'" data-ing="'.$pedido->fecha.'">Eliminar</buttom>';
+            <buttom class="btn btn-danger btn-actions btn-eliminarPedido" data-id="'.base64_encode($pedido->id).'" data-url="'.route('destroyPedido').'" data-ing="'.$pedido->fecha.'">Eliminar</buttom>';
                 $data[] = $pedido;
            }
            //se crea la data
@@ -174,7 +174,7 @@ class UsuarioLocalController extends Controller
            //agregamos los botones html entregar/eliminar
            foreach ($registros as $cuenta) {
                 $cuenta->parametros= '<a href="'.route('entregarCuenta', ['id64'=>base64_encode($cuenta->id)]).'" class="btn btn-info btn-actions btn-editar">Entregar</a>
-            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($cuenta->id).'" data-url="'.route('destroyCuenta').'" data-ing="'.$cuenta->created_at.'">Eliminar</buttom>';
+            <buttom class="btn btn-danger btn-actions btn-eliminarCuenta" data-id="'.base64_encode($cuenta->id).'" data-url="'.route('destroyCuenta').'" data-ing="'.$cuenta->created_at.'">Eliminar</buttom>';
                 $data[] = $cuenta;
            }
            //se crea la data
@@ -355,21 +355,40 @@ class UsuarioLocalController extends Controller
      */
     public function entregarCuenta(Request $request)
     {
-        
+        try {
+            $cuenta=Cuenta::find(base64_decode($request->id64));
+            $cuenta->estado=0;// Cambiar estado a entregada
+            $cuenta->update();
+            $respuesta = 1;
+            return view('dashboard.dashUsuarioLocal')->with('respuesta',$respuesta);
+        } catch (\Throwable $th) {
+            $respuesta = 0;
+            return view('dashboard.dashUsuarioLocal')->with('respuesta',$respuesta);
+        }
     }
     /*
      * Eliminar pedido
      */
     public function destroyPedido(Request $request)
     {
-        //
+        try {
+            $pedido=Pedido::find(base64_decode($request->id));
+            $pedido->delete();
+        } catch (\Throwable $th) {
+            return "error";
+        }
     }
     /*
      * Eliminar cuenta
      */
     public function destroyCuenta(Request $request)
     {
-        //
+        try {
+            $cuenta=Cuenta::find(base64_decode($request->id));
+            $cuenta->delete();
+        } catch (\Throwable $th) {
+            return "error";
+        }
     }
     /*
      * Editar perfil de usuario
