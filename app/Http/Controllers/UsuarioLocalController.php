@@ -21,7 +21,7 @@ class UsuarioLocalController extends Controller
         {
             try {
                 $user=Auth::user();
-                if(Usuario_local::where('idUser',$user->id)==null)
+                if(Usuario_local::find($user->id)==null)
                 {
                     return redirect()->route('login');
                 }

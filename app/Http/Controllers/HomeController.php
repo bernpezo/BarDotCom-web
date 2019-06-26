@@ -31,24 +31,24 @@ class HomeController extends Controller
     {
         try {
             $user=Auth::user();// Obtener usuario autenticado
-            if(Cliente::where('idUser',$user->id)!==null)// Verificar que tipo de usuario es y redirigir
+            if(Cliente::find($user->id)!==null)// Verificar que tipo de usuario es y redirigir
             {
                 return view ('dashboard.dashCliente');
             }
-            if(Administrador_sistema::where('idUser',$user->id)!==null)
+            if(Administrador_sistema::find($user->id)!==null)
             {
                 return view ('dashboard.dashAdminSys');
             }
-            if(Administrador_local::where('idUser',$user->id)!==null)
+            if(Administrador_local::find($user->id)!==null)
             {
                 return view ('dashboard.dashAdminLocal');
             }
-            if(Usuario_local::where('idUser',$user->id)!==null)
+            if(Usuario_local::find($user->id)!==null)
             {
                 return view ('dashboard.dashUsuarioLocal');
             }
         } catch (\Throwable $th) {
-            return view('home');
+            return "error";
         }
     }
     /*

@@ -25,7 +25,7 @@ class AdminSysController extends Controller
         {
             try {
                 $user=Auth::user();
-                if(Administrador_sistema::where('idUser',$user->id)==null)
+                if(Administrador_sistema::find($user->id)==null)
                 {
                     return redirect()->route('login');
                 }

@@ -25,7 +25,7 @@ class AdminLocalController extends Controller
         {
             try {
                 $user=Auth::user();
-                if(Administrador_local::where('idUser',$user->id)==null)
+                if(Administrador_local::find($user->id)==null)
                 {
                     return redirect()->route('login');
                 }
