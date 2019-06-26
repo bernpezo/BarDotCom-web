@@ -78,7 +78,7 @@ class AdminSysController extends Controller
     public function createLocalComercial(Request $request)
     {
         try {
-            $Admin = Administrador_sistema::where('idUser',Auth::user()->id)->first();
+            $Admin = Administrador_sistema::where('id',Auth::user()->id)->first();
             $request->request->add(['idAdmin' => $Admin->idAdmin]);// Obtener id del administrador
             $validar = $request->validate([// Validar datos provenientes del formulario
                 'idAdmin' => 'required',
@@ -136,7 +136,7 @@ class AdminSysController extends Controller
     public function createAviso(Request $request)
     {
         try {
-            $Admin = Administrador_sistema::where('idUser',Auth::user()->id)->first();
+            $Admin = Administrador_sistema::where('id',Auth::user()->id)->first();
             $request->request->add(['idAdmin' => $Admin->idAdmin]);
             $validar = $request->validate([
                 'idAdmin' => 'required',
@@ -324,7 +324,7 @@ class AdminSysController extends Controller
         $data=array();
         $data['local_comercial'] = $local_comercial;
         try {
-            $Admin = Administrador_sistema::where('idUser',Auth::user()->id)->first();
+            $Admin = Administrador_sistema::where('id',Auth::user()->id)->first();
             $request->request->add(['idAdmin' => $Admin->idAdmin]);
             $validar = $request->validate([
                 'idAdmin' => 'required',
@@ -356,7 +356,7 @@ class AdminSysController extends Controller
         $data=array();
         $data['avisos'] = $avisos;
         try {
-            $Admin = Administrador_sistema::where('idUser',Auth::user()->id)->first();
+            $Admin = Administrador_sistema::where('id',Auth::user()->id)->first();
             $request->request->add(['idAdmin' => $Admin->idAdmin]);
             $validar = $request->validate([
                 'idAdmin' => 'required',

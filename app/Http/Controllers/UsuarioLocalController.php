@@ -64,7 +64,7 @@ class UsuarioLocalController extends Controller
     public function showPedidosPendientes(Request $request)
     {
         try {
-            $usuario = Usuario_local::where('idUser',Auth::user()->id)->first();
+            $usuario = Usuario_local::where('id',Auth::user()->id)->first();
             $search = $order = $start = $length = $draw = null;
             /*Se valida que vengan todos los parametros*/
             if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
@@ -136,7 +136,7 @@ class UsuarioLocalController extends Controller
     public function showCuentasPendientes(Request $request)
     {
         try {
-            $usuario = Usuario_local::where('idUser',Auth::user()->id)->first();
+            $usuario = Usuario_local::where('id',Auth::user()->id)->first();
             $search = $order = $start = $length = $draw = null;
             /*Se valida que vengan todos los parametros*/
             if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
@@ -207,7 +207,7 @@ class UsuarioLocalController extends Controller
     public function showPedidosEntregados(Request $request)
     {
         try {
-            $usuario = Usuario_local::where('idUser',Auth::user()->id)->first();
+            $usuario = Usuario_local::where('id',Auth::user()->id)->first();
             $search = $order = $start = $length = $draw = null;
             /*Se valida que vengan todos los parametros*/
             if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
@@ -279,7 +279,7 @@ class UsuarioLocalController extends Controller
     public function showCuentasEntregadas(Request $request)
     {
         try {
-            $usuario = Usuario_local::where('idUser',Auth::user()->id)->first();
+            $usuario = Usuario_local::where('id',Auth::user()->id)->first();
             $search = $order = $start = $length = $draw = null;
             /*Se valida que vengan todos los parametros*/
             if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){

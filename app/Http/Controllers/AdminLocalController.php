@@ -112,7 +112,7 @@ class AdminLocalController extends Controller
     public function createPromocion(Request $request)
     {
         try {
-            $admin = Administrador_local::where('idUser',Auth::user()->id)->first();
+            $admin = Administrador_local::where('id',Auth::user()->id)->first();
             $request->request->add(['idLocal' => $admin->idLocal ]);// Obtener id del local comercial
             $validar = $request->validate([// Validar datos provenientes del formulario
                 'idLocal' => 'required',
@@ -136,7 +136,7 @@ class AdminLocalController extends Controller
     public function createMesa(Request $request)
     {
         try {
-            $admin = Administrador_local::where('idUser',Auth::user()->id)->first();
+            $admin = Administrador_local::where('id',Auth::user()->id)->first();
             $request->request->add(['idLocal' => $admin->idLocal ]);
             $validar = $request->validate([
                 'idLocal' => 'required',
@@ -157,7 +157,7 @@ class AdminLocalController extends Controller
     public function createItem(Request $request)
     {
         try {
-            $admin = Administrador_local::where('idUser',Auth::user()->id)->first();
+            $admin = Administrador_local::where('id',Auth::user()->id)->first();
             $request->request->add(['idLocal' => $admin->idLocal ]);
             $validar = $request->validate([
                 'idLocal' => 'required',
@@ -184,7 +184,7 @@ class AdminLocalController extends Controller
     public function showPromocion(Request $request)
     {
         try {
-            $admin = Administrador_local::where('idUser',Auth::user()->id)->first();
+            $admin = Administrador_local::where('id',Auth::user()->id)->first();
             $search = $order = $start = $length = $draw = null;
             /*Se valida que vengan todos los parametros*/
             if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
@@ -252,7 +252,7 @@ class AdminLocalController extends Controller
     public function showMesa(Request $request)
     {
         try {
-            $admin = Administrador_local::where('idUser',Auth::user()->id)->first();
+            $admin = Administrador_local::where('id',Auth::user()->id)->first();
             $search = $order = $start = $length = $draw = null;
             /*Se valida que vengan todos los parametros*/
             if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
@@ -320,7 +320,7 @@ class AdminLocalController extends Controller
     public function showItem(Request $request)
     {
         try {
-            $admin = Administrador_local::where('idUser',Auth::user()->id)->first();
+            $admin = Administrador_local::where('id',Auth::user()->id)->first();
             $search = $order = $start = $length = $draw = null;
             /*Se valida que vengan todos los parametros*/
             if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
@@ -388,7 +388,7 @@ class AdminLocalController extends Controller
     public function showReporteItem(Request $request)
     {
         try {
-            $admin = Administrador_local::where('idUser',Auth::user()->id)->first();
+            $admin = Administrador_local::where('id',Auth::user()->id)->first();
             $search = $order = $start = $length = $draw = null;
             /*Se valida que vengan todos los parametros*/
             if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
@@ -458,7 +458,7 @@ class AdminLocalController extends Controller
     public function showReporteSemanal(Request $request)
     {
         try {
-            $admin = Administrador_local::where('idUser',Auth::user()->id)->first();
+            $admin = Administrador_local::where('id',Auth::user()->id)->first();
             $search = $order = $start = $length = $draw = null;
             /*Se valida que vengan todos los parametros*/
             if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
@@ -527,7 +527,7 @@ class AdminLocalController extends Controller
     public function showReporteMensual(Request $request)
     {
         try {
-            $admin = Administrador_local::where('idUser',Auth::user()->id)->first();
+            $admin = Administrador_local::where('id',Auth::user()->id)->first();
             $search = $order = $start = $length = $draw = null;
             /*Se valida que vengan todos los parametros*/
             if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
@@ -596,7 +596,7 @@ class AdminLocalController extends Controller
     public function showReporteCuenta(Request $request)
     {
         try {
-            $admin = Administrador_local::where('idUser',Auth::user()->id)->first();
+            $admin = Administrador_local::where('id',Auth::user()->id)->first();
             $search = $order = $start = $length = $draw = null;
             /*Se valida que vengan todos los parametros*/
             if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
@@ -714,7 +714,7 @@ class AdminLocalController extends Controller
         $data=array();
         $data['promocion'] = $promocion;
         try {
-            $Admin = Administrador_Local::where('idUser',Auth::user()->id)->first();
+            $Admin = Administrador_Local::where('id',Auth::user()->id)->first();
             $request->request->add(['idLocal' => $Admin->idLocal]);
             $validar = $request->validate([
                 'idLocal' => 'required',
@@ -739,7 +739,7 @@ class AdminLocalController extends Controller
         $data=array();
         $data['mesa'] = $mesa;
         try {
-            $Admin = Administrador_Local::where('idUser',Auth::user()->id)->first();
+            $Admin = Administrador_Local::where('id',Auth::user()->id)->first();
             $request->request->add(['idLocal' => $Admin->idLocal]);
             $validar = $request->validate([
                 'idLocal' => 'required',
@@ -762,7 +762,7 @@ class AdminLocalController extends Controller
         $data=array();
         $data['item'] = $item;
         try {
-            $Admin = Administrador_Local::where('idUser',Auth::user()->id)->first();
+            $Admin = Administrador_Local::where('id',Auth::user()->id)->first();
             $request->request->add(['idLocal' => $Admin->idLocal]);
             $validar = $request->validate([
                 'idLocal' => 'required',
