@@ -26,8 +26,8 @@ class Pedido extends Migration
             $table->timestamp('fecha');
             $table->timestamps();
             $table->foreign('idLocal')->references('id')->on('local_comercials');
-            $table->foreign('idUsuario')->references('id')->on('usuario_locals');
-            $table->foreign('idCliente')->references('id')->on('clientes');
+            $table->foreign('idUsuario')->references('idUser')->on('usuario_locals');
+            $table->foreign('idCliente')->references('idUser')->on('clientes');
             $table->foreign('idCuenta')->references('id')->on('cuentas');
             $table->foreign('idMesa')->references('id')->on('mesas');
             $table->foreign('idItem')->references('id')->on('items');

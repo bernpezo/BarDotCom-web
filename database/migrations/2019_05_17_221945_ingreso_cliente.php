@@ -20,8 +20,8 @@ class IngresoCliente extends Migration
             $table->unsignedBigInteger('idLocal');
             $table->unsignedBigInteger('idMesa');
             $table->timestamps();
-            $table->foreign('idUsuario')->references('id')->on('usuario_locals');
-            $table->foreign('idCliente')->references('id')->on('clientes');
+            $table->foreign('idUsuario')->references('idUser')->on('usuario_locals');
+            $table->foreign('idCliente')->references('idUser')->on('clientes');
             $table->foreign('idLocal')->references('id')->on('local_comercials');
             $table->foreign('idMesa')->references('id')->on('mesas');
         });

@@ -16,12 +16,18 @@ class ClienteController extends Controller
     {
         $this->middleware(function($request,$next)
         {
-            $user=Auth::user();
-            if(Cliente::find($user->id)==null)
-            {
+            try {
+                $user=Auth::user();
+                if(Cliente::where('idUser',$user->id)==null)
+                {
+                    return redirect()->route('login');
+                }
+                return $next($request);
+            } catch (\Throwable $th) {
                 return redirect()->route('login');
+                return $next($request);
             }
-            return $next($request);
+            
         });
     }
     /*

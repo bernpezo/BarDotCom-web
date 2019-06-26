@@ -19,12 +19,18 @@ class UsuarioLocalController extends Controller
     {
         $this->middleware(function($request,$next)
         {
-            $user=Auth::user();
-            if(Usuario_local::find($user->id)==null)
-            {
-                return redirect()->route('login');
-            }
+            try {
+                $user=Auth::user();
+                if(Usuario_local::where('idUser',$user->id)==null)
+                {
+                    return redirect()->route('login');
+                }
             return $next($request);
+            } catch (\Throwable $th) {
+                return redirect()->route('login');
+                return $next($request);
+            }
+            
         });
     }
     /*
@@ -58,7 +64,7 @@ class UsuarioLocalController extends Controller
      */
     public function showPedidosPendientes(Request $request)
     {
-        $usuario = Usuario_local::where('id',Auth::user()->id)->first();
+        $usuario = Usuario_local::where('idUser',Auth::user()->id)->first();
         $search = $order = $start = $length = $draw = null;
         /*Se valida que vengan todos los parametros*/
         if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
@@ -126,7 +132,7 @@ class UsuarioLocalController extends Controller
      */
     public function showCuentasPendientes(Request $request)
     {
-        $usuario = Usuario_local::where('id',Auth::user()->id)->first();
+        $usuario = Usuario_local::where('idUser',Auth::user()->id)->first();
         $search = $order = $start = $length = $draw = null;
         /*Se valida que vengan todos los parametros*/
         if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
@@ -193,7 +199,7 @@ class UsuarioLocalController extends Controller
      */
     public function showPedidosEntregados(Request $request)
     {
-        $usuario = Usuario_local::where('id',Auth::user()->id)->first();
+        $usuario = Usuario_local::where('idUser',Auth::user()->id)->first();
         $search = $order = $start = $length = $draw = null;
         /*Se valida que vengan todos los parametros*/
         if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
@@ -261,7 +267,7 @@ class UsuarioLocalController extends Controller
      */
     public function showCuentasEntregadas(Request $request)
     {
-        $usuario = Usuario_local::where('id',Auth::user()->id)->first();
+        $usuario = Usuario_local::where('idUser',Auth::user()->id)->first();
         $search = $order = $start = $length = $draw = null;
         /*Se valida que vengan todos los parametros*/
         if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){

@@ -14,11 +14,11 @@ class Cliente extends Migration
     public function up()
     {
         Schema::create('clientes', function (Blueprint $table) {
-            $table->unsignedBigInteger('id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('idUser')->nullable();
             $table->integer('nfc');
             $table->timestamps();
-            $table->primary('id');
-            $table->foreign('id')->references('id')->on('users');
+            $table->foreign('idUser')->references('id')->on('users')->onDelete('set null');
         });
     }
 
