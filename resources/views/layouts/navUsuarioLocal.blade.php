@@ -40,14 +40,20 @@
 <nav class="main-menu">
     <ul>
         <li>
-            <a href="#">
+            <a href="{{ route('dashUsuarioLocal') }}">
                 <i class="fa fa-home fa-2x"></i>
+                <span class="nav-text">Inicio</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('pedidosEntregados') }}">
+                <i class="fa fa-laptop fa-2x"></i>
                 <span class="nav-text">Pedidos entregados</span>
             </a>
         </li>
         <li class="has-subnav">
-            <a href="#">
-                <i class="fa fa-laptop fa-2x"></i>
+            <a href="{{ route('cuentasEntregadas') }}">
+                <i class="fa fa-bar-chart-o fa-2x"></i>
                 <span class="nav-text">Cuentas entregadas</span>
             </a>
         </li>

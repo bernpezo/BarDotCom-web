@@ -15,8 +15,10 @@ use App\Aviso;
 
 class AdminSysController extends Controller
 {
-    private $respuesta = -1;
-
+    private $respuesta = -1;// Variable para generar respuestas
+    /*
+     * Validar si el usuario está autenticado como administrador de sistema
+     */
     public function __construct()
     {
         $this->middleware(function($request,$next)
@@ -29,10 +31,8 @@ class AdminSysController extends Controller
             return $next($request);
         });
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+    /*
+     * Vistas pertenecientes al administrador de sistema
      */
     public function index()
     {
@@ -66,19 +66,15 @@ class AdminSysController extends Controller
         $data['respuesta'] = $this->respuesta;
         return view ('dashboard.dashAdminSys.perfil')->with('data',$data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+    /*
+     * Crear local
      */
     public function createLocalComercial(Request $request)
     {
         try {
-            //Crear local
             $Admin = Administrador_sistema::where('id',Auth::user()->id)->first();
-            $request->request->add(['idAdmin' => $Admin->idAdmin]);
-            $validar = $request->validate([
+            $request->request->add(['idAdmin' => $Admin->idAdmin]);// Obtener id del administrador
+            $validar = $request->validate([// Validar datos provenientes del formulario
                 'idAdmin' => 'required',
                 'rut' => 'required',
                 'nombre' => 'required',
@@ -93,7 +89,7 @@ class AdminSysController extends Controller
             ]);
             /*agregar logo pendiente*/
             $local_comercial=Local_comercial::create($validar);
-            //Crear Admin
+            //Crear Administrador de local
             $datosAdmin=[
                 'nombre' => 'Administrador',
                 'comuna' => ''.$local_comercial->comuna.'',
@@ -106,7 +102,7 @@ class AdminSysController extends Controller
             $administrador_local->id=$usuario->id;
             $administrador_local->idLocal=$local_comercial->id;
             $administrador_local->save();
-            //Crear 5 usuarios
+            //Crear 5 usuarios de local
             for ($i=0; $i < 5; $i++) { 
                 $datosUsuario=[
                     'nombre' => 'Usuario'.$i.'',
@@ -122,13 +118,15 @@ class AdminSysController extends Controller
                 $usuarioLocal->save();
             }
             $respuesta = 1;
-            return view('dashboard.dashAdminSys.localesCrear')->with('respuesta',$respuesta);
+            return view('dashboard.dashAdminSys.localesCrear')->with('respuesta',$respuesta);// Redirigir a la vista con respuesta positiva
         } catch (\Throwable $th) {
             $respuesta = 0;
-            return view('dashboard.dashAdminSys.localesCrear')->with('respuesta',$respuesta);
+            return view('dashboard.dashAdminSys.localesCrear')->with('respuesta',$respuesta);// Redirigir a la vista con respuesta negativa
         }
     }
-
+    /*
+     * Crear aviso
+     */
     public function createAviso(Request $request)
     {
         try {
@@ -147,12 +145,8 @@ class AdminSysController extends Controller
             return view('dashboard.dashAdminSys.avisosCrear')->with('respuesta',$respuesta);
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Administrador_sistema  $administrador_sistema
-     * @return \Illuminate\Http\Response
+    /*
+     * Mostrar lista de locales comerciales
      */
     public function showLocalComercial(Request $request)
     {
@@ -197,7 +191,7 @@ class AdminSysController extends Controller
                                                 ->limit($length)
                                                 ->get();
            }
-           //agregamos los botones html edit/delete
+           //agregamos los botones editar y eliminar
            foreach ($registros as $local_comercial) {
                 $local_comercial->parametros= '<a href="'.route('getOneLocalComercial', ['id64'=>base64_encode($local_comercial->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
             <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($local_comercial->id).'" data-url="'.route('destroyLocalComercial').'" data-ing="'.$local_comercial->nombre.'">Eliminar</buttom>';
@@ -214,7 +208,9 @@ class AdminSysController extends Controller
         //se retorna en formato JSON
         return json_encode($json_data);
     }
-
+    /*
+     * Mostrar lista de avisos
+     */
     public function showAviso(Request $request)
     {
         $search = $order = $start = $length = $draw = null;
@@ -275,7 +271,9 @@ class AdminSysController extends Controller
         //se retorna en formato JSON
         return json_encode($json_data);
     }
-
+    /*
+     * Enviar local comercial a la vista de edición
+     */
     public function getOneLocalComercial(Request $request)
     {
         try {
@@ -288,7 +286,9 @@ class AdminSysController extends Controller
             return "error";
         }
     }
-
+    /*
+     * Enviar aviso a la vista de edición
+     */
     public function getOneAviso(Request $request)
     {
         try {
@@ -301,12 +301,8 @@ class AdminSysController extends Controller
             return "error";
         }
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Administrador_sistema  $administrador_sistema
-     * @return \Illuminate\Http\Response
+    /*
+     * Editar local comercial
      */
     public function editLocalComercial(Request $request)
     {
@@ -337,7 +333,9 @@ class AdminSysController extends Controller
             return view('dashboard.dashAdminSys.localesEditar')->with('data',$data);
         }
     }
-
+    /*
+     * Editar aviso
+     */
     public function editAviso(Request $request)
     {
         $avisos=Aviso::find($request->id);
@@ -359,12 +357,8 @@ class AdminSysController extends Controller
             return view('dashboard.dashAdminSys.avisosEditar')->with('data',$data);
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Administrador_sistema  $administrador_sistema
-     * @return \Illuminate\Http\Response
+    /*
+     * Eliminar local comercial
      */
     public function destroyLocalComercial(Request $request)
     {
@@ -376,7 +370,9 @@ class AdminSysController extends Controller
             return "error";
         }
     }
-
+    /*
+     * Eliminar aviso
+     */
     public function destroyAviso(Request $request)
     {
         try {
@@ -386,7 +382,9 @@ class AdminSysController extends Controller
             return "error";
         }
     }
-
+    /*
+     * Editar perfil de usuario
+     */
     public function editPerfil(Request $request)
     {
         $user=User::find($request->id);
@@ -402,7 +400,7 @@ class AdminSysController extends Controller
                 'email' => 'required|string|email|max:255',
                 'passwordActual' => 'required|string|min:8',
             ]);
-            if((Hash::check($request->passwordActual, $user->password))){
+            if((Hash::check($request->passwordActual, $user->password))){// Validar contraseña
                 $user->update($validar);
                 if($request->password!=''){
                     $user->password=Hash::make($request->password);

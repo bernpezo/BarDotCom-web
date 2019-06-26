@@ -42,7 +42,7 @@
         <li>
             <a href="{{ route('dashAdminLocal') }}">
                 <i class="fa fa-home fa-2x"></i>
-                <span class="nav-text">Administración</span>
+                <span class="nav-text">Inicio</span>
             </a>
         </li>
         <li class="has-subnav">

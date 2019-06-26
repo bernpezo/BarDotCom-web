@@ -10,8 +10,10 @@ use App\Cuenta;
 
 class UsuarioLocalController extends Controller
 {
-    private $respuesta = -1;
-
+    private $respuesta = -1;// Variable para generar respuestas
+    /*
+     * Validar si el usuario está autenticado como usuario de local
+     */
     public function __construct()
     {
         $this->middleware(function($request,$next)
@@ -24,15 +26,22 @@ class UsuarioLocalController extends Controller
             return $next($request);
         });
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+    /*
+     * Vistas pertenecientes al usuario de local
      */
     public function index()
     {
         return view('dashboard.dashUsuarioLocal');
+    }
+
+    public function pedidosEntregados()
+    {
+        return view('dashboard.dashUsuarioLocal.pedidosEntregados');
+    }
+
+    public function cuentasEntregadas()
+    {
+        return view('dashboard.dashUsuarioLocal.cuentasEntregadas');
     }
 
     public function perfil()
@@ -43,11 +52,8 @@ class UsuarioLocalController extends Controller
         return view ('dashboard.dashUsuarioLocal.perfil')->with('data',$data);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    /*
+     * Mostrar pedidos pendientes de entregar
      */
     public function showPedidosPendientes(Request $request)
     {
@@ -73,8 +79,8 @@ class UsuarioLocalController extends Controller
             );
            //si vienen criterios de busqueda
            if(!empty($request->search['value'])){
-                $totalRegistros = Pedido::where('idLocal','like','%'.$usuario->idLocal.'%')
-                                            ->where('estado','like','1')
+                $totalRegistros = Pedido::where('idLocal','like','%'.$usuario->idLocal.'%')// Mostrar solo los pertenecientes al local
+                                            ->where('estado','like','1')// Mostrar solo los pedido con estado 1 (pendiente)
                                             ->orWhere('idItem','like','%'.$request->search['value'].'%')
                                             ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                             ->count();
@@ -97,7 +103,7 @@ class UsuarioLocalController extends Controller
                                                 ->limit($length)
                                                 ->get();
            }
-           //agregamos los botones html entregar/eliminar
+           //agregamos los botones entregar y eliminar
            foreach ($registros as $pedido) {
                 $pedido->parametros= '<a href="'.route('entregarPedido', ['id64'=>base64_encode($pedido->id)]).'" class="btn btn-info btn-actions btn-editar">Entregar</a>
             <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($pedido->id).'" data-url="'.route('destroyPedido').'" data-ing="'.$pedido->fecha.'">Eliminar</buttom>';
@@ -114,7 +120,9 @@ class UsuarioLocalController extends Controller
         //se retorna en formato JSON
         return json_encode($json_data);
     }
-
+    /*
+     * Mostrar cuentas pendientes de entregar
+     */
     public function showCuentasPendientes(Request $request)
     {
         $usuario = Usuario_local::where('id',Auth::user()->id)->first();
@@ -179,33 +187,172 @@ class UsuarioLocalController extends Controller
         //se retorna en formato JSON
         return json_encode($json_data);
     }
-
+    /*
+     * Mostrar pedidos entregados
+     */
+    public function showPedidosEntregados(Request $request)
+    {
+        $usuario = Usuario_local::where('id',Auth::user()->id)->first();
+        $search = $order = $start = $length = $draw = null;
+        /*Se valida que vengan todos los parametros*/
+        if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
+            return "data errors";
+        }else{
+            $search = $request->search;
+            $order = $request->order;
+            $start = $request->start;
+            $length = $request->length;
+            $draw = $request->draw;
+            $columns = $totalRecords = $data = array();
+            //definir indices de las columnas
+            $columns = array(
+                0 => 'idCliente',    
+                1 => 'idMesa',
+                2 => 'idItem',
+                3 => 'cantidadItem',
+                4 => 'fecha'
+            );
+           //si vienen criterios de busqueda
+           if(!empty($request->search['value'])){
+                $totalRegistros = Pedido::where('idLocal','like','%'.$usuario->idLocal.'%')
+                                            ->where('estado','like','0')// Mostrar solo pedidos con estado 0 (Entregados)
+                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                            ->count();
+                $registros = Pedido::latest('created_at')
+                                            ->where('idLocal','like','%'.$usuario->idLocal.'%')	
+                                            ->where('estado','like','0')
+                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->offset($start)
+                                            ->limit($length)
+                                            ->get();
+           }else{
+                $totalRegistros = Pedido::where('idLocal','like','%'.$usuario->idLocal.'%')
+                                                ->where('estado','like','0')
+                								->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                                ->count();
+                $registros = Pedido::latest('created_at')     
+                                                ->where('idLocal','like','%'.$usuario->idLocal.'%')
+                                                ->where('estado','like','0')
+                                                ->offset($start)
+                                                ->limit($length)
+                                                ->get();
+           }
+           //agregamos los botones html entregar/eliminar
+           foreach ($registros as $pedido) {
+                $pedido->parametros= '<a href="#" class="btn btn-info btn-actions btn-editar">Entregar</a>
+            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($pedido->id).'" data-url="#" data-ing="'.$pedido->created_at.'">Eliminar</buttom>';
+                $data[] = $pedido;
+           }
+           //se crea la data
+           $json_data = array(
+             "draw"            => intval($draw ),   
+             "recordsTotal"    => intval($totalRegistros ),  
+             "recordsFiltered" => intval($totalRegistros),
+             "data"            => $data   // total data array
+           );
+        }
+        //se retorna en formato JSON
+        return json_encode($json_data);
+    }
+    /*
+     * Mostrar cuentas entregadas
+     */
+    public function showCuentasEntregadas(Request $request)
+    {
+        $usuario = Usuario_local::where('id',Auth::user()->id)->first();
+        $search = $order = $start = $length = $draw = null;
+        /*Se valida que vengan todos los parametros*/
+        if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
+            return "data errors";
+        }else{
+            $search = $request->search;
+            $order = $request->order;
+            $start = $request->start;
+            $length = $request->length;
+            $draw = $request->draw;
+            $columns = $totalRecords = $data = array();
+            //definir indices de las columnas
+            $columns = array(
+                0 => 'idCliente',
+                1 => 'idMesa',    
+                2 => 'total',
+                3 => 'fecha'
+            );
+           //si vienen criterios de busqueda
+           if(!empty($request->search['value'])){
+                $totalRegistros = Cuenta::where('idLocal','like','%'.$usuario->idLocal.'%')
+                                            ->where('estado','like','0')// Mostrar solo cuentas con estado 0 (Entregados)
+                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                            ->count();
+                $registros = Cuenta::latest('created_at')
+                                            ->where('idLocal','like','%'.$usuario->idLocal.'%')	
+                                            ->where('estado','like','0')
+                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->offset($start)
+                                            ->limit($length)
+                                            ->get();
+           }else{
+                $totalRegistros = Cuenta::where('idLocal','like','%'.$usuario->idLocal.'%')
+                                                ->where('estado','like','0')
+                								->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                                ->count();
+                $registros = Cuenta::latest('created_at')     
+                                                ->where('idLocal','like','%'.$usuario->idLocal.'%')
+                                                ->where('estado','like','0')
+                                                ->offset($start)
+                                                ->limit($length)
+                                                ->get();
+           }
+           //agregamos los botones html entregar/eliminar
+           foreach ($registros as $cuenta) {
+                $cuenta->parametros= '<a href="#" class="btn btn-info btn-actions btn-editar">Entregar</a>
+            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($cuenta->id).'" data-url="#" data-ing="'.$cuenta->created_at.'">Eliminar</buttom>';
+                $data[] = $cuenta;
+           }
+           //se crea la data
+           $json_data = array(
+             "draw"            => intval($draw ),   
+             "recordsTotal"    => intval($totalRegistros ),  
+             "recordsFiltered" => intval($totalRegistros),
+             "data"            => $data   // total data array
+           );
+        }
+        //se retorna en formato JSON
+        return json_encode($json_data);
+    }
+    /*
+     * Marcar producto como entregado al cliente
+     */
     public function entregarPedido(Request $request)
     {
         
     }
-
+    /*
+     * Marcar cuenta como entregada al cliente
+     */
     public function entregarCuenta(Request $request)
     {
         
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    /*
+     * Eliminar pedido
      */
     public function destroyPedido(Request $request)
     {
         //
     }
-
+    /*
+     * Eliminar cuenta
+     */
     public function destroyCuenta(Request $request)
     {
         //
     }
-
+    /*
+     * Editar perfil de usuario
+     */
     public function editPerfil(Request $request)
     {
         $user=User::find($request->id);

@@ -24,11 +24,13 @@ class HomeController extends Controller
     {
         return view('home');
     }
-
+    /*
+     * Método para boton "Mi Panel" que redirige a cada usuario a su respectivo panel
+     */
     public function miPanel()
     {
-        $user=Auth::user();
-        if(Cliente::find($user->id)!==null)
+        $user=Auth::user();// Obtener usuario autenticado
+        if(Cliente::find($user->id)!==null)// Verificar que tipo de usuario es y redirigir
         {
             return view ('dashboard.dashCliente');
         }
@@ -45,12 +47,9 @@ class HomeController extends Controller
             return view ('dashboard.dashUsuarioLocal');
         }
     }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+    /*
+     * Buscar comunas en BD para entregar a Select2
      */
-
     public function selectComuna(Request $request)
     {
         $term=$request->term ?: '';
@@ -62,7 +61,9 @@ class HomeController extends Controller
         }
         return \Response::json($comunasEnviar);
     }
-
+    /*
+     * Buscar rubros en BD para entregar a Select2
+     */
     public function selectRubro(Request $request)
     {
         $term=$request->term ?: '';
@@ -74,7 +75,9 @@ class HomeController extends Controller
         }
         return \Response::json($rubrosEnviar);
     }
-
+    /*
+     * Buscar locales en BD para entregar a Select2
+     */
     public function selectLocal(Request $request)
     {
         $term=$request->term ?: '';

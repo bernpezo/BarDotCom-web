@@ -8,8 +8,10 @@ use Auth;
 
 class ClienteController extends Controller
 {
-    private $respuesta = -1;
-    
+    private $respuesta = -1;// Variable para generar respuestas
+    /*
+     * Validar si el usuario está autenticado como cliente
+     */
     public function __construct()
     {
         $this->middleware(function($request,$next)
@@ -22,10 +24,8 @@ class ClienteController extends Controller
             return $next($request);
         });
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+    /*
+     * Vistas pertenecientes al cliente
      */
     public function index()
     {
@@ -105,7 +105,9 @@ class ClienteController extends Controller
     {
         //
     }
-
+    /*
+     * Editar perfil de usuario
+     */
     public function editPerfil(Request $request)
     {
         $user=User::find($request->id);
@@ -121,7 +123,7 @@ class ClienteController extends Controller
                 'email' => 'required|string|email|max:255',
                 'passwordActual' => 'required|string|min:8',
             ]);
-            if((Hash::check($request->passwordActual, $user->password))){
+            if((Hash::check($request->passwordActual, $user->password))){// Validar contraseña
                 $user->update($validar);
                 if($request->password!=''){
                     $user->password=Hash::make($request->password);

@@ -103,6 +103,13 @@ Route::post('showCuentasPendientes', 'UsuarioLocalController@showCuentasPendient
 Route::post('entregarCuenta', 'UsuarioLocalController@entregarCuenta')->name('entregarCuenta');
 Route::post('destroyCuenta', 'UsuarioLocalController@destroyCuenta')->name('destroyCuenta');
 /*
+ * Historial pedido y cuenta
+ */
+Route::get('pedidosEntregados', 'UsuarioLocalController@pedidosEntregados')->name('pedidosEntregados');
+Route::post('showPedidosEntregados', 'UsuarioLocalController@showPedidosEntregados')->name('showPedidosEntregados');
+Route::get('cuentasEntregadas', 'UsuarioLocalController@cuentasEntregadas')->name('cuentasEntregadas');
+Route::post('showCuentasEntregadas', 'UsuarioLocalController@showCuentasEntregadas')->name('showCuentasEntregadas');
+/*
  * Perfil
  */
 Route::get('dashAdminSysperfil', 'AdminSysController@perfil')->name('dashAdminSysperfil');

@@ -14,8 +14,10 @@ use App\Item;
 
 class AdminLocalController extends Controller
 {
-    private $respuesta = -1;
-
+    private $respuesta = -1;// Variable para generar respuestas
+    /*
+     * Validar si el usuario está autenticado como administrador de local
+     */
     public function __construct()
     {
         $this->middleware(function($request,$next)
@@ -28,10 +30,8 @@ class AdminLocalController extends Controller
             return $next($request);
         });
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+    /*
+     * Vistas pertenecientes al administrador local
      */
     public function index()
     {
@@ -76,17 +76,15 @@ class AdminLocalController extends Controller
         return view ('dashboard.dashAdminLocal.perfil')->with('data',$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+    /*
+     * Crear promoción
      */
     public function createPromocion(Request $request)
     {
         try {
             $admin = Administrador_local::where('id',Auth::user()->id)->first();
-            $request->request->add(['idLocal' => $admin->idLocal ]);
-            $validar = $request->validate([
+            $request->request->add(['idLocal' => $admin->idLocal ]);// Obtener id del local comercial
+            $validar = $request->validate([// Validar datos provenientes del formulario
                 'idLocal' => 'required',
                 'nombre' => 'required|string|max:255',
                 'descripcion' => 'required|string|max:500',
@@ -96,13 +94,15 @@ class AdminLocalController extends Controller
             /*agregar imagen pendiente*/
             Promocion::create($validar);
             $respuesta = 1;
-            return view('dashboard.dashAdminLocal.promocionesCrear')->with('respuesta',$respuesta);
+            return view('dashboard.dashAdminLocal.promocionesCrear')->with('respuesta',$respuesta);// Redirigir a la vista con respuesta positiva
         } catch (\Throwable $th) {
             $respuesta = 0;
-            return view('dashboard.dashAdminLocal.promocionesCrear')->with('respuesta',$respuesta);
+            return view('dashboard.dashAdminLocal.promocionesCrear')->with('respuesta',$respuesta);// Redirigir a la vista con respuesta negativa
         }
     }
-
+    /*
+     * Crear mesa
+     */
     public function createMesa(Request $request)
     {
         try {
@@ -121,7 +121,9 @@ class AdminLocalController extends Controller
             return view('dashboard.dashAdminLocal.mesasCrear')->with('respuesta',$respuesta);
         }
     }
-
+    /*
+     * Crear ítem
+     */
     public function createItem(Request $request)
     {
         try {
@@ -131,7 +133,7 @@ class AdminLocalController extends Controller
                 'idLocal' => 'required',
                 'nombre' => 'required|string|max:255',
                 'imagen' => 'required',
-                'imagen.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'imagen.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',// Validar archivo de imagen
                 'precio' => 'required|integer',
                 'stock' => 'required|integer',
                 'estado' => 'required|integer',
@@ -146,12 +148,8 @@ class AdminLocalController extends Controller
             return view('dashboard.dashAdminLocal.itemsCrear')->with('respuesta',$respuesta);
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    /*
+     * Mostrar lista de promociones
      */
     public function showPromocion(Request $request)
     {
@@ -175,7 +173,7 @@ class AdminLocalController extends Controller
             );
            //si vienen criterios de busqueda
            if(!empty($request->search['value'])){
-                $totalRegistros = Promocion::where('idLocal','like','%'.$admin->idLocal.'%')
+                $totalRegistros = Promocion::where('idLocal','like','%'.$admin->idLocal.'%')// Mostrar solo las pertenecientes al local
                                             ->where('nombre','like','%'.$request->search['value'].'%')
                                             ->orWhere('id','like','%'.$request->search['value'].'%')
                                             ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
@@ -197,7 +195,7 @@ class AdminLocalController extends Controller
                                                 ->limit($length)
                                                 ->get();
            }
-           //agregamos los botones html edit/delete
+           //agregamos los botones editar y eliminar
            foreach ($registros as $promociones) {
                 $promociones->parametros= '<a href="'.route('getOnePromocion', ['id64'=>base64_encode($promociones->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
             <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($promociones->id).'" data-url="'.route('destroyPromocion').'" data-ing="'.$promociones->nombre.'">Eliminar</buttom>';
@@ -214,7 +212,9 @@ class AdminLocalController extends Controller
         //se retorna en formato JSON
         return json_encode($json_data);
     }
-
+    /*
+     * Mostrar lista de mesas
+     */
     public function showMesa(Request $request)
     {
         $admin = Administrador_local::where('id',Auth::user()->id)->first();
@@ -276,7 +276,9 @@ class AdminLocalController extends Controller
         //se retorna en formato JSON
         return json_encode($json_data);
     }
-
+    /*
+     * Mostrar lista de ítems
+     */
     public function showItem(Request $request)
     {
         $admin = Administrador_local::where('id',Auth::user()->id)->first();
@@ -338,7 +340,9 @@ class AdminLocalController extends Controller
         //se retorna en formato JSON
         return json_encode($json_data);
     }
-
+    /*
+     * Enviar promoción a la vista de edición 
+     */
     public function getOnePromocion(Request $request)
     {
         try {
@@ -351,7 +355,9 @@ class AdminLocalController extends Controller
             return "error";
         }
     }
-
+    /*
+     * Enviar mesa a la vista de edición
+     */
     public function getOneMesa(Request $request)
     {
         try {
@@ -364,7 +370,9 @@ class AdminLocalController extends Controller
             return "error";
         }
     }
-
+    /*
+     * Enviar ítem a la vista de edición
+     */
     public function getOneItem(Request $request)
     {
         try {
@@ -378,11 +386,8 @@ class AdminLocalController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    /*
+     * Editar promoción
      */
     public function editPromocion(Request $request)
     {
@@ -406,7 +411,9 @@ class AdminLocalController extends Controller
             return view('dashboard.dashAdminLocal.promocionesEditar')->with('data',$data);
         }
     }
-
+    /*
+     * Editar mesa
+     */
     public function editMesa(Request $request)
     {
         $mesa=Mesa::find($request->id);
@@ -427,7 +434,9 @@ class AdminLocalController extends Controller
             return view('dashboard.dashAdminLocal.mesasEditar')->with('data',$data);
         }
     }
-
+    /*
+     * Editar ítem
+     */
     public function editItem(Request $request)
     {
         $item=Item::find($request->id);
@@ -454,12 +463,8 @@ class AdminLocalController extends Controller
             return view('dashboard.dashAdminLocal.itemsEditar')->with('data',$data);
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    /*
+     * Eliminar promoción
      */
     public function destroyPromocion(Request $request)
     {
@@ -470,7 +475,9 @@ class AdminLocalController extends Controller
             return "error";
         }
     }
-
+    /*
+     * Eliminar mesa
+     */
     public function destroyMesa(Request $request)
     {
         try {
@@ -480,7 +487,9 @@ class AdminLocalController extends Controller
             return "error";
         }
     }
-
+    /*
+     * Eliminar ítem
+     */
     public function destroyItem(Request $request)
     {
         try {
@@ -490,7 +499,9 @@ class AdminLocalController extends Controller
             return "error";
         }
     }
-
+    /*
+     * Editar perfil de usuario
+     */
     public function editPerfil(Request $request)
     {
         $user=User::find($request->id);
@@ -506,7 +517,7 @@ class AdminLocalController extends Controller
                 'email' => 'required|string|email|max:255',
                 'passwordActual' => 'required|string|min:8',
             ]);
-            if((Hash::check($request->passwordActual, $user->password))){
+            if((Hash::check($request->passwordActual, $user->password))){// Validar contraseña
                 $user->update($validar);
                 if($request->password!=''){
                     $user->password=Hash::make($request->password);
