@@ -11,6 +11,7 @@ use App\Administrador_local;
 use App\Promocion;
 use App\Mesa;
 use App\Item;
+use App\Cuenta;
 
 class AdminLocalController extends Controller
 {
@@ -66,6 +67,31 @@ class AdminLocalController extends Controller
     public function itemsCrear()
     {
         return view('dashboard.dashAdminLocal.itemsCrear')->with('respuesta',$this->respuesta);
+    }
+
+    public function reportes()
+    {
+        return view('dashboard.dashAdminLocal.reportes');
+    }
+
+    public function reporteItems()
+    {
+        return view('dashboard.dashAdminLocal.reporteItems');
+    }
+
+    public function reporteSemanal()
+    {
+        return view('dashboard.dashAdminLocal.reporteSemanal');
+    }
+
+    public function reporteMensual()
+    {
+        return view('dashboard.dashAdminLocal.reporteMensual');
+    }
+
+    public function reporteCuenta()
+    {
+        return view('dashboard.dashAdminLocal.reporteCuenta');
     }
 
     public function perfil()
@@ -328,6 +354,266 @@ class AdminLocalController extends Controller
                 $items->parametros= '<a href="'.route('getOneItem', ['id64'=>base64_encode($items->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
             <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($items->id).'" data-url="'.route('destroyItem').'" data-ing="'.$items->nombre.'">Eliminar</buttom>';
                 $data[] = $items;
+           }
+           //se crea la data
+           $json_data = array(
+             "draw"            => intval($draw ),   
+             "recordsTotal"    => intval($totalRegistros ),  
+             "recordsFiltered" => intval($totalRegistros),
+             "data"            => $data   // total data array
+           );
+        }
+        //se retorna en formato JSON
+        return json_encode($json_data);
+    }
+    /*
+     * Reporte item
+     */
+    public function showReporteItem(Request $request)
+    {
+        $admin = Administrador_local::where('id',Auth::user()->id)->first();
+        $search = $order = $start = $length = $draw = null;
+        /*Se valida que vengan todos los parametros*/
+        if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
+            return "data errors";
+        }else{
+            $search = $request->search;
+            $order = $request->order;
+            $start = $request->start;
+            $length = $request->length;
+            $draw = $request->draw;
+            $columns = $totalRecords = $data = array();
+            //definir indices de las columnas
+            $columns = array(
+              0 => 'id',    
+              1 => 'nombre',
+              2 => 'precio',
+              3 => 'stock'
+            );
+           //si vienen criterios de busqueda
+           if(!empty($request->search['value'])){
+                $totalRegistros = Item::where('idLocal','like','%'.$admin->idLocal.'%')
+                                            ->where('nombre','like','%'.$request->search['value'].'%')
+                                            ->orWhere('id','like','%'.$request->search['value'].'%')
+                                            ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                            ->count();
+                $registros = Item::latest('created_at')
+                                            ->where('idLocal','like','%'.$admin->idLocal.'%')	
+                                            ->where('nombre','like','%'.$request->search['value'].'%')
+                                            ->orWhere('id','like','%'.$request->search['value'].'%')
+                                            ->offset($start)
+                                            ->limit($length)
+                                            ->get();
+           }else{
+                $totalRegistros = Item::where('idLocal','like','%'.$admin->idLocal.'%')
+                								->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                                ->count();
+                $registros = Item::latest('created_at')     
+                                                ->where('idLocal','like','%'.$admin->idLocal.'%')
+                                                ->offset($start)
+                                                ->limit($length)
+                                                ->get();
+           }
+           //agregamos los botones html edit/delete
+           foreach ($registros as $items) {
+                $items->parametros= '<a href="#" class="btn btn-info btn-actions btn-editar">Editar</a>
+            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($items->id).'" data-url="#" data-ing="'.$items->nombre.'">Eliminar</buttom>';
+                $data[] = $items;
+           }
+           //se crea la data
+           $json_data = array(
+             "draw"            => intval($draw ),   
+             "recordsTotal"    => intval($totalRegistros ),  
+             "recordsFiltered" => intval($totalRegistros),
+             "data"            => $data   // total data array
+           );
+        }
+        //se retorna en formato JSON
+        return json_encode($json_data);
+    }
+    /*
+     * Reporte semanal
+     */
+    public function showReporteSemanal(Request $request)
+    {
+        $admin = Administrador_local::where('id',Auth::user()->id)->first();
+        $search = $order = $start = $length = $draw = null;
+        /*Se valida que vengan todos los parametros*/
+        if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
+            return "data errors";
+        }else{
+            $search = $request->search;
+            $order = $request->order;
+            $start = $request->start;
+            $length = $request->length;
+            $draw = $request->draw;
+            $columns = $totalRecords = $data = array();
+            //definir indices de las columnas
+            $columns = array(
+                0 => 'idCliente',
+                1 => 'idMesa',    
+                2 => 'total',
+                3 => 'fecha'
+            );
+           //si vienen criterios de busqueda
+           if(!empty($request->search['value'])){
+                $totalRegistros = Cuenta::where('idLocal','like','%'.$admin->idLocal.'%')
+                                            ->where('idMesa','like','%'.$request->search['value'].'%')
+                                            ->orWhere('id','like','%'.$request->search['value'].'%')
+                                            ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                            ->count();
+                $registros = Cuenta::latest('created_at')
+                                            ->where('idLocal','like','%'.$admin->idLocal.'%')	
+                                            ->where('idMesa','like','%'.$request->search['value'].'%')
+                                            ->orWhere('id','like','%'.$request->search['value'].'%')
+                                            ->offset($start)
+                                            ->limit($length)
+                                            ->get();
+           }else{
+                $totalRegistros = Cuenta::where('idLocal','like','%'.$admin->idLocal.'%')
+                								->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                                ->count();
+                $registros = Cuenta::latest('created_at')     
+                                                ->where('idLocal','like','%'.$admin->idLocal.'%')
+                                                ->offset($start)
+                                                ->limit($length)
+                                                ->get();
+           }
+           //agregamos los botones html edit/delete
+           foreach ($registros as $cuenta) {
+                $cuenta->parametros= '<a href="#" class="btn btn-info btn-actions btn-editar">Editar</a>
+            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($cuenta->id).'" data-url="#" data-ing="'.$cuenta->nombre.'">Eliminar</buttom>';
+                $data[] = $cuenta;
+           }
+           //se crea la data
+           $json_data = array(
+             "draw"            => intval($draw ),   
+             "recordsTotal"    => intval($totalRegistros ),  
+             "recordsFiltered" => intval($totalRegistros),
+             "data"            => $data   // total data array
+           );
+        }
+        //se retorna en formato JSON
+        return json_encode($json_data);
+    }
+    /*
+     * Reporte Mensual
+     */
+    public function showReporteMensual(Request $request)
+    {
+        $admin = Administrador_local::where('id',Auth::user()->id)->first();
+        $search = $order = $start = $length = $draw = null;
+        /*Se valida que vengan todos los parametros*/
+        if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
+            return "data errors";
+        }else{
+            $search = $request->search;
+            $order = $request->order;
+            $start = $request->start;
+            $length = $request->length;
+            $draw = $request->draw;
+            $columns = $totalRecords = $data = array();
+            //definir indices de las columnas
+            $columns = array(
+                0 => 'idCliente',
+                1 => 'idMesa',    
+                2 => 'total',
+                3 => 'fecha'
+            );
+           //si vienen criterios de busqueda
+           if(!empty($request->search['value'])){
+                $totalRegistros = Cuenta::where('idLocal','like','%'.$admin->idLocal.'%')
+                                            ->where('idMesa','like','%'.$request->search['value'].'%')
+                                            ->orWhere('id','like','%'.$request->search['value'].'%')
+                                            ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                            ->count();
+                $registros = Cuenta::latest('created_at')
+                                            ->where('idLocal','like','%'.$admin->idLocal.'%')	
+                                            ->where('idMesa','like','%'.$request->search['value'].'%')
+                                            ->orWhere('id','like','%'.$request->search['value'].'%')
+                                            ->offset($start)
+                                            ->limit($length)
+                                            ->get();
+           }else{
+                $totalRegistros = Cuenta::where('idLocal','like','%'.$admin->idLocal.'%')
+                								->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                                ->count();
+                $registros = Cuenta::latest('created_at')     
+                                                ->where('idLocal','like','%'.$admin->idLocal.'%')
+                                                ->offset($start)
+                                                ->limit($length)
+                                                ->get();
+           }
+           //agregamos los botones html edit/delete
+           foreach ($registros as $cuenta) {
+                $cuenta->parametros= '<a href="#" class="btn btn-info btn-actions btn-editar">Editar</a>
+            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($cuenta->id).'" data-url="#" data-ing="'.$cuenta->nombre.'">Eliminar</buttom>';
+                $data[] = $cuenta;
+           }
+           //se crea la data
+           $json_data = array(
+             "draw"            => intval($draw ),   
+             "recordsTotal"    => intval($totalRegistros ),  
+             "recordsFiltered" => intval($totalRegistros),
+             "data"            => $data   // total data array
+           );
+        }
+        //se retorna en formato JSON
+        return json_encode($json_data);
+    }
+    /*
+     * Reporte Cuenta
+     */
+    public function showReporteCuenta(Request $request)
+    {
+        $admin = Administrador_local::where('id',Auth::user()->id)->first();
+        $search = $order = $start = $length = $draw = null;
+        /*Se valida que vengan todos los parametros*/
+        if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
+            return "data errors";
+        }else{
+            $search = $request->search;
+            $order = $request->order;
+            $start = $request->start;
+            $length = $request->length;
+            $draw = $request->draw;
+            $columns = $totalRecords = $data = array();
+            //definir indices de las columnas
+            $columns = array(
+                0 => 'idCliente',
+                1 => 'idMesa',    
+                2 => 'total',
+                3 => 'fecha'
+            );
+           //si vienen criterios de busqueda
+           if(!empty($request->search['value'])){
+                $totalRegistros = Cuenta::where('idLocal','like','%'.$admin->idLocal.'%')
+                                            ->where('idMesa','like','%'.$request->search['value'].'%')
+                                            ->orWhere('id','like','%'.$request->search['value'].'%')
+                                            ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                            ->count();
+                $registros = Cuenta::latest('created_at')
+                                            ->where('idLocal','like','%'.$admin->idLocal.'%')	
+                                            ->where('idMesa','like','%'.$request->search['value'].'%')
+                                            ->orWhere('id','like','%'.$request->search['value'].'%')
+                                            ->offset($start)
+                                            ->limit($length)
+                                            ->get();
+           }else{
+                $totalRegistros = Cuenta::where('idLocal','like','%'.$admin->idLocal.'%')
+                								->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                                ->count();
+                $registros = Cuenta::latest('created_at')     
+                                                ->where('idLocal','like','%'.$admin->idLocal.'%')
+                                                ->offset($start)
+                                                ->limit($length)
+                                                ->get();
+           }
+           //agregamos los botones html edit/delete
+           foreach ($registros as $cuenta) {
+                $cuenta->parametros= '<a href="#" class="btn btn-info btn-actions btn-editar">Editar</a>
+            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($cuenta->id).'" data-url="#" data-ing="'.$cuenta->nombre.'">Eliminar</buttom>';
+                $data[] = $cuenta;
            }
            //se crea la data
            $json_data = array(

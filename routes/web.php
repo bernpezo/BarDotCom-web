@@ -110,6 +110,18 @@ Route::post('showPedidosEntregados', 'UsuarioLocalController@showPedidosEntregad
 Route::get('cuentasEntregadas', 'UsuarioLocalController@cuentasEntregadas')->name('cuentasEntregadas');
 Route::post('showCuentasEntregadas', 'UsuarioLocalController@showCuentasEntregadas')->name('showCuentasEntregadas');
 /*
+ * Reportes
+ */
+Route::get('reportes', 'AdminLocalController@reportes')->name('reportes');
+Route::get('reporteItems', 'AdminLocalController@reporteItems')->name('reporteItems');
+Route::post('showReporteItem', 'AdminLocalController@showReporteItem')->name('showReporteItem');
+Route::get('reporteSemanal', 'AdminLocalController@reporteSemanal')->name('reporteSemanal');
+Route::post('showReporteSemanal', 'AdminLocalController@showReporteSemanal')->name('showReporteSemanal');
+Route::get('reporteMensual', 'AdminLocalController@reporteMensual')->name('reporteMensual');
+Route::post('showReporteMensual', 'AdminLocalController@showReporteMensual')->name('showReporteMensual');
+Route::get('reporteCuenta', 'AdminLocalController@reporteCuenta')->name('reporteCuenta');
+Route::post('showReporteCuenta', 'AdminLocalController@showReporteCuenta')->name('showReporteCuenta');
+/*
  * Perfil
  */
 Route::get('dashAdminSysperfil', 'AdminSysController@perfil')->name('dashAdminSysperfil');

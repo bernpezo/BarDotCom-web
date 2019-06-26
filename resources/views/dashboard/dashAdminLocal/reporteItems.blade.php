@@ -4,21 +4,21 @@
 @endsection
 <!-- Título -->
 @section('titulo')
-Ítems
+Reporte items
 @endsection
 @section('contenidodash')
 <div class="container cuerpo">
-    <h3>Ítems registrados</h3>
+    <h3>Reporte items</h3>
     <form action="" method="POST">
         @csrf
         <div>
-            <table class="display responsive nowrap" style="width:100%" id="tablaItems" data-url="{{ route('showItem') }}">
+            <table class="display responsive nowrap" style="width:100%" id="tablaReporteItems" data-url="{{ route('showReporteItem') }}">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nombre</th>
+                        <th scope="col">Precio</th>
                         <th scope="col">Stock</th>
-                        <th scope="col">Editar / Eliminar</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -29,5 +29,5 @@
 @endsection
 @section('js2')
 <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('js/AdminLocalItems.js') }}"></script>
+<script src="{{ asset('js/reporteItem.js') }}"></script>
 @endsection
