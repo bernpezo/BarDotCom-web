@@ -1,4 +1,4 @@
-@extends('layouts.navAdminLocal')
+@extends('layouts.navUsuarioLocal')
 @section('css2')
 <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
@@ -11,7 +11,7 @@ Perfil de usuario
     <div class="container cuerpo">
         <h3 class="text-center">Modificar Perfil</h3>
         <h5 class="text-center">Modifique su perfil</h5>
-        <form action="{{ route('AdminLocaleditPerfil') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('UsuarioLocaleditPerfil') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" id="id" value="{{$data['user']->id}}">
             <div class="row">
@@ -89,7 +89,7 @@ Perfil de usuario
                     <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
                 </div>
                 <div class="col-md-2">
-                    <a href="{{ route('dashAdminLocal') }}" name="btnCancelar" id="btnCancelar" class="btn btn-info btn-block">Cancelar</a>
+                    <a href="{{ route('dashUsuarioLocal') }}" name="btnCancelar" id="btnCancelar" class="btn btn-info btn-block">Cancelar</a>
                 </div>
             </div>
         </form>

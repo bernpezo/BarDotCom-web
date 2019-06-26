@@ -39,6 +39,10 @@ Route::get('dashAdminSys', 'AdminSysController@index')->name('dashAdminSys');
  */
 Route::get('dashAdminLocal', 'AdminLocalController@index')->name('dashAdminLocal');
 /*
+ * Rutas UsuarioLocal
+ */
+Route::get('dashUsuarioLocal', 'UsuarioLocalController@index')->name('dashUsuarioLocal');
+/*
  * CRUD local comercial
  */
 Route::get('dashAdminSyslocales', 'AdminSysController@locales')->name('dashAdminSyslocales');
@@ -95,5 +99,7 @@ Route::post('destroyItem', 'AdminLocalController@destroyItem')->name('destroyIte
 Route::get('dashAdminSysperfil', 'AdminSysController@perfil')->name('dashAdminSysperfil');
 Route::get('dashAdminLocalperfil', 'AdminLocalController@perfil')->name('dashAdminLocalperfil');
 Route::get('dashClienteperfil', 'ClienteController@perfil')->name('dashClienteperfil');
+Route::get('dashUsuarioLocalperfil', 'UsuarioLocalController@perfil')->name('dashUsuarioLocalperfil');
 Route::post('AdminSyseditPerfil', 'AdminSysController@editPerfil')->name('AdminSyseditPerfil');
 Route::post('AdminLocaleditPerfil', 'AdminLocalController@editPerfil')->name('AdminLocaleditPerfil');
+Route::post('UsuarioLocaleditPerfil', 'UsuarioLocalController@editPerfil')->name('UsuarioLocaleditPerfil');

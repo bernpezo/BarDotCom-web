@@ -11,6 +11,7 @@ use App\Cliente;
 use App\Administrador_sistema;
 use App\Administrador_local;
 use App\Local_comercial;
+use App\Usuario_local;
 
 class HomeController extends Controller
 {
@@ -30,16 +31,22 @@ class HomeController extends Controller
         $cliente=Cliente::find($user->id);
         $adminsys=Administrador_sistema::find($user->id);
         $adminlocal=Administrador_local::find($user->id);
+        $usuariolocal=Usuario_local::find($user->id);
         if($cliente!==null)
         {
-            return view ('dashboard.dashCliente');
+            return view('dashboard.dashCliente');
         }
         if($adminsys!==null)
         {
-            return view ('dashboard.dashAdminSys');
+            return view('dashboard.dashAdminSys');
         }
-        if($adminlocal!==null){
-            return view ('dashboard.dashAdminLocal');
+        if($adminlocal!==null)
+        {
+            return view('dashboard.dashAdminLocal');
+        }
+        if($usuariolocal!==null)
+        {
+            return view('dashboard.dashUsuarioLocal');
         }
     }
 

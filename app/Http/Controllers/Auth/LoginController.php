@@ -9,6 +9,7 @@ use App\User;
 use App\Cliente;
 use App\Administrador_sistema;
 use App\Administrador_local;
+use App\Usuario_local;
 
 class LoginController extends Controller
 {
@@ -38,6 +39,7 @@ class LoginController extends Controller
             $cliente=Cliente::find($user->id);
             $adminsys=Administrador_sistema::find($user->id);
             $adminlocal=Administrador_local::find($user->id);
+            $usuariolocal=Usuario_local::find($user->id);
             if($cliente!==null)
             {
                 return '/dashCliente';
@@ -49,6 +51,10 @@ class LoginController extends Controller
             if($adminlocal!==null)
             {
                 return '/dashAdminLocal';
+            }
+            if($usuariolocal!==null)
+            {
+                return '/dashUsuarioLocal';
             }
         } catch (\Throwable $th) {
             return "error";

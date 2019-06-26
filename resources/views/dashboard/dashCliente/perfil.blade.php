@@ -89,7 +89,7 @@ Perfil de usuario
                     <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
                 </div>
                 <div class="col-md-2">
-                    <a href="{{ route('dashAdminSys') }}" name="btnCancelar" id="btnCancelar" class="btn btn-info btn-block">Cancelar</a>
+                    <a href="{{ route('dashCliente') }}" name="btnCancelar" id="btnCancelar" class="btn btn-info btn-block">Cancelar</a>
                 </div>
             </div>
         </form>

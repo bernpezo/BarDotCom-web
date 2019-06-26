@@ -80,8 +80,8 @@ class AdminLocalController extends Controller
             $request->request->add(['idLocal' => $admin->idLocal ]);
             $validar = $request->validate([
                 'idLocal' => 'required',
-                'nombre' => 'required',
-                'descripcion' => 'required',
+                'nombre' => 'required|string|max:255',
+                'descripcion' => 'required|string|max:500',
                 'imagen' => 'required',
                 'imagen.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
@@ -121,13 +121,13 @@ class AdminLocalController extends Controller
             $request->request->add(['idLocal' => $admin->idLocal ]);
             $validar = $request->validate([
                 'idLocal' => 'required',
-                'nombre' => 'required',
+                'nombre' => 'required|string|max:255',
                 'imagen' => 'required',
                 'imagen.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'precio' => 'required|integer',
                 'stock' => 'required|integer',
                 'estado' => 'required|integer',
-                'descripcion' => 'required',
+                'descripcion' => 'required|string|max:500',
             ]);
             /*agregar imagen pendiente*/
             Item::create($validar);
@@ -393,8 +393,8 @@ class AdminLocalController extends Controller
             $validar = $request->validate([
                 'idLocal' => 'required',
                 'imagen' => 'required',
-                'nombre' => 'required',
-                'descripcion' => 'required',
+                'nombre' => 'required|string|max:255',
+                'descripcion' => 'required|string|max:500',
             ]);
             $promocion->update($validar);
             $data['respuesta'] = $this->respuesta = 1;
@@ -436,13 +436,13 @@ class AdminLocalController extends Controller
             $request->request->add(['idLocal' => $Admin->idLocal]);
             $validar = $request->validate([
                 'idLocal' => 'required',
-                'nombre' => 'required',
+                'nombre' => 'required|string|max:255',
                 'imagen' => 'required',
                 'imagen.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'precio' => 'required|integer',
                 'stock' => 'required|integer',
                 'estado' => 'required|integer',
-                'descripcion' => 'required',
+                'descripcion' => 'required|string|max:500',
             ]);
             $item->update($validar);
             $data['respuesta'] = $this->respuesta = 1;

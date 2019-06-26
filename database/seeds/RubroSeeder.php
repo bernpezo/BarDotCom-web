@@ -18,7 +18,6 @@ class RubroSeeder extends Seeder
             ['id' => '562900','nombre' => 'SUMINISTRO INDUSTRIAL DE COMIDAS POR ENCARGO; CONCESIÓN DE SERVICIOS DE ALIMENTACIÓN'],
             ['id' => '563001','nombre' => 'ACTIVIDADES DE DISCOTECAS Y CABARET (NIGHT CLUB), CON PREDOMINIO DEL SERVICIO DE BEBIDAS'],
             ['id' => '563009','nombre' => 'OTRAS ACTIVIDADES DE SERVICIO DE BEBIDAS N.C.P.']
-
         ];
         foreach($rubros as $rubro){
             Rubro::create($rubro);
