@@ -156,126 +156,134 @@ class AdminSysController extends Controller
      */
     public function showLocalComercial(Request $request)
     {
-        $search = $order = $start = $length = $draw = null;
-        /*Se valida que vengan todos los parametros*/
-        if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
-            return "data errors";
-        }else{
-            $search = $request->search;
-            $order = $request->order;
-            $start = $request->start;
-            $length = $request->length;
-            $draw = $request->draw;
-            $columns = $totalRecords = $data = array();
-            //definir indices de las columnas
-            $columns = array(
-              0 => 'id',    
-              1 => 'nombre',
-              2 => 'direccion'
-            );
-           //si vienen criterios de busqueda
-           if(!empty($request->search['value'])){
-                $totalRegistros = Local_comercial::where('nombre','like','%'.$request->search['value'].'%')
-                                            ->orWhere('id','like','%'.$request->search['value'].'%')
-                                            ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
-                                            ->count();
-                $registros = Local_comercial::latest('updated_at')	
-                                            ->where('nombre','like','%'.$request->search['value'].'%')
-                                            ->orWhere('id','like','%'.$request->search['value'].'%')
-                                            ->offset($start)
-                                            ->limit($length)
-                                            ->get();
-           }else{
-                $totalRegistros = Local_comercial::where('nombre','like','%'.$request->search['value'].'%')
+        try {
+            $search = $order = $start = $length = $draw = null;
+            /*Se valida que vengan todos los parametros*/
+            if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
+                return "data errors";
+            }else{
+                $search = $request->search;
+                $order = $request->order;
+                $start = $request->start;
+                $length = $request->length;
+                $draw = $request->draw;
+                $columns = $totalRecords = $data = array();
+                //definir indices de las columnas
+                $columns = array(
+                  0 => 'id',    
+                  1 => 'nombre',
+                  2 => 'direccion'
+                );
+                //si vienen criterios de busqueda
+                if(!empty($request->search['value'])){
+                    $totalRegistros = Local_comercial::where('nombre','like','%'.$request->search['value'].'%')
                                                 ->orWhere('id','like','%'.$request->search['value'].'%')
-                								->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                                ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                                 ->count();
-                $registros = Local_comercial::latest('created_at')              													
-                                                ->Where('nombre','like','%'.$request->search['value'].'%')
+                    $registros = Local_comercial::latest('updated_at')	
+                                                ->where('nombre','like','%'.$request->search['value'].'%')
                                                 ->orWhere('id','like','%'.$request->search['value'].'%')
                                                 ->offset($start)
                                                 ->limit($length)
                                                 ->get();
-           }
-           //agregamos los botones editar y eliminar
-           foreach ($registros as $local_comercial) {
-                $local_comercial->parametros= '<a href="'.route('getOneLocalComercial', ['id64'=>base64_encode($local_comercial->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
-            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($local_comercial->id).'" data-url="'.route('destroyLocalComercial').'" data-ing="'.$local_comercial->nombre.'">Eliminar</buttom>';
-                $data[] = $local_comercial;
-           }
-           //se crea la data
-           $json_data = array(
-             "draw"            => intval($draw ),   
-             "recordsTotal"    => intval($totalRegistros ),  
-             "recordsFiltered" => intval($totalRegistros),
-             "data"            => $data   // total data array
-           );
+                }else{
+                    $totalRegistros = Local_comercial::where('nombre','like','%'.$request->search['value'].'%')
+                                                    ->orWhere('id','like','%'.$request->search['value'].'%')
+                                                    ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                                    ->count();
+                    $registros = Local_comercial::latest('created_at')              													
+                                                    ->Where('nombre','like','%'.$request->search['value'].'%')
+                                                    ->orWhere('id','like','%'.$request->search['value'].'%')
+                                                    ->offset($start)
+                                                    ->limit($length)
+                                                    ->get();
+                }
+                //agregamos los botones editar y eliminar
+                foreach ($registros as $local_comercial) {
+                    $local_comercial->parametros= '<a href="'.route('getOneLocalComercial', ['id64'=>base64_encode($local_comercial->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
+                <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($local_comercial->id).'" data-url="'.route('destroyLocalComercial').'" data-ing="'.$local_comercial->nombre.'">Eliminar</buttom>';
+                    $data[] = $local_comercial;
+               }
+               //se crea la data
+               $json_data = array(
+                 "draw"            => intval($draw ),   
+                 "recordsTotal"    => intval($totalRegistros ),  
+                 "recordsFiltered" => intval($totalRegistros),
+                 "data"            => $data   // total data array
+               );
+            }
+            //se retorna en formato JSON
+            return json_encode($json_data);
+        } catch (\Throwable $th) {
+            return "error";
         }
-        //se retorna en formato JSON
-        return json_encode($json_data);
     }
     /*
      * Mostrar lista de avisos
      */
     public function showAviso(Request $request)
     {
-        $search = $order = $start = $length = $draw = null;
-        /*Se valida que vengan todos los parametros*/
-        if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
-            return "data errors";
-        }else{
-            $search = $request->search;
-            $order = $request->order;
-            $start = $request->start;
-            $length = $request->length;
-            $draw = $request->draw;
-            $columns = $totalRecords = $data = array();
-            //definir indices de las columnas
-            $columns = array(
-              0 => 'id',    
-              1 => 'nombre',
-              2 => 'created_at'
-            );
-           //si vienen criterios de busqueda
-           if(!empty($request->search['value'])){
-                $totalRegistros = Aviso::where('nombre','like','%'.$request->search['value'].'%')
-                                            ->orWhere('id','like','%'.$request->search['value'].'%')
-                                            ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
-                                            ->count();
-                $registros = Aviso::latest('created_at')	
-                                            ->where('nombre','like','%'.$request->search['value'].'%')
-                                            ->orWhere('id','like','%'.$request->search['value'].'%')
-                                            ->offset($start)
-                                            ->limit($length)
-                                            ->get();
-           }else{
-                $totalRegistros = Aviso::where('nombre','like','%'.$request->search['value'].'%')
+        try {
+            $search = $order = $start = $length = $draw = null;
+            /*Se valida que vengan todos los parametros*/
+            if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
+                return "data errors";
+            }else{
+                $search = $request->search;
+                $order = $request->order;
+                $start = $request->start;
+                $length = $request->length;
+                $draw = $request->draw;
+                $columns = $totalRecords = $data = array();
+                //definir indices de las columnas
+                $columns = array(
+                  0 => 'id',    
+                  1 => 'nombre',
+                  2 => 'created_at'
+                );
+               //si vienen criterios de busqueda
+               if(!empty($request->search['value'])){
+                    $totalRegistros = Aviso::where('nombre','like','%'.$request->search['value'].'%')
                                                 ->orWhere('id','like','%'.$request->search['value'].'%')
-                								->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                                ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                                 ->count();
-                $registros = Aviso::latest('created_at')              													
-                                                ->Where('nombre','like','%'.$request->search['value'].'%')
+                    $registros = Aviso::latest('created_at')	
+                                                ->where('nombre','like','%'.$request->search['value'].'%')
                                                 ->orWhere('id','like','%'.$request->search['value'].'%')
                                                 ->offset($start)
                                                 ->limit($length)
                                                 ->get();
-           }
-           //agregamos los botones html edit/delete
-           foreach ($registros as $avisos) {
-                $avisos->parametros= '<a href="'.route('getOneAviso', ['id64'=>base64_encode($avisos->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
-            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($avisos->id).'" data-url="'.route('destroyAviso').'" data-ing="'.$avisos->nombre.'">Eliminar</buttom>';
-                $data[] = $avisos;
-           }
-           //se crea la data
-           $json_data = array(
-             "draw"            => intval($draw ),   
-             "recordsTotal"    => intval($totalRegistros ),  
-             "recordsFiltered" => intval($totalRegistros),
-             "data"            => $data   // total data array
-           );
+               }else{
+                    $totalRegistros = Aviso::where('nombre','like','%'.$request->search['value'].'%')
+                                                    ->orWhere('id','like','%'.$request->search['value'].'%')
+                                                    ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                                    ->count();
+                    $registros = Aviso::latest('created_at')              													
+                                                    ->Where('nombre','like','%'.$request->search['value'].'%')
+                                                    ->orWhere('id','like','%'.$request->search['value'].'%')
+                                                    ->offset($start)
+                                                    ->limit($length)
+                                                    ->get();
+               }
+               //agregamos los botones html edit/delete
+               foreach ($registros as $avisos) {
+                    $avisos->parametros= '<a href="'.route('getOneAviso', ['id64'=>base64_encode($avisos->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
+                <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($avisos->id).'" data-url="'.route('destroyAviso').'" data-ing="'.$avisos->nombre.'">Eliminar</buttom>';
+                    $data[] = $avisos;
+               }
+               //se crea la data
+               $json_data = array(
+                 "draw"            => intval($draw ),   
+                 "recordsTotal"    => intval($totalRegistros ),  
+                 "recordsFiltered" => intval($totalRegistros),
+                 "data"            => $data   // total data array
+               );
+            }
+            //se retorna en formato JSON
+            return json_encode($json_data);
+        } catch (\Throwable $th) {
+            return "error";
         }
-        //se retorna en formato JSON
-        return json_encode($json_data);
     }
     /*
      * Enviar local comercial a la vista de edición
