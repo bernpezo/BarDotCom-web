@@ -93,6 +93,7 @@ Perfil de usuario
                 </div>
             </div>
         </form>
+        <br>
         <form action="{{ route('ClienteeliminarCuenta') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" id="id" value="{{$data['user']->id}}">
