@@ -1,4 +1,4 @@
-#Para installar
+# Para installar
 
 Instalar:
 
@@ -8,7 +8,7 @@ Ingresar datos por defecto:
 
 php artisan migrate:refresh --seed
 
-#Para usar
+# Para usar
 
 Cuenta de Administrador de sistema:
 
@@ -16,7 +16,7 @@ Usuario: admin@bardotcom.cl
 
 Contraseña: 123123123
 
-#Otros usuario
+# Otros usuario
 
 Cuando el Administrador de sistema crea un Local comercial, se crea un Administrador de local y 5 usuarios de local.
 
