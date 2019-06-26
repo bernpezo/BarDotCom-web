@@ -12,7 +12,7 @@ Avisos de sistema
         <form action="" method="POST">
             @csrf
             <div>
-                <table class="table table-striped" id="tablaAvisos" data-url="{{ route('showAviso') }}">
+                <table class="display responsive nowrap" style="width:100%" id="tablaAvisos" data-url="{{ route('showAviso') }}">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>

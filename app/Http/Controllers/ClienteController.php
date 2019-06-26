@@ -12,7 +12,15 @@ class ClienteController extends Controller
     
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(function($request,$next)
+        {
+            $user=Auth::user();
+            if(Cliente::find($user->id)==null)
+            {
+                return redirect()->route('login');
+            }
+            return $next($request);
+        });
     }
     /**
      * Display a listing of the resource.
@@ -96,5 +104,38 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente)
     {
         //
+    }
+
+    public function editPerfil(Request $request)
+    {
+        $user=User::find($request->id);
+        $data=array();
+        $data['user'] = $user;
+        try {
+            $validar = $request->validate([
+                'nombre' => 'required|string|max:255',
+                'apellido' => 'required|string|max:255',
+                'comuna' => 'required|integer',
+                'fechaNacimiento' => 'required|date',
+                'telefono' => 'required|integer',
+                'email' => 'required|string|email|max:255',
+                'passwordActual' => 'required|string|min:8',
+            ]);
+            if((Hash::check($request->passwordActual, $user->password))){
+                $user->update($validar);
+                if($request->password!=''){
+                    $user->password=Hash::make($request->password);
+                    $user->update();
+                }
+                $data['respuesta'] = $this->respuesta = 1;
+                return view('dashboard.dashCliente.perfil')->with('data',$data);
+            }else{
+                $data['respuesta'] = $this->respuesta = 2;
+                return view('dashboard.dashCliente.perfil')->with('data',$data);
+            }
+        } catch (\Throwable $th) {
+            $data['respuesta'] = $this->respuesta = 0;
+            return view('dashboard.dashCliente.perfil')->with('data',$data);
+        }
     }
 }

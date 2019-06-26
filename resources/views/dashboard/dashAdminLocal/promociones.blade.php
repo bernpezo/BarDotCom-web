@@ -12,7 +12,7 @@ Promociones
         <form action="" method="POST">
             @csrf
             <div>
-                <table class="table table-striped" id="tablaPromociones" data-url="{{ route('showPromocion') }}">
+                <table class="display responsive nowrap" style="width:100%" id="tablaPromociones" data-url="{{ route('showPromocion') }}">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>

@@ -12,7 +12,7 @@ Mesas
         <form action="" method="POST">
             @csrf
             <div>
-                <table class="table table-striped" id="tablaMesas" data-url="{{ route('showMesa') }}">
+                <table class="display responsive nowrap" style="width:100%" id="tablaMesas" data-url="{{ route('showMesa') }}">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>

@@ -12,7 +12,7 @@
         <form action="" method="POST">
             @csrf
             <div>
-                <table class="table table-striped" id="tablaItems" data-url="{{ route('showItem') }}">
+                <table class="display responsive nowrap" style="width:100%" id="tablaItems" data-url="{{ route('showItem') }}">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>

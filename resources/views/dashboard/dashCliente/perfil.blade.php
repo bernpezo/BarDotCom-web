@@ -11,7 +11,7 @@ Perfil de usuario
     <div class="container cuerpo">
         <h3 class="text-center">Modificar Perfil</h3>
         <h5 class="text-center">Modifique su perfil</h5>
-        <form action="{{ route('AdminLocaleditPerfil') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('ClienteeditPerfil') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" id="id" value="{{$data['user']->id}}">
             <div class="row">

@@ -18,7 +18,15 @@ class AdminLocalController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(function($request,$next)
+        {
+            $user=Auth::user();
+            if(Administrador_local::find($user->id)==null)
+            {
+                return redirect()->route('login');
+            }
+            return $next($request);
+        });
     }
     /**
      * Display a listing of the resource.
@@ -169,11 +177,13 @@ class AdminLocalController extends Controller
            if(!empty($request->search['value'])){
                 $totalRegistros = Promocion::where('idLocal','like','%'.$admin->idLocal.'%')
                                             ->where('nombre','like','%'.$request->search['value'].'%')
+                                            ->orWhere('id','like','%'.$request->search['value'].'%')
                                             ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                             ->count();
                 $registros = Promocion::latest('created_at')
                                             ->where('idLocal','like','%'.$admin->idLocal.'%')	
-                							->where('nombre','like','%'.$request->search['value'].'%')
+                                            ->where('nombre','like','%'.$request->search['value'].'%')
+                                            ->orWhere('id','like','%'.$request->search['value'].'%')
                                             ->offset($start)
                                             ->limit($length)
                                             ->get();
@@ -189,12 +199,8 @@ class AdminLocalController extends Controller
            }
            //agregamos los botones html edit/delete
            foreach ($registros as $promociones) {
-                $promociones->parametros= '<a href="'.route('getOnePromocion', ['id64'=>base64_encode($promociones->id)]).'" class="btn btn-info btn-actions btn-editar">
-                <i class="fa fa-edit"></i>
-            </a>
-            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($promociones->id).'" data-url="'.route('destroyPromocion').'" data-ing="'.$promociones->nombre.'">
-                <i class="fa fa-remove"></i>
-            </buttom>';
+                $promociones->parametros= '<a href="'.route('getOnePromocion', ['id64'=>base64_encode($promociones->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
+            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($promociones->id).'" data-url="'.route('destroyPromocion').'" data-ing="'.$promociones->nombre.'">Eliminar</buttom>';
                 $data[] = $promociones;
            }
            //se crea la data
@@ -233,11 +239,13 @@ class AdminLocalController extends Controller
            if(!empty($request->search['value'])){
                 $totalRegistros = Mesa::where('idLocal','like','%'.$admin->idLocal.'%')
                                             ->where('numero','like','%'.$request->search['value'].'%')
+                                            ->orWhere('id','like','%'.$request->search['value'].'%')
                                             ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                             ->count();
                 $registros = Mesa::latest('created_at')
                                             ->where('idLocal','like','%'.$admin->idLocal.'%')	
-                							->where('numero','like','%'.$request->search['value'].'%')
+                                            ->where('numero','like','%'.$request->search['value'].'%')
+                                            ->orWhere('id','like','%'.$request->search['value'].'%')
                                             ->offset($start)
                                             ->limit($length)
                                             ->get();
@@ -253,12 +261,8 @@ class AdminLocalController extends Controller
            }
            //agregamos los botones html edit/delete
            foreach ($registros as $mesa) {
-                $mesa->parametros= '<a href="'.route('getOneMesa', ['id64'=>base64_encode($mesa->id)]).'" class="btn btn-info btn-actions btn-editar">
-                <i class="fa fa-edit"></i>
-            </a>
-            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($mesa->id).'" data-url="'.route('destroyMesa').'" data-ing="'.$mesa->numero.'">
-                <i class="fa fa-remove"></i>
-            </buttom>';
+                $mesa->parametros= '<a href="'.route('getOneMesa', ['id64'=>base64_encode($mesa->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
+            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($mesa->id).'" data-url="'.route('destroyMesa').'" data-ing="'.$mesa->numero.'">Eliminar</buttom>';
                 $data[] = $mesa;
            }
            //se crea la data
@@ -297,11 +301,13 @@ class AdminLocalController extends Controller
            if(!empty($request->search['value'])){
                 $totalRegistros = Item::where('idLocal','like','%'.$admin->idLocal.'%')
                                             ->where('nombre','like','%'.$request->search['value'].'%')
+                                            ->orWhere('id','like','%'.$request->search['value'].'%')
                                             ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                             ->count();
                 $registros = Item::latest('created_at')
                                             ->where('idLocal','like','%'.$admin->idLocal.'%')	
-                							->where('nombre','like','%'.$request->search['value'].'%')
+                                            ->where('nombre','like','%'.$request->search['value'].'%')
+                                            ->orWhere('id','like','%'.$request->search['value'].'%')
                                             ->offset($start)
                                             ->limit($length)
                                             ->get();
@@ -317,12 +323,8 @@ class AdminLocalController extends Controller
            }
            //agregamos los botones html edit/delete
            foreach ($registros as $items) {
-                $items->parametros= '<a href="'.route('getOneItem', ['id64'=>base64_encode($items->id)]).'" class="btn btn-info btn-actions btn-editar">
-                <i class="fa fa-edit"></i>
-            </a>
-            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($items->id).'" data-url="'.route('destroyItem').'" data-ing="'.$items->nombre.'">
-                <i class="fa fa-remove"></i>
-            </buttom>';
+                $items->parametros= '<a href="'.route('getOneItem', ['id64'=>base64_encode($items->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
+            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($items->id).'" data-url="'.route('destroyItem').'" data-ing="'.$items->nombre.'">Eliminar</buttom>';
                 $data[] = $items;
            }
            //se crea la data

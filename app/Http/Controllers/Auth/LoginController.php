@@ -36,23 +36,19 @@ class LoginController extends Controller
     public function redirectTo(){
         try {
             $user=Auth::user();
-            $cliente=Cliente::find($user->id);
-            $adminsys=Administrador_sistema::find($user->id);
-            $adminlocal=Administrador_local::find($user->id);
-            $usuariolocal=Usuario_local::find($user->id);
-            if($cliente!==null)
+            if(Cliente::find($user->id)!==null)
             {
                 return '/dashCliente';
             }
-            if($adminsys!==null)
+            if(Administrador_sistema::find($user->id)!==null)
             {
                 return '/dashAdminSys';
             }
-            if($adminlocal!==null)
+            if(Administrador_local::find($user->id)!==null)
             {
                 return '/dashAdminLocal';
             }
-            if($usuariolocal!==null)
+            if(Usuario_local::find($user->id)!==null)
             {
                 return '/dashUsuarioLocal';
             }

@@ -103,3 +103,4 @@ Route::get('dashUsuarioLocalperfil', 'UsuarioLocalController@perfil')->name('das
 Route::post('AdminSyseditPerfil', 'AdminSysController@editPerfil')->name('AdminSyseditPerfil');
 Route::post('AdminLocaleditPerfil', 'AdminLocalController@editPerfil')->name('AdminLocaleditPerfil');
 Route::post('UsuarioLocaleditPerfil', 'UsuarioLocalController@editPerfil')->name('UsuarioLocaleditPerfil');
+Route::post('ClienteeditPerfil', 'ClienteController@editPerfil')->name('ClienteeditPerfil');

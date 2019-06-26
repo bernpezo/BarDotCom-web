@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Usuario_local;
 
 class UsuarioLocalController extends Controller
 {
@@ -11,7 +12,15 @@ class UsuarioLocalController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(function($request,$next)
+        {
+            $user=Auth::user();
+            if(Usuario_local::find($user->id)==null)
+            {
+                return redirect()->route('login');
+            }
+            return $next($request);
+        });
     }
 
     /**
