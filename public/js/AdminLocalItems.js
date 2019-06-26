@@ -75,12 +75,12 @@ $(document).ready( function () {
 		}
     });
     /*
-     * Editar local
+     * Editar
      */
     function editarItem() {
 	}
     /*
-     * Eliminar local
+     * Eliminar
      */
     function eliminarItem() {
     	$('.btn-eliminar').click(function(event) {

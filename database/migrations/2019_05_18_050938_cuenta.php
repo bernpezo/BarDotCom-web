@@ -18,6 +18,7 @@ class Cuenta extends Migration
             $table->unsignedBigInteger('idLocal');
             $table->unsignedBigInteger('idUsuario');
             $table->unsignedBigInteger('idCliente');
+            $table->unsignedBigInteger('idMesa');
             $table->integer('total');
             $table->boolean('estado');
             $table->timestamp('fecha');
@@ -25,6 +26,7 @@ class Cuenta extends Migration
             $table->foreign('idLocal')->references('id')->on('local_comercials');
             $table->foreign('idUsuario')->references('id')->on('usuario_locals');
             $table->foreign('idCliente')->references('id')->on('clientes');
+            $table->foreign('idMesa')->references('id')->on('mesas');
         });
     }
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Usuario_local;
+use App\Pedido;
+use App\Cuenta;
 
 class UsuarioLocalController extends Controller
 {
@@ -42,58 +44,150 @@ class UsuarioLocalController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showPedidosPendientes(Request $request)
     {
-        //
+        $usuario = Usuario_local::where('id',Auth::user()->id)->first();
+        $search = $order = $start = $length = $draw = null;
+        /*Se valida que vengan todos los parametros*/
+        if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
+            return "data errors";
+        }else{
+            $search = $request->search;
+            $order = $request->order;
+            $start = $request->start;
+            $length = $request->length;
+            $draw = $request->draw;
+            $columns = $totalRecords = $data = array();
+            //definir indices de las columnas
+            $columns = array(
+              0 => 'idCliente',    
+              1 => 'idMesa',
+              2 => 'idItem',
+              3 => 'cantidadItem',
+              4 => 'fecha'
+            );
+           //si vienen criterios de busqueda
+           if(!empty($request->search['value'])){
+                $totalRegistros = Pedido::where('idLocal','like','%'.$usuario->idLocal.'%')
+                                            ->where('estado','like','1')
+                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                            ->count();
+                $registros = Pedido::latest('created_at')
+                                            ->where('idLocal','like','%'.$usuario->idLocal.'%')	
+                                            ->where('estado','like','1')
+                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->offset($start)
+                                            ->limit($length)
+                                            ->get();
+           }else{
+                $totalRegistros = Pedido::where('idLocal','like','%'.$usuario->idLocal.'%')
+                                                ->where('estado','like','1')
+                								->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                                ->count();
+                $registros = Pedido::latest('created_at')     
+                                                ->where('idLocal','like','%'.$usuario->idLocal.'%')
+                                                ->where('estado','like','1')
+                                                ->offset($start)
+                                                ->limit($length)
+                                                ->get();
+           }
+           //agregamos los botones html entregar/eliminar
+           foreach ($registros as $pedido) {
+                $pedido->parametros= '<a href="'.route('entregarPedido', ['id64'=>base64_encode($pedido->id)]).'" class="btn btn-info btn-actions btn-editar">Entregar</a>
+            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($pedido->id).'" data-url="'.route('destroyPedido').'" data-ing="'.$pedido->fecha.'">Eliminar</buttom>';
+                $data[] = $pedido;
+           }
+           //se crea la data
+           $json_data = array(
+             "draw"            => intval($draw ),   
+             "recordsTotal"    => intval($totalRegistros ),  
+             "recordsFiltered" => intval($totalRegistros),
+             "data"            => $data   // total data array
+           );
+        }
+        //se retorna en formato JSON
+        return json_encode($json_data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function showCuentasPendientes(Request $request)
     {
-        //
+        $usuario = Usuario_local::where('id',Auth::user()->id)->first();
+        $search = $order = $start = $length = $draw = null;
+        /*Se valida que vengan todos los parametros*/
+        if(!isset($request->search) && !isset($request->order) && !isset($request->start) && !isset($request->length) && !isset($request->draw)){
+            return "data errors";
+        }else{
+            $search = $request->search;
+            $order = $request->order;
+            $start = $request->start;
+            $length = $request->length;
+            $draw = $request->draw;
+            $columns = $totalRecords = $data = array();
+            //definir indices de las columnas
+            $columns = array(
+              0 => 'idCliente',
+              1 => 'idMesa',    
+              2 => 'total',
+              3 => 'fecha'
+            );
+           //si vienen criterios de busqueda
+           if(!empty($request->search['value'])){
+                $totalRegistros = Cuenta::where('idLocal','like','%'.$usuario->idLocal.'%')
+                                            ->where('estado','like','1')
+                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                            ->count();
+                $registros = Cuenta::latest('created_at')
+                                            ->where('idLocal','like','%'.$usuario->idLocal.'%')	
+                                            ->where('estado','like','1')
+                                            ->orWhere('idItem','like','%'.$request->search['value'].'%')
+                                            ->offset($start)
+                                            ->limit($length)
+                                            ->get();
+           }else{
+                $totalRegistros = Cuenta::where('idLocal','like','%'.$usuario->idLocal.'%')
+                                                ->where('estado','like','1')
+                								->orderBy($columns[$order[0]['column']],$order[0]['dir'])
+                                                ->count();
+                $registros = Cuenta::latest('created_at')     
+                                                ->where('idLocal','like','%'.$usuario->idLocal.'%')
+                                                ->where('estado','like','1')
+                                                ->offset($start)
+                                                ->limit($length)
+                                                ->get();
+           }
+           //agregamos los botones html entregar/eliminar
+           foreach ($registros as $cuenta) {
+                $cuenta->parametros= '<a href="'.route('entregarCuenta', ['id64'=>base64_encode($cuenta->id)]).'" class="btn btn-info btn-actions btn-editar">Entregar</a>
+            <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($cuenta->id).'" data-url="'.route('destroyCuenta').'" data-ing="'.$cuenta->created_at.'">Eliminar</buttom>';
+                $data[] = $cuenta;
+           }
+           //se crea la data
+           $json_data = array(
+             "draw"            => intval($draw ),   
+             "recordsTotal"    => intval($totalRegistros ),  
+             "recordsFiltered" => intval($totalRegistros),
+             "data"            => $data   // total data array
+           );
+        }
+        //se retorna en formato JSON
+        return json_encode($json_data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function entregarPedido(Request $request)
     {
-        //
+        
+    }
+
+    public function entregarCuenta(Request $request)
+    {
+        
     }
 
     /**
@@ -102,7 +196,12 @@ class UsuarioLocalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroyPedido(Request $request)
+    {
+        //
+    }
+
+    public function destroyCuenta(Request $request)
     {
         //
     }

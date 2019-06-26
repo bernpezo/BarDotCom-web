@@ -75,12 +75,12 @@ $(document).ready( function () {
 		}
     });
     /*
-     * Editar local
+     * Editar
      */
     function editarMesa() {
 	}
     /*
-     * Eliminar local
+     * Eliminar
      */
     function eliminarMesa() {
     	$('.btn-eliminar').click(function(event) {

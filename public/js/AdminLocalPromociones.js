@@ -75,12 +75,12 @@ $(document).ready( function () {
 		}
     });
     /*
-     * Editar local
+     * Editar
      */
     function editarPromocion() {
 	}
     /*
-     * Eliminar local
+     * Eliminar
      */
     function eliminarPromocion() {
     	$('.btn-eliminar').click(function(event) {

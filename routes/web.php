@@ -94,6 +94,15 @@ Route::get('getOneItem', 'AdminLocalController@getOneItem')->name('getOneItem');
 Route::post('editItem', 'AdminLocalController@editItem')->name('editItem');
 Route::post('destroyItem', 'AdminLocalController@destroyItem')->name('destroyItem');
 /*
+ * Gestores pedido y cuenta
+ */
+Route::post('showPedidosPendientes', 'UsuarioLocalController@showPedidosPendientes')->name('showPedidosPendientes');
+Route::post('entregarPedido', 'UsuarioLocalController@entregarPedido')->name('entregarPedido');
+Route::post('destroyPedido', 'UsuarioLocalController@destroyPedido')->name('destroyPedido');
+Route::post('showCuentasPendientes', 'UsuarioLocalController@showCuentasPendientes')->name('showCuentasPendientes');
+Route::post('entregarCuenta', 'UsuarioLocalController@entregarCuenta')->name('entregarCuenta');
+Route::post('destroyCuenta', 'UsuarioLocalController@destroyCuenta')->name('destroyCuenta');
+/*
  * Perfil
  */
 Route::get('dashAdminSysperfil', 'AdminSysController@perfil')->name('dashAdminSysperfil');
