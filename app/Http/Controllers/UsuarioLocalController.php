@@ -7,6 +7,7 @@ use Auth;
 use App\Usuario_local;
 use App\Pedido;
 use App\Cuenta;
+use App\Item;
 
 class UsuarioLocalController extends Controller
 {
@@ -31,7 +32,7 @@ class UsuarioLocalController extends Controller
      */
     public function index()
     {
-        return view('dashboard.dashUsuarioLocal');
+        return view('dashboard.dashUsuarioLocal')->with('respuesta',$this->respuesta);
     }
 
     public function pedidosEntregados()
@@ -327,7 +328,27 @@ class UsuarioLocalController extends Controller
      */
     public function entregarPedido(Request $request)
     {
-        
+        try {
+            $pedido=Pedido::find(base64_decode($request->id64));
+            $pedido->estado=0;// Cambiar estado a entregado
+            $pedido->update();
+            $item=Item::find($pedido->idItem);
+            if($pedido->cantidadItem > $item->stock)// Revisar stock disponible
+            {
+                $respuesta = 2;
+                return view('dashboard.dashUsuarioLocal')->with('respuesta',$respuesta);
+            }
+            $item->stock=$item->stock - $pedido->cantidadItem;// Descontar stock
+            $item->update();
+            $cuenta=Cuenta::find($pedido->idCuenta);
+            $cuenta->total=$cuenta->total + ($item->precio * $pedido->cantidadItem);// Sumar total a la cuenta
+            $cuenta->update();
+            $respuesta = 1;
+            return view('dashboard.dashUsuarioLocal')->with('respuesta',$respuesta);
+        } catch (\Throwable $th) {
+            $respuesta = 0;
+            return view('dashboard.dashUsuarioLocal')->with('respuesta',$respuesta);
+        }
     }
     /*
      * Marcar cuenta como entregada al cliente

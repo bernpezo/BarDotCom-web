@@ -48,6 +48,7 @@ Panel de administración
     </div>
 @endsection
 @section('js2')
+<script>var respuesta = {{{$respuesta}}}</script>
 <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('js/dashUsuarioLocal.js') }}"></script>
 @endsection

@@ -97,7 +97,7 @@ Route::post('destroyItem', 'AdminLocalController@destroyItem')->name('destroyIte
  * Gestores pedido y cuenta
  */
 Route::post('showPedidosPendientes', 'UsuarioLocalController@showPedidosPendientes')->name('showPedidosPendientes');
-Route::post('entregarPedido', 'UsuarioLocalController@entregarPedido')->name('entregarPedido');
+Route::get('entregarPedido', 'UsuarioLocalController@entregarPedido')->name('entregarPedido');
 Route::post('destroyPedido', 'UsuarioLocalController@destroyPedido')->name('destroyPedido');
 Route::post('showCuentasPendientes', 'UsuarioLocalController@showCuentasPendientes')->name('showCuentasPendientes');
 Route::post('entregarCuenta', 'UsuarioLocalController@entregarCuenta')->name('entregarCuenta');
