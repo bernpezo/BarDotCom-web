@@ -16,6 +16,7 @@ use App\Usuario_local;
 
 class HomeController extends Controller
 {
+    private $respuesta = -1;// Variable para generar respuestas
     /**
      * Show the application dashboard.
      *
@@ -47,9 +48,7 @@ class HomeController extends Controller
                 }
                 if(Usuario_local::find($user->id)!==null)
                 {
-                    return view ('dashboard.dashUsuarioLocal');
-                }else{
-                    return view ('dashboard.dashCliente');
+                    return view ('dashboard.dashUsuarioLocal')->with('respuesta',$this->respuesta);
                 }
             }else{
                 return view ('home');
