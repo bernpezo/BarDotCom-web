@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Comuna;
@@ -31,21 +32,27 @@ class HomeController extends Controller
     {
         try {
             $user=Auth::user();// Obtener usuario autenticado
-            if(Cliente::find($user->id)!==null)// Verificar que tipo de usuario es y redirigir
-            {
-                return view ('dashboard.dashCliente');
-            }
-            if(Administrador_sistema::find($user->id)!==null)
-            {
-                return view ('dashboard.dashAdminSys');
-            }
-            if(Administrador_local::find($user->id)!==null)
-            {
-                return view ('dashboard.dashAdminLocal');
-            }
-            if(Usuario_local::find($user->id)!==null)
-            {
-                return view ('dashboard.dashUsuarioLocal');
+            if($user!==null){
+                if(Cliente::find($user->id)!==null)// Verificar que tipo de usuario es y redirigir
+                {
+                    return view ('dashboard.dashCliente');
+                }
+                if(Administrador_sistema::find($user->id)!==null)
+                {
+                    return view ('dashboard.dashAdminSys');
+                }   
+                if(Administrador_local::find($user->id)!==null)
+                {
+                    return view ('dashboard.dashAdminLocal');
+                }
+                if(Usuario_local::find($user->id)!==null)
+                {
+                    return view ('dashboard.dashUsuarioLocal');
+                }else{
+                    return view ('dashboard.dashCliente');
+                }
+            }else{
+                return view ('home');
             }
         } catch (\Throwable $th) {
             return "error";
