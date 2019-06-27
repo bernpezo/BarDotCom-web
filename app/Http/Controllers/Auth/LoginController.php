@@ -48,7 +48,7 @@ class LoginController extends Controller
             {
                 return '/dashAdminLocal';
             }
-            if($Usuario_local::find($user->id)!==null)
+            if(Usuario_local::find($user->id)!==null)
             {
                 return '/dashUsuarioLocal';
             }
