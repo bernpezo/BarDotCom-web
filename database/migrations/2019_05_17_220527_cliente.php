@@ -17,6 +17,7 @@ class Cliente extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('idUser')->nullable();
             $table->integer('nfc');
+            $table->primary('id');
             $table->timestamps();
             $table->foreign('idUser')->references('id')->on('users')->onDelete('set null');
         });
