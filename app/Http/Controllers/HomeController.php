@@ -72,6 +72,14 @@ class HomeController extends Controller
         return \Response::json($comunasEnviar);
     }
     /*
+     * Buscar comunas en BD para entregar a Select2 preseleccionado
+     */
+    public function selectComunaPre(Request $request)
+    {
+        $comuna=Comuna::find($request->id);
+        return $comuna;
+    }
+    /*
      * Buscar rubros en BD para entregar a Select2
      */
     public function selectRubro(Request $request)
@@ -84,6 +92,14 @@ class HomeController extends Controller
             $rubrosEnviar[]=['id' => $rubro->id, 'text' => $rubro->nombre];
         }
         return \Response::json($rubrosEnviar);
+    }
+    /*
+     * Buscar rubros en BD para entregar a Select2 preseleccionado
+     */
+    public function selectRubroPre(Request $request)
+    {
+        $rubro=Rubro::find($request->id);
+        return $rubro;
     }
     /*
      * Buscar locales en BD para entregar a Select2

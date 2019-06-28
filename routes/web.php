@@ -18,7 +18,9 @@ Auth::routes();
  * Rutas generales
  */
 Route::post('selectComuna', 'HomeController@selectComuna')->name('selectComuna');
+Route::get('selectComunaPre', 'HomeController@selectComunaPre')->name('selectComunaPre');
 Route::post('selectRubro', 'HomeController@selectRubro')->name('selectRubro');
+Route::get('selectRubroPre', 'HomeController@selectRubroPre')->name('selectRubroPre');
 Route::post('selectLocal', 'HomeController@selectLocal')->name('selectLocal');
 /*
  * Ruta vista inicio

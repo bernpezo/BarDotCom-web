@@ -37,7 +37,7 @@ Perfil de usuario
                             <label for="comuna">Comuna</label>
                         </div>
                         <div class="col-md-9">
-                            <select class="js-data-example-ajax form-control" name="comuna" id="comuna" data-url="{{ route('selectComuna') }}" required></select>
+                            <select class="js-data-example-ajax form-control" name="comuna" id="comuna" data-url="{{ route('selectComuna') }}" data-url2="{{ route('selectComunaPre') }}" required></select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -97,6 +97,7 @@ Perfil de usuario
 @endsection
 @section('js2')
 <script>var respuesta = {{{$data['respuesta']}}}</script>
+<script>var comuna = {{$data['user']->comuna}}</script>
 <script src="{{ asset('js/bootstrap-datepicker.min.js') }}" charset="UTF-8"></script>
 <script src="{{ asset('js/bootstrap-datepicker.es.js') }}"></script>
 <script src="{{ asset('js/session.js') }}"></script>

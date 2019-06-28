@@ -44,7 +44,8 @@ Editar local comercial
                             <label for="comuna">Comuna</label>
                         </div>
                         <div class="col-md-9">
-                            <select class="js-data-example-ajax form-control" name="comuna" id="comuna" data-url="{{ route('selectComuna') }}" required></select>
+                            <select class="js-data-example-ajax form-control" name="comuna" id="comuna" data-url="{{ route('selectComuna') }}" data-url2="{{ route('selectComunaPre') }}" required>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -52,7 +53,7 @@ Editar local comercial
                             <label for="rubro">Rubro</label>
                         </div>
                         <div class="col-md-9">
-                            <select class="js-data-example-ajax form-control" name="rubro" id="rubro" data-url="{{ route('selectRubro') }}" required></select>
+                            <select class="js-data-example-ajax form-control" name="rubro" id="rubro" data-url="{{ route('selectRubro') }}" data-url2="{{ route('selectRubroPre') }}" required></select>
                         </div>
                     </div>
                 </div>
@@ -104,6 +105,8 @@ Editar local comercial
 @endsection
 @section('js2')
 <script>var respuesta = {{{$data['respuesta']}}}</script>
+<script>var comuna = {{$data['local_comercial']->comuna}}</script>
+<script>var rubro = {{$data['local_comercial']->rubro}}</script>
 <script src="{{ asset('js/select2.min.js') }}"></script>
-<script src="{{ asset('js/AdminSyslocalCRUD.js') }}"></script>
+<script src="{{ asset('js/AdminSyslocalEditar.js') }}"></script>
 @endsection
