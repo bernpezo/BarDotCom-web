@@ -8,14 +8,14 @@
     margin-bottom: 20px;
 }
 .faq-home{
-    background-color: #000000;
+    background-color: grey;
     padding-top: 1px;
+    padding-bottom: 50px;
 }
 .faq-text-home h3{
     margin: 50px;
     color: white;
 }
-.faq-text-home h5{
-    margin-bottom: 20px;
+.faq-text-home p{
     color: white;
 }

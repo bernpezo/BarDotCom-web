@@ -1,6 +1,7 @@
 @extends('layouts.template')
 <!-- CSS home -->
 @section('css')
+<link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 @endsection
 <!-- fin CSS -->
@@ -121,44 +122,75 @@ BarDotCom
                 </div>
             </div>
         </div>
+        <!-- Fin características -->
+        <!-- Inicio FAQ -->
         <div class="faq-home">
             <div class="container">
                 <div class="faq-text-home">
                     <h3 class="text-center">F.A.Q.</h3>
                     <div class="row">
-                        <div class="col-md-6">
-                            <p>Para clientes</p>
-                            <p>¿Qué beneficios tiene BarDotCom?</p>
-                            <p></p>
-                            <p>¿Cuánto cuesta ser parte de BarDotCom?</p>
-                            <p></p>
-                            <p>¿Qué hago si pierdo mi tarjeta?</p>
-                            <p></p>
-                            <p>¿Puedo pedir productos sin entrar al local?</p>
-                            <p></p>
+                        <div class="col-md-6 faq-text-home">
+                            <p class="text-center">Para clientes</p>
+                            <p> - ¿Qué beneficios tiene BarDotCom?</p>
+                            <p>Puedes pedir productos disponibles en el local desde tu mesa, usando la aplicación móvil. También puedes pedir la cuenta cuando termines de divertirte.</p>
+                            <p> - ¿Cuánto cuesta ser parte de BarDotCom?</p>
+                            <p>Es gratis!</p>
+                            <p> - ¿Qué hago si pierdo mi tarjeta?</p>
+                            <p>Puedes solicitar otra tarjeta gratis en cualquier local adherido. Tienes derecho a 3 tarjetas gratis al año.</p>
+                            <p> - ¿Puedo pedir productos sin entrar al local?</p>
+                            <p>No. Para realizar pedidos debes registrar tu ingreso a un local.</p>
                         </div>
                         <div class="col-md-6">
-                            <p>Para locales</p>
-                            <p>¿Qué beneficios tiene BarDotCom?</p>
-                            <p></p>
-                            <p>¿Cuánto cuesta ser parte de BarDotCom?</p>
-                            <p></p>
-                            <p>¿También puedo usar la aplicación móvil?</p>
-                            <p></p>
-                            <p>¿Cómo gestiono los pagos de mis clientes?</p>
-                            <p></p>
+                            <p class="text-center">Para locales</p>
+                            <p> - ¿Qué beneficios tiene BarDotCom?</p>
+                            <p>Puedes mejorar la calidad de la atención a clientes al disminuir los tiempos de espera. Tendrás registro de todos los movimientos realizados por el sistema y reportes con información actualizada, entre otros.</p>
+                            <p> - ¿Cuánto cuesta ser parte de BarDotCom?</p>
+                            <p>Para locales comerciales existe un pago mensual. Esto te da acceso a todas las características del sistema, además de tarjetas NFC para tus clientes.</p>
+                            <p> - ¿También puedo usar la aplicación móvil?</p>
+                            <p>Si. El personal de tu local debe usar la aplicación para registrar el ingreso de los clientes. Para ésto, es necesario el uso de smartphones con tecnología NFC.</p>
+                            <p> - ¿Cómo gestiono los pagos de mis clientes?</p>
+                            <p>Tus clientes solo piden la cuenta y, desde ese punto, tu personal la entrega y cobra.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Fin características -->
-        <!-- Inicio FAQ -->
-
         <!-- Fin FAQ -->
         <!-- Inicio Contacto -->
-
+        <div class="container">
+            <div class="text-home">
+                <h3 class="text-center">Contacto</h3>
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" name="nombre" id="nombre" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="asunto">Asunto</label>
+                                <input type="text" name="asunto" id="asunto" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="mensaje">Mensaje</label>
+                                <textarea name="mensaje" id="mensaje" cols="30" rows="8" class="form-control" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" id="contacto" class="btn btn-success">Enviar</button>  
+                </form>
+            </div>
+        </div>
         <!-- Fin contacto -->
-        
     </div>
+@endsection
+@section('js')
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('js/home.js') }}"></script>
 @endsection
