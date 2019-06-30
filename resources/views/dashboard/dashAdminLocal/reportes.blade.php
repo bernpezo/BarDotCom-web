@@ -8,16 +8,16 @@ Reportes
         <div class="row">
             <div class="col-md-4 offset-md-4">
                 <div class="form-group">
-                    <a href="{{ route('reporteItems') }}" class="btn btn-primary btn-block from-control">Generar reporte items</a>
+                    <a href="{{ route('reporteItems') }}" class="btn btn-success btn-block from-control">Generar reporte items</a>
                 </div>
                 <div class="form-group">
-                    <a href="{{ route('reporteSemanal') }}" class="btn btn-primary btn-block from-control">Generar reporte semanal</a>
+                    <a href="{{ route('reporteSemanal') }}" class="btn btn-success btn-block from-control">Generar reporte semanal</a>
                 </div>
                 <div class="form-group">
-                    <a href="{{ route('reporteMensual') }}" class="btn btn-primary btn-block from-control">Generar reporte mensual</a>
+                    <a href="{{ route('reporteMensual') }}" class="btn btn-success btn-block from-control">Generar reporte mensual</a>
                 </div>
                 <div class="form-group">
-                    <a href="{{ route('reporteCuenta') }}" class="btn btn-primary btn-block from-control">Generar reporte cuenta</a>
+                    <a href="{{ route('reporteCuenta') }}" class="btn btn-success btn-block from-control">Generar reporte cuenta</a>
                 </div>
             </div>
         </div>

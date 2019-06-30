@@ -75,10 +75,10 @@ Registro
                             <div class="form-group">
                                 <div class="row justify-content-center">
                                     <div class="col-md-6">
-                                        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                                        <button type="submit" class="btn btn-success btn-block">Guardar</button>
                                     </div>
                                     <div class="col-md-6">
-                                        <a href="{{ route('home') }}" name="btnVolver" id="btnVolver" class="btn btn-info btn-block">Volver</a>
+                                        <a href="{{ route('home') }}" name="btnVolver" id="btnVolver" class="btn btn-secondary btn-block">Volver</a>
                                     </div>
                                 </div>
                             </div>

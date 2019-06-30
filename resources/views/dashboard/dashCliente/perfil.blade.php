@@ -94,10 +94,10 @@ Perfil de usuario
             </div>
             <div class="form-group row">
                 <div class="col-md-2 offset-md-4">
-                    <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+                    <button type="submit" class="btn btn-success btn-block">Ingresar</button>
                 </div>
                 <div class="col-md-2">
-                    <a href="{{ route('dashCliente') }}" name="btnCancelar" id="btnCancelar" class="btn btn-info btn-block">Cancelar</a>
+                    <a href="{{ route('dashCliente') }}" name="btnCancelar" id="btnCancelar" class="btn btn-secondary btn-block">Cancelar</a>
                 </div>
             </div>
         </form>
@@ -118,7 +118,7 @@ Perfil de usuario
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 offset-md-4">
-                            <button type="submit" class="btn btn-primary btn-block">Eliminar</button>
+                            <button type="submit" class="btn btn-danger btn-block">Eliminar</button>
                         </div>
                     </div>
                 </div>

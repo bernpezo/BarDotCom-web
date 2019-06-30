@@ -203,7 +203,7 @@ class AdminSysController extends Controller
                 }
                 //agregamos los botones editar y eliminar
                 foreach ($registros as $local_comercial) {
-                    $local_comercial->parametros= '<a href="'.route('getOneLocalComercial', ['id64'=>base64_encode($local_comercial->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
+                    $local_comercial->parametros= '<a href="'.route('getOneLocalComercial', ['id64'=>base64_encode($local_comercial->id)]).'" class="btn btn-success btn-actions btn-editar">Editar</a>
                 <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($local_comercial->id).'" data-url="'.route('destroyLocalComercial').'" data-ing="'.$local_comercial->nombre.'">Eliminar</buttom>';
                     $data[] = $local_comercial;
                }
@@ -270,7 +270,7 @@ class AdminSysController extends Controller
                }
                //agregamos los botones html edit/delete
                foreach ($registros as $avisos) {
-                    $avisos->parametros= '<a href="'.route('getOneAviso', ['id64'=>base64_encode($avisos->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
+                    $avisos->parametros= '<a href="'.route('getOneAviso', ['id64'=>base64_encode($avisos->id)]).'" class="btn btn-success btn-actions btn-editar">Editar</a>
                 <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($avisos->id).'" data-url="'.route('destroyAviso').'" data-ing="'.$avisos->nombre.'">Eliminar</buttom>';
                     $data[] = $avisos;
                }

@@ -236,7 +236,7 @@ class AdminLocalController extends Controller
                 }
                 //agregamos los botones editar y eliminar
                 foreach ($registros as $promociones) {
-                    $promociones->parametros= '<a href="'.route('getOnePromocion', ['id64'=>base64_encode($promociones->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
+                    $promociones->parametros= '<a href="'.route('getOnePromocion', ['id64'=>base64_encode($promociones->id)]).'" class="btn btn-success btn-actions btn-editar">Editar</a>
                 <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($promociones->id).'" data-url="'.route('destroyPromocion').'" data-ing="'.$promociones->nombre.'">Eliminar</buttom>';
                     $data[] = $promociones;
                 }
@@ -304,7 +304,7 @@ class AdminLocalController extends Controller
                }
                //agregamos los botones html edit/delete
                foreach ($registros as $mesa) {
-                    $mesa->parametros= '<a href="'.route('getOneMesa', ['id64'=>base64_encode($mesa->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
+                    $mesa->parametros= '<a href="'.route('getOneMesa', ['id64'=>base64_encode($mesa->id)]).'" class="btn btn-success btn-actions btn-editar">Editar</a>
                 <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($mesa->id).'" data-url="'.route('destroyMesa').'" data-ing="'.$mesa->numero.'">Eliminar</buttom>';
                     $data[] = $mesa;
                }
@@ -372,7 +372,7 @@ class AdminLocalController extends Controller
                }
                //agregamos los botones html edit/delete
                foreach ($registros as $items) {
-                    $items->parametros= '<a href="'.route('getOneItem', ['id64'=>base64_encode($items->id)]).'" class="btn btn-info btn-actions btn-editar">Editar</a>
+                    $items->parametros= '<a href="'.route('getOneItem', ['id64'=>base64_encode($items->id)]).'" class="btn btn-success btn-actions btn-editar">Editar</a>
                 <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($items->id).'" data-url="'.route('destroyItem').'" data-ing="'.$items->nombre.'">Eliminar</buttom>';
                     $data[] = $items;
                }
@@ -437,7 +437,7 @@ class AdminLocalController extends Controller
                }
                //agregamos los botones html edit/delete
                foreach ($registros as $items) {
-                    $items->parametros= '<a href="#" class="btn btn-info btn-actions btn-editar">Editar</a>
+                    $items->parametros= '<a href="#" class="btn btn-success btn-actions btn-editar">Editar</a>
                 <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($items->id).'" data-url="#" data-ing="'.$items->nombre.'">Eliminar</buttom>';
                     $data[] = $items;
                }
@@ -509,7 +509,7 @@ class AdminLocalController extends Controller
                }
                //agregamos los botones html edit/delete
                foreach ($registros as $cuenta) {
-                    $cuenta->parametros= '<a href="#" class="btn btn-info btn-actions btn-editar">Editar</a>
+                    $cuenta->parametros= '<a href="#" class="btn btn-success btn-actions btn-editar">Editar</a>
                 <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($cuenta->id).'" data-url="#" data-ing="'.$cuenta->nombre.'">Eliminar</buttom>';
                     $data[] = $cuenta;
                }
@@ -580,7 +580,7 @@ class AdminLocalController extends Controller
                }
                //agregamos los botones html edit/delete
                foreach ($registros as $cuenta) {
-                    $cuenta->parametros= '<a href="#" class="btn btn-info btn-actions btn-editar">Editar</a>
+                    $cuenta->parametros= '<a href="#" class="btn btn-success btn-actions btn-editar">Editar</a>
                 <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($cuenta->id).'" data-url="#" data-ing="'.$cuenta->nombre.'">Eliminar</buttom>';
                     $data[] = $cuenta;
                }
@@ -651,7 +651,7 @@ class AdminLocalController extends Controller
                }
                //agregamos los botones html edit/delete
                foreach ($registros as $cuenta) {
-                    $cuenta->parametros= '<a href="#" class="btn btn-info btn-actions btn-editar">Editar</a>
+                    $cuenta->parametros= '<a href="#" class="btn btn-success btn-actions btn-editar">Editar</a>
                 <buttom class="btn btn-danger btn-actions btn-eliminar" data-id="'.base64_encode($cuenta->id).'" data-url="#" data-ing="'.$cuenta->nombre.'">Eliminar</buttom>';
                     $data[] = $cuenta;
                }
