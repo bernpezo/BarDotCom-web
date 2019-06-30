@@ -12,24 +12,24 @@ BarDotCom
 @endsection
 @section('contenido')
     <!-- Inicio navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <nav id="navbar-ex" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="#">BarDotCom</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#carouselExampleFade">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Características</a>
+                    <a class="nav-link" href="#caracteristicas">Características</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">FAQ</a>
+                    <a class="nav-link" href="#faq">FAQ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contacto</a>
+                    <a class="nav-link" href="#contacto">Contacto</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -64,7 +64,7 @@ BarDotCom
         </div>
     </nav>
     <!-- Fin navbar -->
-    <div>
+    <div data-spy="scroll" data-target="#navbar-ex" data-offset="0">
         <!-- Inicio carrousel -->
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
@@ -97,7 +97,7 @@ BarDotCom
         <!-- Inicio características -->
         <div class="container">
             <div class="text-home">
-                <h3 class="text-center">Características</h3>
+                <h3 id="caracteristicas" class="text-center">Características</h3>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card" style="width: 100%;">
@@ -128,7 +128,7 @@ BarDotCom
         <div class="faq-home">
             <div class="container">
                 <div class="faq-text-home">
-                    <h3 class="text-center">F.A.Q.</h3>
+                    <h3 id="faq" class="text-center">F.A.Q.</h3>
                     <div class="row">
                         <div class="col-md-6 faq-text-home">
                             <p class="text-center">Para clientes</p>
@@ -160,7 +160,7 @@ BarDotCom
         <!-- Inicio Contacto -->
         <div class="container">
             <div class="text-home">
-                <h3 class="text-center">Contacto</h3>
+                <h3 id="contacto" class="text-center">Contacto</h3>
                 <form>
                     <div class="row">
                         <div class="col-md-6">

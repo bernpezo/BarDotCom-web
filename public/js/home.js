@@ -1,5 +1,9 @@
 $(document).ready(function() {
     /*
+     * Auto scroll navbar
+     */
+    $('body').scrollspy({ target: '#navbar-ex' })
+    /*
      * Formulario contacto
      */
     $('#contacto').click(function(event){
