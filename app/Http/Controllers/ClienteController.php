@@ -55,6 +55,7 @@ class ClienteController extends Controller
     public function editPerfil(Request $request)
     {
         $user=User::find($request->id);
+        $cliente=Cliente::where('idUser',$user->id)->first();
         $data=array();
         $data['user'] = $user;
         try {
@@ -65,28 +66,29 @@ class ClienteController extends Controller
                 'fechaNacimiento' => 'required|date',
                 'nfc' => 'integer',
                 'telefono' => 'required|integer',
-                'email' => 'required|string|email|max:255|unique:users',
+                'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
                 'passwordActual' => 'required|string|min:8',
             ]);
-            $cliente=Cliente::where('idUser',$user->id)->first();
             if((Hash::check($request->passwordActual, $user->password))){// Validar contraseña
                 $user->update($validar);
                 if($request->nfc!=''){
                     $cliente->nfc=$request->nfc;
                     $cliente->update();
                 }
-                $data['cliente'] = $cliente;
                 if($request->password!=''){
                     $user->password=Hash::make($request->password);
                     $user->update();
                 }
+                $data['cliente'] = $cliente;
                 $data['respuesta'] = $this->respuesta = 1;
                 return view('dashboard.dashCliente.perfil')->with('data',$data);
             }else{
+                $data['cliente'] = $cliente;
                 $data['respuesta'] = $this->respuesta = 2;
                 return view('dashboard.dashCliente.perfil')->with('data',$data);
             }
         } catch (\Throwable $th) {
+            $data['cliente'] = $cliente;
             $data['respuesta'] = $this->respuesta = 0;
             return view('dashboard.dashCliente.perfil')->with('data',$data);
         }
