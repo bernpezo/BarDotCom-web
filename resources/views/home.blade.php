@@ -1,6 +1,7 @@
 @extends('layouts.template')
 <!-- CSS home -->
 @section('css')
+<link rel="stylesheet" href="{{ asset('css/template.css') }}">
 <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 @endsection
@@ -32,15 +33,15 @@ BarDotCom
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                    @guest
+                @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Ingresar</a>
                     </li>
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Registrarse</a>
-                        </li>
-                    @endif
+                @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">Registrarse</a>
+                    </li>
+                @endif
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -189,6 +190,28 @@ BarDotCom
         </div>
         <!-- Fin contacto -->
     </div>
+    <!-- Inicio footer -->
+    <footer class="fondo">
+            <div class="footer-template footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a href="{{ route('home') }}"><h2 class="text-center">BarDotCom</h2></a>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="text-center">Repositorio</h5>
+                            <a href="https://github.com/bernpezo/BarDotCom-web"><h4 class="text-center">BarDotCom en GitHub</h4></a>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="text-center">BarDotCom es propiedad de:</p>
+                            <p>Rodrigo González</p>
+                            <p>Bernardo Pezo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Fin footer -->
 @endsection
 @section('js')
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
