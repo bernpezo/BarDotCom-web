@@ -75,7 +75,10 @@ $(document).ready( function () {
 		"createdRow": function ( row, data, index ) {
             $(row).find("td").eq(2).addClass("actions");
 		}
-    });
+	});
+	setInterval( function () {// Actualizar tablar cada 30 segundos
+		tablaPedidos.ajax.reload();
+	}, 30000 );
     /*
      * Data table cuenta
      */
@@ -146,7 +149,10 @@ $(document).ready( function () {
 		"createdRow": function ( row, data, index ) {
             $(row).find("td").eq(2).addClass("actions");
 		}
-    });
+	});
+	setInterval( function () {// Actualizar tablar cada 30 segundos
+		tablaCuentas.ajax.reload();
+	}, 30000 );
     /*
      * Editar pedido
      */
