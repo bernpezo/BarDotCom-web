@@ -36,10 +36,6 @@ class LoginController extends Controller
     public function redirectTo(){
         try {
             $user=Auth::user();
-            if(Cliente::find($user->id)!==null)
-            {
-                return '/dashCliente';
-            }
             if(Administrador_sistema::find($user->id)!==null)
             {
                 return '/dashAdminSys';
@@ -51,6 +47,10 @@ class LoginController extends Controller
             if(Usuario_local::find($user->id)!==null)
             {
                 return '/dashUsuarioLocal';
+            }
+            else
+            {
+                return '/dashCliente';
             }
         } catch (\Throwable $th) {
             return "error";

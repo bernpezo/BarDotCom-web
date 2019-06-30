@@ -4,6 +4,8 @@ Instalar:
 
     composer install
 
+Configurar .env con cadena de conexión a DB
+
 Ingresar datos por defecto:
 
     php artisan migrate:refresh --seed

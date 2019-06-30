@@ -21,7 +21,7 @@ class ClienteController extends Controller
         {
             try {
                 $user=Auth::user();
-                if(Cliente::find($user->id)==null)
+                if(Cliente::where('idUser',$user->id)==null)
                 {
                     return redirect()->route('login');
                 }

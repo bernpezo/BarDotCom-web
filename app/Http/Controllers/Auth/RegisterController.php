@@ -81,7 +81,7 @@ class RegisterController extends Controller
             ]);
             $usersCli=User::where('email',$users->email)->first();
             $clientes=new Cliente;
-            $clientes->id=$usersCli->id;
+            $clientes->idUser=$usersCli->id;
             if($data['nfc']!==null)
             {
                 $clientes->nfc=$data['nfc'];

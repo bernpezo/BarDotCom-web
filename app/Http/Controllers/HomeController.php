@@ -34,11 +34,7 @@ class HomeController extends Controller
         try {
             $user=Auth::user();// Obtener usuario autenticado
             if($user!==null){
-                if(Cliente::find($user->id)!==null)// Verificar que tipo de usuario es y redirigir
-                {
-                    return view ('dashboard.dashCliente');
-                }
-                if(Administrador_sistema::find($user->id)!==null)
+                if(Administrador_sistema::find($user->id)!==null)// Verificar que tipo de usuario es y redirigir
                 {
                     return view ('dashboard.dashAdminSys');
                 }   
@@ -49,6 +45,10 @@ class HomeController extends Controller
                 if(Usuario_local::find($user->id)!==null)
                 {
                     return view ('dashboard.dashUsuarioLocal')->with('respuesta',$this->respuesta);
+                }
+                else
+                {
+                    return view ('dashboard.dashCliente');
                 }
             }else{
                 return view ('home');
