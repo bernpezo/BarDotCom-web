@@ -45,6 +45,7 @@ class ClienteController extends Controller
     {
         $data=array();
         $data['user']=Auth::user();
+        $data['cliente']=Cliente::where('idUser',Auth::user()->id)->first();
         $data['respuesta'] = $this->respuesta;
         return view ('dashboard.dashCliente.perfil')->with('data',$data);
     }
@@ -62,12 +63,19 @@ class ClienteController extends Controller
                 'apellido' => 'required|string|max:255',
                 'comuna' => 'required|integer',
                 'fechaNacimiento' => 'required|date',
+                'nfc' => 'integer',
                 'telefono' => 'required|integer',
                 'email' => 'required|string|email|max:255',
                 'passwordActual' => 'required|string|min:8',
             ]);
             if((Hash::check($request->passwordActual, $user->password))){// Validar contraseña
                 $user->update($validar);
+                $cliente=Cliente::where('idUser',$user->id)->first();
+                if($request->nfc!=''){
+                    $cliente->nfc=$request->nfc;
+                    $cliente->update();
+                }
+                $data['cliente'] = $cliente;
                 if($request->password!=''){
                     $user->password=Hash::make($request->password);
                     $user->update();

@@ -48,6 +48,14 @@ Perfil de usuario
                             <input type="text" name="fechaNacimiento" id="fechaNacimiento" class="form-control" required value="{{$data['user']->fechaNacimiento}}"/>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="nfc">Número de tarjeta</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="number" name="nfc" id="nfc" class="form-control" value="{{$data['cliente']->nfc}}">
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group row">
