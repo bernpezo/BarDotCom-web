@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
@@ -12,6 +13,7 @@ use App\Promocion;
 use App\Mesa;
 use App\Item;
 use App\Cuenta;
+use Carbon\Carbon;
 
 class AdminLocalController extends Controller
 {
@@ -416,14 +418,10 @@ class AdminLocalController extends Controller
                //si vienen criterios de busqueda
                if(!empty($request->search['value'])){
                     $totalRegistros = Item::where('idLocal','like','%'.$admin->idLocal.'%')
-                                                ->where('nombre','like','%'.$request->search['value'].'%')
-                                                ->orWhere('id','like','%'.$request->search['value'].'%')
                                                 ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                                 ->count();
-                    $registros = Item::latest('created_at')
+                    $registros = Item::orderBy('stock','ASC')
                                                 ->where('idLocal','like','%'.$admin->idLocal.'%')	
-                                                ->where('nombre','like','%'.$request->search['value'].'%')
-                                                ->orWhere('id','like','%'.$request->search['value'].'%')
                                                 ->offset($start)
                                                 ->limit($length)
                                                 ->get();
@@ -431,7 +429,7 @@ class AdminLocalController extends Controller
                     $totalRegistros = Item::where('idLocal','like','%'.$admin->idLocal.'%')
                                                     ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                                     ->count();
-                    $registros = Item::latest('created_at')     
+                    $registros = Item::orderBy('stock','ASC')     
                                                     ->where('idLocal','like','%'.$admin->idLocal.'%')
                                                     ->offset($start)
                                                     ->limit($length)
@@ -478,31 +476,33 @@ class AdminLocalController extends Controller
                 $columns = $totalRecords = $data = array();
                 //definir indices de las columnas
                 $columns = array(
-                    0 => 'idCliente',
-                    1 => 'idMesa',    
-                    2 => 'total',
-                    3 => 'fecha'
+                    0 => 'id',
+                    1 => 'idCliente',
+                    2 => 'idUsuario',
+                    3 => 'idMesa',    
+                    4 => 'total',
+                    5 => 'fecha'
                 );
                //si vienen criterios de busqueda
                if(!empty($request->search['value'])){
-                    $totalRegistros = Cuenta::where('idLocal','like','%'.$admin->idLocal.'%')
-                                                ->where('idMesa','like','%'.$request->search['value'].'%')
-                                                ->orWhere('id','like','%'.$request->search['value'].'%')
+                   $totalRegistros = Cuenta::where('idLocal','like','%'.$admin->idLocal.'%')
+                                                ->where('created_at', '>', Carbon::now()->subDays(7)->toDateTimeString())
                                                 ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                                 ->count();
                     $registros = Cuenta::latest('created_at')
                                                 ->where('idLocal','like','%'.$admin->idLocal.'%')	
-                                                ->where('idMesa','like','%'.$request->search['value'].'%')
-                                                ->orWhere('id','like','%'.$request->search['value'].'%')
+                                                ->where('created_at', '>', Carbon::now()->subDays(7)->toDateTimeString())
                                                 ->offset($start)
                                                 ->limit($length)
                                                 ->get();
                }else{
                     $totalRegistros = Cuenta::where('idLocal','like','%'.$admin->idLocal.'%')
+                                                    ->where('created_at', '>', Carbon::now()->subDays(7)->toDateTimeString())
                                                     ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                                     ->count();
                     $registros = Cuenta::latest('created_at')     
                                                     ->where('idLocal','like','%'.$admin->idLocal.'%')
+                                                    ->where('created_at', '>', Carbon::now()->subDays(7)->toDateTimeString())
                                                     ->offset($start)
                                                     ->limit($length)
                                                     ->get();
@@ -547,31 +547,33 @@ class AdminLocalController extends Controller
                 $columns = $totalRecords = $data = array();
                 //definir indices de las columnas
                 $columns = array(
-                    0 => 'idCliente',
-                    1 => 'idMesa',    
-                    2 => 'total',
-                    3 => 'fecha'
+                    0 => 'id',
+                    1 => 'idCliente',
+                    2 => 'idUsuario',
+                    3 => 'idMesa',    
+                    4 => 'total',
+                    5 => 'fecha'
                 );
                //si vienen criterios de busqueda
                if(!empty($request->search['value'])){
                     $totalRegistros = Cuenta::where('idLocal','like','%'.$admin->idLocal.'%')
-                                                ->where('idMesa','like','%'.$request->search['value'].'%')
-                                                ->orWhere('id','like','%'.$request->search['value'].'%')
+                                                ->where('created_at', '>', Carbon::now()->subDays(30)->toDateTimeString())
                                                 ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                                 ->count();
                     $registros = Cuenta::latest('created_at')
-                                                ->where('idLocal','like','%'.$admin->idLocal.'%')	
-                                                ->where('idMesa','like','%'.$request->search['value'].'%')
+                                                ->where('created_at', '>', Carbon::now()->subDays(30)->toDateTimeString())
                                                 ->orWhere('id','like','%'.$request->search['value'].'%')
                                                 ->offset($start)
                                                 ->limit($length)
                                                 ->get();
                }else{
                     $totalRegistros = Cuenta::where('idLocal','like','%'.$admin->idLocal.'%')
+                                                    ->where('created_at', '>', Carbon::now()->subDays(30)->toDateTimeString())
                                                     ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                                     ->count();
                     $registros = Cuenta::latest('created_at')     
                                                     ->where('idLocal','like','%'.$admin->idLocal.'%')
+                                                    ->where('created_at', '>', Carbon::now()->subDays(30)->toDateTimeString())
                                                     ->offset($start)
                                                     ->limit($length)
                                                     ->get();
@@ -616,33 +618,35 @@ class AdminLocalController extends Controller
                 $columns = $totalRecords = $data = array();
                 //definir indices de las columnas
                 $columns = array(
-                    0 => 'idCliente',
-                    1 => 'idMesa',    
-                    2 => 'total',
-                    3 => 'fecha'
+                    0 => 'id',
+                    1 => 'idCliente',
+                    2 => 'idUsuario',
+                    3 => 'idMesa',    
+                    4 => 'total',
+                    5 => 'fecha'
                 );
                //si vienen criterios de busqueda
                if(!empty($request->search['value'])){
                     $totalRegistros = Cuenta::where('idLocal','like','%'.$admin->idLocal.'%')
-                                                ->where('idMesa','like','%'.$request->search['value'].'%')
-                                                ->orWhere('id','like','%'.$request->search['value'].'%')
+                                                ->where('created_at', '>', Carbon::now()->subDays(30)->toDateTimeString())
                                                 ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                                 ->count();
-                    $registros = Cuenta::latest('created_at')
+                    $registros = Cuenta::latest('total')
                                                 ->where('idLocal','like','%'.$admin->idLocal.'%')	
-                                                ->where('idMesa','like','%'.$request->search['value'].'%')
-                                                ->orWhere('id','like','%'.$request->search['value'].'%')
+                                                ->where('created_at', '>', Carbon::now()->subDays(30)->toDateTimeString())
                                                 ->offset($start)
-                                                ->limit($length)
+                                                ->limit(10)
                                                 ->get();
                }else{
                     $totalRegistros = Cuenta::where('idLocal','like','%'.$admin->idLocal.'%')
+                                                    ->where('created_at', '>', Carbon::now()->subDays(30)->toDateTimeString())
                                                     ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                                     ->count();
-                    $registros = Cuenta::latest('created_at')     
+                    $registros = Cuenta::latest('total')     
                                                     ->where('idLocal','like','%'.$admin->idLocal.'%')
+                                                    ->where('created_at', '>', Carbon::now()->subDays(30)->toDateTimeString())
                                                     ->offset($start)
-                                                    ->limit($length)
+                                                    ->limit(10)
                                                     ->get();
                }
                //agregamos los botones html edit/delete
@@ -710,7 +714,6 @@ class AdminLocalController extends Controller
             return "error";
         }
     }
-
     /*
      * Editar promoción
      */

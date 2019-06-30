@@ -8,6 +8,7 @@ $(document).ready( function () {
      * Data table pedidos entregados
      */
     var tablaCuentas=$('#tablaReporteItems').DataTable({
+		"searching": false,
 		//idioma de datatable
 		"bProcessing": false,
 		"serverSide": true,
@@ -61,7 +62,11 @@ $(document).ready( function () {
         buttons: [
             {
                 extend: 'pdfHtml5',
-                pageSize: 'LEGAL'
+                pageSize: 'LETTER',
+				customize: function(doc) {
+					//márgenes [left, top, right, bottom] 
+					doc.pageMargins = [ 150, 20, 150, 20 ];
+				}
             }
         ]
     });

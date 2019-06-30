@@ -15,7 +15,9 @@ Reporte mensual
             <table class="display responsive nowrap" style="width:100%" id="tablaReporteMensual" data-url="{{ route('showReporteMensual') }}">
                 <thead>
                     <tr>
+                        <th scope="col">ID</th>
                         <th scope="col">Cliente</th>
+                        <th scope="col">Usuario</th>
                         <th scope="col">Mesa</th>
                         <th scope="col">Total</th>
                         <th scope="col">Fecha</th>

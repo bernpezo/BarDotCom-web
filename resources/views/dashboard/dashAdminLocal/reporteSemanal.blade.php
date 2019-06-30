@@ -15,7 +15,9 @@ Reporte semanal
             <table class="display responsive nowrap" style="width:100%" id="tablaReporteSemanal" data-url="{{ route('showReporteSemanal') }}">
                 <thead>
                     <tr>
+                            <th scope="col">ID</th>
                         <th scope="col">Cliente</th>
+                        <th scope="col">Usuario</th>
                         <th scope="col">Mesa</th>
                         <th scope="col">Total</th>
                         <th scope="col">Fecha</th>
