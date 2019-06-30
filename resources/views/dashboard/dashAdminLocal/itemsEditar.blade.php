@@ -70,7 +70,7 @@ Editar Ítems
                     <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
                 </div>
                 <div class="col-md-2">
-                    <a href="{{ route('dashAdminLocalMesas') }}" name="btnCancelar" id="btnCancelar" class="btn btn-info btn-block">Cancelar</a>
+                    <a href="{{ route('dashAdminLocalItems') }}" name="btnCancelar" id="btnCancelar" class="btn btn-info btn-block">Cancelar</a>
                 </div>
             </div>
         </form>

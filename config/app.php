@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('BarDotCom', 'Laravel'),
+    'name' => env('BarDotCom', 'BarDotCom'),
 
     /*
     |--------------------------------------------------------------------------

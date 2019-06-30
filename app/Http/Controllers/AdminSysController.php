@@ -93,8 +93,11 @@ class AdminSysController extends Controller
                 'telefono' => 'required',
                 'descripcion' => 'required',
             ]);
-            /*agregar logo pendiente*/
             $local_comercial=Local_comercial::create($validar);
+            $logo = time().'.'.request()->logo->getClientOriginalExtension();
+            request()->logo->move(public_path('images/local'.$local_comercial->id), $logo);
+            $local_comercial->logo=$logo;
+            $local_comercial->update();
             //Crear Administrador de local
             $datosAdmin=[
                 'nombre' => 'Administrador',

@@ -121,8 +121,11 @@ class AdminLocalController extends Controller
                 'imagen' => 'required',
                 'imagen.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-            /*agregar imagen pendiente*/
-            Promocion::create($validar);
+            $promocion=Promocion::create($validar);
+            $imagen = time().'.'.request()->imagen->getClientOriginalExtension();
+            request()->imagen->move(public_path('images/local'.$admin->idLocal.'/promocion'), $imagen);
+            $promocion->imagen=$imagen;
+            $promocion->update();
             $respuesta = 1;
             return view('dashboard.dashAdminLocal.promocionesCrear')->with('respuesta',$respuesta);// Redirigir a la vista con respuesta positiva
         } catch (\Throwable $th) {
@@ -169,8 +172,11 @@ class AdminLocalController extends Controller
                 'estado' => 'required|integer',
                 'descripcion' => 'required|string|max:500',
             ]);
-            /*agregar imagen pendiente*/
-            Item::create($validar);
+            $item=Item::create($validar);
+            $imagen = time().'.'.request()->imagen->getClientOriginalExtension();
+            request()->imagen->move(public_path('images/local'.$admin->idLocal.'/item'), $imagen);
+            $item->imagen=$imagen;
+            $item->update();
             $respuesta = 1;
             return view('dashboard.dashAdminLocal.itemsCrear')->with('respuesta',$respuesta);
         } catch (\Throwable $th) {
