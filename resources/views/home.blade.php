@@ -94,7 +94,7 @@ BarDotCom
         <!-- Fin carrousel -->
         <!-- Inicio características -->
         <div class="container">
-            <div class="caracteristicas">
+            <div class="text-home">
                 <h3 class="text-center">Características</h3>
                 <div class="row">
                     <div class="col-md-6">
@@ -115,11 +115,42 @@ BarDotCom
                         <p>Adicionálmente, puedes pedir una tarjeta NFC en cualquiera de los locales adheridos y vincularla a tu cuenta. Con tu tarjeta podrás registrar tu ingreso a cada local y comenzar a realizar pedidos de productos desde tu smartphone.</p>
                         <h5>Para locales</h5>
                         <p>Si tienes un local comercial, puede solicitar tu ingreso al sistema via web. <strong>BarDotCom</strong> posee numerosas herramientas de gestión que te ayudarán a tener un control preciso sobre los movimientos de tu local.</p>
-                        <p></p>
+                        <p>Podrás automatizar el proceso de toma de pedidos y solicitudes de cuenta, ofrecer promociones exclusivas a quiene ingresen a tu local, mejorar la calidad de tus servicios y, de esta forma, fidelizar a tus clientes.</p>
+                        <p>Finálmente, tendrás acceso a reportes con datos de uso actualizados para ayudarte a tomar decisiones.</p>
                     </div>
                 </div>
             </div>
-            
+        </div>
+        <div class="faq-home">
+            <div class="container">
+                <div class="faq-text-home">
+                    <h3 class="text-center">F.A.Q.</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Para clientes</p>
+                            <p>¿Qué beneficios tiene BarDotCom?</p>
+                            <p></p>
+                            <p>¿Cuánto cuesta ser parte de BarDotCom?</p>
+                            <p></p>
+                            <p>¿Qué hago si pierdo mi tarjeta?</p>
+                            <p></p>
+                            <p>¿Puedo pedir productos sin entrar al local?</p>
+                            <p></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Para locales</p>
+                            <p>¿Qué beneficios tiene BarDotCom?</p>
+                            <p></p>
+                            <p>¿Cuánto cuesta ser parte de BarDotCom?</p>
+                            <p></p>
+                            <p>¿También puedo usar la aplicación móvil?</p>
+                            <p></p>
+                            <p>¿Cómo gestiono los pagos de mis clientes?</p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- Fin características -->
         <!-- Inicio FAQ -->

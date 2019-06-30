@@ -1,6 +1,21 @@
-.caracteristicas h3{
+.text-home{
+    padding-bottom: 50px;
+}
+.text-home h3{
     margin: 50px;
 }
-.caracteristicas h4,h5{
+.text-home h4,h5{
     margin-bottom: 20px;
+}
+.faq-home{
+    background-color: #000000;
+    padding-top: 1px;
+}
+.faq-text-home h3{
+    margin: 50px;
+    color: white;
+}
+.faq-text-home h5{
+    margin-bottom: 20px;
+    color: white;
 }

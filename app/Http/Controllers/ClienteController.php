@@ -99,7 +99,9 @@ class ClienteController extends Controller
     public function eliminarCuenta(Request $request)
     {
         $user=User::find($request->id);
+        $cliente=Cliente::where('idUser',$user->id)->first();
         $data=array();
+        $data['cliente'] = $cliente;
         $data['user'] = $user;
         try {
             if((Hash::check($request->passwordEliminar, $user->password))){// Validar contraseña
