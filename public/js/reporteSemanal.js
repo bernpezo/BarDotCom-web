@@ -55,6 +55,14 @@ $(document).ready( function () {
 			{ "data": "idMesa"},
             { "data": "total"},
             { "data": "fecha"},
-        ],
+		],
+		//exportar a pdf
+		dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                pageSize: 'LEGAL'
+            }
+        ]
     });
 } );

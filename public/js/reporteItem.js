@@ -55,6 +55,14 @@ $(document).ready( function () {
 			{ "data": "nombre"},
             { "data": "precio"},
             { "data": "stock"},
-        ],
+		],
+		//exportar a pdf
+		dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                pageSize: 'LEGAL'
+            }
+        ]
     });
 } );
