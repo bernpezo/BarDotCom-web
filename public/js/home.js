@@ -6,7 +6,7 @@ $(document).ready(function() {
     /*
      * Formulario contacto
      */
-    $('#contacto').click(function(event){
+    $('#bContacto').click(function(event){
         event.preventDefault();
         if($('#email').val().length==0 || $('#nombre').val().length==0 || $('#asunto').val().length==0 || $('#mensaje').val().length==0){
             Swal.fire(

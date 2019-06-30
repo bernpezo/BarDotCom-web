@@ -184,7 +184,7 @@ BarDotCom
                             </div>
                         </div>
                     </div>
-                    <button type="submit" id="contacto" class="btn btn-success">Enviar</button>  
+                    <button type="submit" id="bContacto" class="btn btn-success">Enviar</button>  
                 </form>
             </div>
         </div>
