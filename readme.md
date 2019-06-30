@@ -26,7 +26,7 @@ El formato para de la cuenta del Administrador de local es:
 
     Usuario: "email del Local comercial al que pertenece"
 
-    ontraseña: "nombre del Local comercial al que pertenece"
+    Contraseña: "nombre del Local comercial al que pertenece"
 
 El formato para las cuentas de Usuario de local es:
 
