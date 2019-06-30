@@ -65,12 +65,12 @@ class ClienteController extends Controller
                 'fechaNacimiento' => 'required|date',
                 'nfc' => 'integer',
                 'telefono' => 'required|integer',
-                'email' => 'required|string|email|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
                 'passwordActual' => 'required|string|min:8',
             ]);
+            $cliente=Cliente::where('idUser',$user->id)->first();
             if((Hash::check($request->passwordActual, $user->password))){// Validar contraseña
                 $user->update($validar);
-                $cliente=Cliente::where('idUser',$user->id)->first();
                 if($request->nfc!=''){
                     $cliente->nfc=$request->nfc;
                     $cliente->update();

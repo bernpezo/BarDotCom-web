@@ -62,12 +62,65 @@ BarDotCom
         </div>
     </nav>
     <!-- Fin navbar -->
-    <div class="container">
+    <div>
         <!-- Inicio carrousel -->
-
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{{ asset('images/home/car01.jpg') }}" class="d-block w-100" alt="BarDotCom">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1 class="display-1">BarDotCom</h1>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('images/home/car02.jpg') }}" class="d-block w-100" alt="BarDotCom">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1 class="display-4">Pedidos sin filas ni demoras</h1>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('images/home/car03.jpg') }}" class="d-block w-100" alt="BarDotCom">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
         <!-- Fin carrousel -->
         <!-- Inicio características -->
-
+        <div class="container">
+            <div class="caracteristicas">
+                <h3 class="text-center">Características</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card" style="width: 100%;">
+                            <img src="{{ asset('images/home/home01.jpg') }}" class="card-img-top" alt="BarDotCom">
+                            <div class="card-body">
+                                <p class="card-text">Con <strong>BarDotCom</strong> puedes hacer tus pedidos de forma rápida, registrar tu ingreso en tus locales preferidos para recibir promociones exclusivas.</p>
+                                <p class="card-text">¡Olvídate de las filas y preocúpate de pasarlo bien!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="text-center">Sobre el sistema</h4>
+                        <p><strong>BarDotCom</strong> es un sistema que permite agilizar y mejorar los procesos de atención a clientes dentro de locales comerciales.</p>
+                        <p>Tanto los propietarios de locales comerciales, como los clientes de éstos se pueden ver beneficiados por un conjunto de aplicación web, móvil y tarjetas NFC.</p>
+                        <h5>Para clientes</h5>
+                        <p>Si quieres unirte a nosotros, solo debes crear una cuenta en nuestro sitio web y descargar la aplicación móvil. Disponible para sistemas Android.</p>
+                        <p>Adicionálmente, puedes pedir una tarjeta NFC en cualquiera de los locales adheridos y vincularla a tu cuenta. Con tu tarjeta podrás registrar tu ingreso a cada local y comenzar a realizar pedidos de productos desde tu smartphone.</p>
+                        <h5>Para locales</h5>
+                        <p>Si tienes un local comercial, puede solicitar tu ingreso al sistema via web. <strong>BarDotCom</strong> posee numerosas herramientas de gestión que te ayudarán a tener un control preciso sobre los movimientos de tu local.</p>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
         <!-- Fin características -->
         <!-- Inicio FAQ -->
 
