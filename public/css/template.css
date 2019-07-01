@@ -26,11 +26,14 @@ body {
     text-align: center;
   }
 .footer-template{
-    background-color: black;
+    background-color: #343a40;
 }
 .footer-template h2{
     margin: 50px;
     color: white;
+}
+.footer-template h2:hover{
+    color: #5cb85c;
 }
 .footer-template h5{
     margin-top: 25px;
@@ -39,7 +42,13 @@ body {
 .footer-template h4{
     color: white;
 }
+.footer-template h4:hover{
+    color: #5cb85c;
+}
 .footer-template p{
     margin-top: 10px;
     color: white;
+}
+.footer-template a{
+    text-decoration:none;
 }

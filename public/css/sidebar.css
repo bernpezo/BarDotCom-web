@@ -20,8 +20,8 @@ overflow:visible;
 
 .main-menu {
 padding-top: 50px;
-background: #f8f9fa;
-border-right:1px solid #f8f9fa;
+background: #343a40;
+border-right:1px solid #343a40;
 position:absolute;
 top:0;
 bottom:0;
@@ -50,7 +50,7 @@ position:relative;
 display:table;
 border-collapse:collapse;
 border-spacing:0;
-color:rgb(0, 0, 0);
+color:rgb(255, 255, 255);
  font-family: arial;
 font-size: 14px;
 text-decoration:none;
