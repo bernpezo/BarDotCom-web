@@ -20,7 +20,7 @@ class Cuenta extends Migration
             $table->unsignedBigInteger('idCliente')->nullable();
             $table->unsignedBigInteger('idMesa')->nullable();
             $table->integer('total');
-            $table->boolean('estado');
+            $table->integer('estado');
             $table->timestamp('fecha');
             $table->timestamps();
             $table->foreign('idLocal')->references('id')->on('local_comercials')->onDelete('cascade');
