@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Auth;
 use App\User;
+use App\Aviso;
 
 class ClienteController extends Controller
 {
@@ -38,7 +39,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return view('dashboard.dashCliente');
+        return view('dashboard.dashCliente')->with('data',Aviso::all());// Mostrar avisos de sistema
     }
 
     public function perfil()

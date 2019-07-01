@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Aviso;
 use App\Comuna;
 use App\Rubro;
 use App\User;
@@ -40,7 +41,7 @@ class HomeController extends Controller
                 }   
                 if(Administrador_local::find($user->id)!==null)
                 {
-                    return view ('dashboard.dashAdminLocal');
+                    return view ('dashboard.dashAdminLocal')->with('data',Aviso::all());// Mostrar avisos de sistema
                 }
                 if(Usuario_local::find($user->id)!==null)
                 {
@@ -48,7 +49,7 @@ class HomeController extends Controller
                 }
                 else
                 {
-                    return view ('dashboard.dashCliente');
+                    return view ('dashboard.dashCliente')->with('data',Aviso::all());// Mostrar avisos de sistema
                 }
             }else{
                 return view ('home');

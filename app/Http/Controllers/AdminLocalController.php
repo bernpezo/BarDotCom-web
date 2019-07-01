@@ -13,6 +13,7 @@ use App\Promocion;
 use App\Mesa;
 use App\Item;
 use App\Cuenta;
+use App\Aviso;
 use Carbon\Carbon;
 
 class AdminLocalController extends Controller
@@ -43,7 +44,7 @@ class AdminLocalController extends Controller
      */
     public function index()
     {
-        return view('dashboard.dashAdminLocal');
+        return view('dashboard.dashAdminLocal')->with('data',Aviso::all());// Mostrar avisos de sistema
     }
 
     public function promociones()
