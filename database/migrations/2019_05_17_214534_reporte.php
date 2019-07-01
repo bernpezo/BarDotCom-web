@@ -15,11 +15,11 @@ class Reporte extends Migration
     {
         Schema::create('reportes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('idLocal');
+            $table->unsignedBigInteger('idLocal')->nullable();
             $table->string('nombre');
             $table->date('fecha');
             $table->timestamps();
-            $table->foreign('idLocal')->references('id')->on('local_comercials');
+            $table->foreign('idLocal')->references('id')->on('local_comercials')->onDelete('cascade');
         });
     }
 

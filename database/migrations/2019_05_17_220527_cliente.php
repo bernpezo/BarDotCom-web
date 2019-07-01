@@ -16,7 +16,7 @@ class Cliente extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('idUser')->nullable();
-            $table->integer('nfc');
+            $table->integer('nfc')->nullable();
             $table->timestamps();
             $table->foreign('idUser')->references('id')->on('users')->onDelete('set null');
         });

@@ -380,8 +380,12 @@ class AdminSysController extends Controller
     public function destroyLocalComercial(Request $request)
     {
         try {
-            $usuario_local=Usuario_local::where('idLocal',base64_decode($request->id))->delete();
-            $admin_local=Administrador_local::where('idLocal',base64_decode($request->id))->delete();
+            $usuario_local=Usuario_local::where('idLocal',base64_decode($request->id))->get();
+            foreach ($usuario_local as $usuario) {
+                $userLocal=User::where('id',$usuario->id)->delete();
+            }
+            $administrador_local=Administrador_local::where('idLocal',base64_decode($request->id))->first();
+            $userAdmin=User::where('id',$administrador_local->id)->delete();
             $local_comercial=Local_comercial::where('id',base64_decode($request->id))->delete();
         } catch (\Throwable $th) {
             return "error";

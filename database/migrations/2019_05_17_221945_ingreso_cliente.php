@@ -15,15 +15,15 @@ class IngresoCliente extends Migration
     {
         Schema::create('ingreso_clientes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('idUsuario');
-            $table->unsignedBigInteger('idCliente');
-            $table->unsignedBigInteger('idLocal');
-            $table->unsignedBigInteger('idMesa');
+            $table->unsignedBigInteger('idUsuario')->nullable();
+            $table->unsignedBigInteger('idCliente')->nullable();
+            $table->unsignedBigInteger('idLocal')->nullable();
+            $table->unsignedBigInteger('idMesa')->nullable();
             $table->timestamps();
-            $table->foreign('idUsuario')->references('id')->on('usuario_locals');
-            $table->foreign('idCliente')->references('id')->on('clientes');
-            $table->foreign('idLocal')->references('id')->on('local_comercials');
-            $table->foreign('idMesa')->references('id')->on('mesas');
+            $table->foreign('idUsuario')->references('id')->on('usuario_locals')->onDelete('cascade');
+            $table->foreign('idCliente')->references('id')->on('clientes')->onDelete('set null');
+            $table->foreign('idLocal')->references('id')->on('local_comercials')->onDelete('cascade');
+            $table->foreign('idMesa')->references('id')->on('mesas')->onDelete('set null');
         });
     }
 

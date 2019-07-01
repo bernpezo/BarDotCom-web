@@ -18,8 +18,8 @@ class AdministradorLocal extends Migration
             $table->unsignedBigInteger('idLocal');
             $table->primary('id');
             $table->timestamps();
-            $table->foreign('id')->references('id')->on('users');
-            $table->foreign('idLocal')->references('id')->on('local_comercials');
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('idLocal')->references('id')->on('local_comercials')->onDelete('cascade');
         });
     }
 

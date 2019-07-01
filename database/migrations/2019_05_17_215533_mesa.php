@@ -15,10 +15,10 @@ class Mesa extends Migration
     {
         Schema::create('mesas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('idLocal');
+            $table->unsignedBigInteger('idLocal')->nullable();
             $table->integer('numero');
             $table->timestamps();
-            $table->foreign('idLocal')->references('id')->on('local_comercials');
+            $table->foreign('idLocal')->references('id')->on('local_comercials')->onDelete('cascade');
         });
     }
 

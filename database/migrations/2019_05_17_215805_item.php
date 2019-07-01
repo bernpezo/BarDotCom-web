@@ -15,7 +15,7 @@ class Item extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('idLocal');
+            $table->unsignedBigInteger('idLocal')->nullable();
             $table->string('nombre');
             $table->string('descripcion',500);
             $table->integer('precio');
@@ -23,7 +23,7 @@ class Item extends Migration
             $table->integer('stock');
             $table->string('imagen');
             $table->timestamps();
-            $table->foreign('idLocal')->references('id')->on('local_comercials');
+            $table->foreign('idLocal')->references('id')->on('local_comercials')->onDelete('cascade');
         });
     }
 
