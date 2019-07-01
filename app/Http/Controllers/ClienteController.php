@@ -60,13 +60,13 @@ class ClienteController extends Controller
         $data['user'] = $user;
         try {
             $validar = $request->validate([
-                'nombre' => 'required|string|max:255',
-                'apellido' => 'required|string|max:255',
+                'nombre' => 'required|string|max:50',
+                'apellido' => 'required|string|max:50',
                 'comuna' => 'required|integer',
                 'fechaNacimiento' => 'required|date',
                 'nfc' => 'integer',
                 'telefono' => 'required|integer',
-                'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
+                'email' => 'required|string|email|max:50|unique:users,email,'.$user->id,
                 'passwordActual' => 'required|string|min:8',
             ]);
             if((Hash::check($request->passwordActual, $user->password))){// Validar contraseña

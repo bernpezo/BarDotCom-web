@@ -82,16 +82,16 @@ class AdminSysController extends Controller
             $request->request->add(['idAdmin' => $Admin->idAdmin]);// Obtener id del administrador
             $validar = $request->validate([// Validar datos provenientes del formulario
                 'idAdmin' => 'required',
-                'rut' => 'required',
-                'nombre' => 'required',
-                'direccion' => 'required',
-                'comuna' => 'required',
-                'rubro' => 'required',
+                'rut' => 'required|string|max:50',
+                'nombre' => 'required|string|max:50',
+                'direccion' => 'required|string|max:100',
+                'comuna' => 'required|integer',
+                'rubro' => 'required|integer',
                 'logo' => 'required',
                 'logo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'email' => 'required',
-                'telefono' => 'required',
-                'descripcion' => 'required',
+                'telefono' => 'required|integer',
+                'descripcion' => 'required|string|max:500',
             ]);
             $local_comercial=Local_comercial::create($validar);
             $logo = time().'.'.request()->logo->getClientOriginalExtension();
@@ -143,8 +143,8 @@ class AdminSysController extends Controller
             $request->request->add(['idAdmin' => $Admin->idAdmin]);
             $validar = $request->validate([
                 'idAdmin' => 'required',
-                'nombre' => 'required',
-                'descripcion' => 'required',
+                'nombre' => 'required|string|max:50',
+                'descripcion' => 'required|string|max:500',
             ]);
             Aviso::create($validar);
             $respuesta = 1;
@@ -331,16 +331,16 @@ class AdminSysController extends Controller
             $request->request->add(['idAdmin' => $Admin->idAdmin]);
             $validar = $request->validate([
                 'idAdmin' => 'required',
-                'rut' => 'required',
-                'nombre' => 'required',
-                'direccion' => 'required',
-                'comuna' => 'required',
-                'rubro' => 'required',
+                'rut' => 'required|string|max:50',
+                'nombre' => 'required|string|max:50',
+                'direccion' => 'required|string|max:100',
+                'comuna' => 'required|integer',
+                'rubro' => 'required|integer',
                 'logo' => 'required',
                 'logo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'email' => 'required',
-                'telefono' => 'required',
-                'descripcion' => 'required',
+                'email' => 'required|string|email|max:50|unique:local_comercials,email,'.$local_comercial->id,
+                'telefono' => 'required|integer',
+                'descripcion' => 'required|string|max:500',
             ]);
             $local_comercial->update($validar);
             $data['respuesta'] = $this->respuesta = 1;
@@ -363,8 +363,8 @@ class AdminSysController extends Controller
             $request->request->add(['idAdmin' => $Admin->idAdmin]);
             $validar = $request->validate([
                 'idAdmin' => 'required',
-                'nombre' => 'required',
-                'descripcion' => 'required',
+                'nombre' => 'required|string|max:50',
+                'descripcion' => 'required|string|max:500',
             ]);
             $avisos->update($validar);
             $data['respuesta'] = $this->respuesta = 1;
@@ -409,13 +409,13 @@ class AdminSysController extends Controller
         $data['user'] = $user;
         try {
             $validar = $request->validate([
-                'nombre' => 'required|string|max:255',
-                'apellido' => 'required|string|max:255',
+                'nombre' => 'required|string|max:50',
+                'apellido' => 'required|string|max:50',
                 'comuna' => 'required|integer',
                 'fechaNacimiento' => 'required|date',
                 'telefono' => 'required|integer',
-                'email' => 'required|string|email|max:255',
-                'passwordActual' => 'required|string|min:8',
+                'email' => 'required|string|email|max:50|unique:users,email,'.$user->id,
+                'passwordActual' => 'required|string|min:8|max:50',
             ]);
             if((Hash::check($request->passwordActual, $user->password))){// Validar contraseña
                 $user->update($validar);

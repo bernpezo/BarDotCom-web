@@ -15,8 +15,10 @@ Registro
         <div class="row cuerpo">
             <div class="col-md-4">
                 <h1>Bienvenido</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore illum rem neque aspernatur quibusdam eveniet aliquid quidem. Perferendis officiis tempora, expedita dolor, quia laboriosam quod asperiores ex at alias adipisci?</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis dolorem similique non, asperiores pariatur officiis ab quaerat nam deleniti, dolore facere repudiandae magni laborum dolor laboriosam? Iure doloribus consectetur possimus.</p>
+                <p>¡Hola! Llenando este formulario podrás ser parte de <strong>BarDotCom</strong>. Una vez que te registres podrás ingresar al sistema on tus credenciales.</p>
+                <p>Tus nuevas credenciales serán tu correo electrónico y contraseña.</p>
+                <p>Si aún no tienes tu tarjeta NFC, deja ese campo vacío y podrás vincular una tarjeta desde tu perfil.</p>
+                <p>Así que cuéntanos un poco de tí y empecemos.</p>
             </div>
             <!-- Inicio formulario de registro -->
             <div class="col-md-8">

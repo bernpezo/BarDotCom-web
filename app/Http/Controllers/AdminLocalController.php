@@ -118,7 +118,7 @@ class AdminLocalController extends Controller
             $request->request->add(['idLocal' => $admin->idLocal ]);// Obtener id del local comercial
             $validar = $request->validate([// Validar datos provenientes del formulario
                 'idLocal' => 'required',
-                'nombre' => 'required|string|max:255',
+                'nombre' => 'required|string|max:50',
                 'descripcion' => 'required|string|max:500',
                 'imagen' => 'required',
                 'imagen.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -166,7 +166,7 @@ class AdminLocalController extends Controller
             $request->request->add(['idLocal' => $admin->idLocal ]);
             $validar = $request->validate([
                 'idLocal' => 'required',
-                'nombre' => 'required|string|max:255',
+                'nombre' => 'required|string|max:50',
                 'imagen' => 'required',
                 'imagen.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',// Validar archivo de imagen
                 'precio' => 'required|integer',
@@ -728,7 +728,7 @@ class AdminLocalController extends Controller
             $validar = $request->validate([
                 'idLocal' => 'required',
                 'imagen' => 'required',
-                'nombre' => 'required|string|max:255',
+                'nombre' => 'required|string|max:50',
                 'descripcion' => 'required|string|max:500',
             ]);
             $promocion->update($validar);
@@ -775,7 +775,7 @@ class AdminLocalController extends Controller
             $request->request->add(['idLocal' => $Admin->idLocal]);
             $validar = $request->validate([
                 'idLocal' => 'required',
-                'nombre' => 'required|string|max:255',
+                'nombre' => 'required|string|max:50',
                 'imagen' => 'required',
                 'imagen.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'precio' => 'required|integer',
@@ -837,12 +837,12 @@ class AdminLocalController extends Controller
         $data['user'] = $user;
         try {
             $validar = $request->validate([
-                'nombre' => 'required|string|max:255',
-                'apellido' => 'required|string|max:255',
+                'nombre' => 'required|string|max:50',
+                'apellido' => 'required|string|max:50',
                 'comuna' => 'required|integer',
                 'fechaNacimiento' => 'required|date',
                 'telefono' => 'required|integer',
-                'email' => 'required|string|email|max:255',
+                'email' => 'required|string|email|max:50|unique:users,email,'.$user->id,
                 'passwordActual' => 'required|string|min:8',
             ]);
             if((Hash::check($request->passwordActual, $user->password))){// Validar contraseña
