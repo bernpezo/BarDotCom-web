@@ -66,7 +66,7 @@ BarDotCom
     <!-- Fin navbar -->
     <div data-spy="scroll" data-target="#navbar-ex" data-offset="0">
         <!-- Inicio carrousel -->
-        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade d-none d-sm-block" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="{{ asset('images/home/car01.jpg') }}" class="d-block w-100" alt="BarDotCom">
@@ -198,7 +198,7 @@ BarDotCom
                         <div class="col-md-4">
                             <a href="{{ route('home') }}"><h2 class="text-center">BarDotCom</h2></a>
                         </div>
-                        <div class="col-md-4">
+                        <div class="d-none d-lg-block col-md-4">
                             <h5 class="text-center">Repositorio</h5>
                             <a href="https://github.com/bernpezo/BarDotCom-web"><h4 class="text-center">BarDotCom en GitHub</h4></a>
                         </div>

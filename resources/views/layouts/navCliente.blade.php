@@ -34,31 +34,6 @@
     </div>
 </nav>
 <!-- Fin navbar -->
-<!-- Inicio sidebar -->
-<div class="area"></div>
-<nav class="main-menu">
-    <ul>
-        <li>
-            <a href="{{ route('dashCliente') }}">
-                <i class="fa fa-home fa-2x"></i>
-                <span class="nav-text">Inicio</span>
-            </a>
-        </li>
-        <!--<li>
-            <a href="#">
-                <i class="fa fa-home fa-2x"></i>
-                <span class="nav-text">Buscar locales</span>
-            </a>
-        </li>
-        <li class="has-subnav">
-            <a href="#">
-                <i class="fa fa-laptop fa-2x"></i>
-                <span class="nav-text">Ver promociones</span>
-            </a>
-        </li>-->
-    </ul>
-</nav>
-<!-- Fin sidebar -->
 @yield('contenidodash')
 @endsection
 <!-- JS -->

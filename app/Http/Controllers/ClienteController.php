@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use Auth;
 use App\User;
 use App\Aviso;
+use App\Local_comercial;
+use App\Item;
+use App\Pedido;
 
 class ClienteController extends Controller
 {
@@ -39,7 +42,30 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return view('dashboard.dashCliente')->with('data',Aviso::all());// Mostrar avisos de sistema
+        return view('dashboard.dashCliente')->with('data',Local_comercial::all());// Mostrar locales
+    }
+
+    public function detalleLocal(Request $request)
+    {
+        $local_comercial=Local_comercial::find($request->id);
+        return view('dashboard.dashCliente.detalleLocal')->with('data',$local_comercial);
+    }
+
+    public function revisarCarta(Request $request)
+    {
+        $item=Item::where('idLocal',$request->id)->get();
+        return view('dashboard.dashCliente.revisarCarta')->with('data',$item);// Mostrar carta
+    }
+
+    public function detalleItem(Request $request)
+    {
+        $item=Item::find($request->id);
+        return view('dashboard.dashCliente.detalleItem')->with('data',$item);
+    }
+
+    public function hacerPedido(Request $request)
+    {
+        
     }
 
     public function perfil()

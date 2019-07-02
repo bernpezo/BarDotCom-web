@@ -116,15 +116,14 @@ Perfil de usuario
                             <input type="password" name="passwordEliminar" id="passwordEliminar" class="form-control">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-2 offset-md-4">
-                            <button type="submit" class="btn btn-danger btn-block">Eliminar</button>
-                        </div>
+                    <div class="row justify-content-center">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
+    <br>
 @endsection
 @section('js2')
 <script>var respuesta = {{{$data['respuesta']}}}</script>

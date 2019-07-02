@@ -1,3 +1,7 @@
 .cuerpo{
     margin-top: 70px;
+
+}
+.cuerpo a{
+    text-decoration:none;
 }

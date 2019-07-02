@@ -32,6 +32,10 @@ Route::get('/fromHome', 'HomeController@miPanel')->name('miPanel');
  * Rutas cliente
  */
 Route::get('dashCliente', 'ClienteController@index')->name('dashCliente');
+Route::get('detalleLocal', 'ClienteController@detalleLocal')->name('detalleLocal');
+Route::get('revisarCarta', 'ClienteController@revisarCarta')->name('revisarCarta');
+Route::get('detalleItem', 'ClienteController@detalleItem')->name('detalleItem');
+Route::get('hacerPedido', 'ClienteController@hacerPedido')->name('hacerPedido');
 /*
  * Rutas AdminSys
  */
