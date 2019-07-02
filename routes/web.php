@@ -35,7 +35,9 @@ Route::get('dashCliente', 'ClienteController@index')->name('dashCliente');
 Route::get('detalleLocal', 'ClienteController@detalleLocal')->name('detalleLocal');
 Route::get('revisarCarta', 'ClienteController@revisarCarta')->name('revisarCarta');
 Route::get('detalleItem', 'ClienteController@detalleItem')->name('detalleItem');
-Route::get('hacerPedido', 'ClienteController@hacerPedido')->name('hacerPedido');
+Route::post('hacerPedido', 'ClienteController@hacerPedido')->name('hacerPedido');
+Route::get('verCuenta', 'ClienteController@verCuenta')->name('verCuenta');
+Route::get('pedirCuenta', 'ClienteController@pedirCuenta')->name('pedirCuenta');
 /*
  * Rutas AdminSys
  */
@@ -100,8 +102,10 @@ Route::get('getOneItem', 'AdminLocalController@getOneItem')->name('getOneItem');
 Route::post('editItem', 'AdminLocalController@editItem')->name('editItem');
 Route::post('destroyItem', 'AdminLocalController@destroyItem')->name('destroyItem');
 /*
- * Gestores pedido y cuenta
+ * Gestores registro pedido y cuenta
  */
+Route::get('registrarCliente', 'UsuarioLocalController@registrarCliente')->name('registrarCliente');
+Route::post('registrarNFC', 'UsuarioLocalController@registrarNFC')->name('registrarNFC');
 Route::post('showPedidosPendientes', 'UsuarioLocalController@showPedidosPendientes')->name('showPedidosPendientes');
 Route::get('entregarPedido', 'UsuarioLocalController@entregarPedido')->name('entregarPedido');
 Route::post('destroyPedido', 'UsuarioLocalController@destroyPedido')->name('destroyPedido');

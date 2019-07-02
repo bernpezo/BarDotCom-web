@@ -24,6 +24,20 @@
                     </form>
             </li>
         </ul>
+        <ul class="navbar-nav d-lg-none">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('dashUsuarioLocal') }}">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('pedidosEntregados') }}">Pedidos entregados</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('cuentasEntregadas') }}">Cuentas entregadas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('registrarCliente') }}">Registrar cliente</a>
+            </li>
+        </ul>
             <!-- Inicio menú de usuario -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
@@ -37,7 +51,7 @@
 <!-- Fin navbar -->
 <!-- Inicio sidebar -->
 <div class="area"></div>
-<nav class="main-menu">
+<nav class="main-menu d-none d-lg-block">
     <ul>
         <li>
             <a href="{{ route('dashUsuarioLocal') }}">

@@ -8,6 +8,9 @@ use App\Usuario_local;
 use App\Pedido;
 use App\Cuenta;
 use App\Item;
+use App\Ingreso_cliente;
+use App\Cliente;
+use App\Mesa;
 
 class UsuarioLocalController extends Controller
 {
@@ -57,6 +60,46 @@ class UsuarioLocalController extends Controller
         $data['user']=Auth::user();
         $data['respuesta'] = $this->respuesta;
         return view ('dashboard.dashUsuarioLocal.perfil')->with('data',$data);
+    }
+    /*
+     * Registrar cliente
+     */
+    public function registrarCliente()
+    {
+        return view('dashboard.dashUsuarioLocal.registrarCliente')->with('respuesta',$this->respuesta);
+    }
+
+    public function registrarNFC(Request $request)
+    {
+        try {
+            $usuario = Usuario_local::where('id',Auth::user()->id)->first();
+            $cliente = Cliente::where('nfc',$request->nfc)->first();
+            $mesa = Mesa::where('numero',$request->mesa)->first();
+            $request->request->add(['idLocal' => $usuario->idLocal,'idUsuario' => $usuario->id,'idCliente' => $cliente->id,'idMesa' => $mesa->id]);
+            //registrar ingreso
+            $validar = $request->validate([// Validar datos provenientes del formulario
+                'idLocal' => 'required',
+                'idUsuario' => 'required',
+                'idCliente' => 'required',
+                'idMesa' => 'required',
+            ]);
+            $ingreso = Ingreso_cliente::create($validar);
+            //crear cuenta
+            $cuenta = new Cuenta;
+            $cuenta->idLocal=$usuario->idLocal;
+            $cuenta->idUsuario=$usuario->id;
+            $cuenta->idCliente=$cliente->id;
+            $cuenta->idMesa=$mesa->id;
+            $cuenta->total=0;
+            $cuenta->estado=2;
+            $cuenta->save();
+            $respuesta = 1;
+            return view('dashboard.dashUsuarioLocal.registrarCliente')->with('respuesta',$respuesta);
+        } catch (\Throwable $th) {
+            $respuesta = 0;
+            return view('dashboard.dashUsuarioLocal.registrarCliente')->with('respuesta',$respuesta);
+        }
+        
     }
     /*
      * Mostrar pedidos pendientes de entregar

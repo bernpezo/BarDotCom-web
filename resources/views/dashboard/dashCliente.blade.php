@@ -10,7 +10,7 @@ Buscar local
                 <a class="nav-link active" href="{{ route('dashCliente') }}">Buscar locales</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" style="color: black;">Pedir cuenta</a>
+                <a class="nav-link" href="{{ route('verCuenta') }}" style="color: black;">Pedir cuenta</a>
             </li>
         </ul>
         <br>

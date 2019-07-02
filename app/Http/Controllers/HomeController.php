@@ -49,7 +49,7 @@ class HomeController extends Controller
                 }
                 else
                 {
-                    return view ('dashboard.dashCliente')->with('data',Aviso::all());// Mostrar avisos de sistema
+                    return view ('dashboard.dashCliente')->with('data',Local_comercial::all());// Mostrar locales
                 }
             }else{
                 return view ('home');

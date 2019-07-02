@@ -12,6 +12,7 @@ use App\Aviso;
 use App\Local_comercial;
 use App\Item;
 use App\Pedido;
+use App\Cuenta;
 
 class ClienteController extends Controller
 {
@@ -59,13 +60,85 @@ class ClienteController extends Controller
 
     public function detalleItem(Request $request)
     {
-        $item=Item::find($request->id);
-        return view('dashboard.dashCliente.detalleItem')->with('data',$item);
+        $data=array();
+        $data['item'] = Item::find($request->id);
+        $data['respuesta'] = $this->respuesta;
+        return view('dashboard.dashCliente.detalleItem')->with('data',$data);
+    }
+
+    public function verCuenta(Request $request)
+    {
+        $cliente = Cliente::where('idUser',Auth::user()->id)->first();
+        $cuenta=Cuenta::where('idCliente',$cliente->id)->first();
+        $pedido=Pedido::where('idCuenta',$cuenta->id)->get();
+        $data=array();
+        $data['cuenta']=$cuenta;
+        $data['pedido']=$pedido;
+        foreach ($pedido as $item) {
+            $itemPedido=Item::find($item->idItem)->get();
+        }
+        //return $itemPedido;
+        $data['itemPedido']=$itemPedido;
+        $data['respuesta'] = $this->respuesta;
+        return view ('dashboard.dashCliente.verCuenta')->with('data',$data);
     }
 
     public function hacerPedido(Request $request)
     {
+        $data=array();
+        $data['item'] = Item::find($request->idItem);
+        try {
+            $cliente = Cliente::where('idUser',Auth::user()->id)->first();
+            $cuenta = Cuenta::where('idCliente',$cliente->id)->first();
+            $request->request->add(['idItem' => $request->idItem,'idCuenta' => $cuenta->id,'idLocal' => $request->idLocal,'idUsuario' => $cuenta->idUsuario,'idCliente' => $cliente->id,'idMesa' => $cuenta->idMesa,'cantidadItem' => $request->cantidad,'estado' => 1]);
+            $validar = $request->validate([// Validar datos provenientes del formulario
+                'idLocal' => 'required',
+                'idUsuario' => 'required',
+                'idCliente' => 'required',
+                'idCuenta' => 'required',
+                'idMesa' => 'required',
+                'idItem' => 'required',
+                'cantidadItem' => 'required',
+                'estado' => 'required',
+            ]);
+            $pedido = Pedido::create($validar);
+            $data['respuesta'] = $this->respuesta = 1;
+            return view('dashboard.dashCliente.detalleItem')->with('data',$data);
+        } catch (\Throwable $th) {
+            $data=array();
+            $data['item'] = Item::find($request->idItem);
+            $data['respuesta'] = $this->respuesta = 0;
+            return view('dashboard.dashCliente.detalleItem')->with('data',$data);
+        }
         
+    }
+    /*
+     * Pedir cuenta
+     */
+    public function pedirCuenta(Request $request)
+    {
+        $cliente = Cliente::where('idUser',Auth::user()->id)->first();
+        $cuenta=Cuenta::where('idCliente',$cliente->id)->first();
+        $pedido=Pedido::where('idCuenta',$cuenta->id)->get();
+        $data=array();
+        $data['cuenta']=$cuenta;
+        $data['pedido']=$pedido;
+        foreach ($pedido as $item) {
+            $itemPedido=Item::find($item->idItem)->get();
+        }
+        //return $itemPedido;
+        $data['itemPedido']=$itemPedido;
+        try {
+            $cuenta->estado=1;
+            $cuenta->update();
+            $data['respuesta'] = $this->respuesta = 1;
+            return view ('dashboard.dashCliente.verCuenta')->with('data',$data);
+        } catch (\Throwable $th) {
+            $data['respuesta'] = $this->respuesta = 0;
+            return view ('dashboard.dashCliente.verCuenta')->with('data',$data);
+        }
+        
+
     }
 
     public function perfil()

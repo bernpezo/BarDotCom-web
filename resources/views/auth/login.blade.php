@@ -36,20 +36,22 @@ Ingreso
                                 <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="remember">Mantener sesión iniciada</label>
                             </div>
-                            <div class="form-group">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-6">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <button type="submit" class="btn btn-success btn-block">Ingresar</button>
                                     </div>
-                                    <div class="col-md-6">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <a href="{{ route('home') }}" name="btnVolver" id="btnVolver" class="btn btn-secondary btn-block">Volver</a>
                                     </div>
                                 </div>
-                                <div class="row justify-content-center">
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
-                                    @endif
-                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
+                                @endif
                             </div>
                         </form>
                         <!-- Fin formulario de Log-in -->

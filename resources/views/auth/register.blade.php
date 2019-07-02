@@ -74,12 +74,14 @@ Registro
                                 </span>
                             @enderror
                             <input type="password" name="password_confirmation" id="password-confirm" placeholder="Repita la contraseña" class="form-control">
-                            <div class="form-group">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-6">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <button type="submit" class="btn btn-success btn-block">Guardar</button>
                                     </div>
-                                    <div class="col-md-6">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <a href="{{ route('home') }}" name="btnVolver" id="btnVolver" class="btn btn-secondary btn-block">Volver</a>
                                     </div>
                                 </div>

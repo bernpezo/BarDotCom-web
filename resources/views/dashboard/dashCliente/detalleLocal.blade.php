@@ -18,7 +18,6 @@ Detalle local
                                 <p class="card-text">email: {{$data->email}}</p>
                                 <p class="card-text">Dirección: {{$data->direccion}}</p>
                                 <p class="card-text">Contacto: {{$data->telefono}}</p>
-                                <p class="card-text">Comuna: {{$data->comuna}}</p>
                             </div>
                         </div>
                     </div>
