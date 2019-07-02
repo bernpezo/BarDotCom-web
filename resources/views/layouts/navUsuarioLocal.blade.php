@@ -71,6 +71,12 @@
                 <span class="nav-text">Cuentas entregadas</span>
             </a>
         </li>
+        <li class="has-subnav">
+            <a href="{{ route('registrarCliente') }}">
+                <i class="fa fa-bar-chart-o fa-2x"></i>
+                <span class="nav-text">Registro manual</span>
+            </a>
+        </li>
     </ul>
 </nav>
 <!-- Fin sidebar -->
