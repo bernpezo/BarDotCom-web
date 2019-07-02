@@ -13,6 +13,7 @@ use App\Local_comercial;
 use App\Item;
 use App\Pedido;
 use App\Cuenta;
+use App\Promocion;
 
 class ClienteController extends Controller
 {
@@ -43,13 +44,15 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return view('dashboard.dashCliente')->with('data',Local_comercial::all());// Mostrar locales
+        return view('dashboard.dashCliente')->with('data',Local_comercial::where('comuna',Auth::user()->comuna)->get());// Mostrar locales
     }
 
     public function detalleLocal(Request $request)
     {
-        $local_comercial=Local_comercial::find($request->id);
-        return view('dashboard.dashCliente.detalleLocal')->with('data',$local_comercial);
+        $data=array();
+        $data['local'] = Local_comercial::find($request->id);
+        $data['promocion'] = Promocion::where('idLocal',$request->id)->get();
+        return view('dashboard.dashCliente.detalleLocal')->with('data',$data);
     }
 
     public function revisarCarta(Request $request)
@@ -68,19 +71,23 @@ class ClienteController extends Controller
 
     public function verCuenta(Request $request)
     {
-        $cliente = Cliente::where('idUser',Auth::user()->id)->first();
-        $cuenta=Cuenta::where('idCliente',$cliente->id)->first();
-        $pedido=Pedido::where('idCuenta',$cuenta->id)->get();
-        $data=array();
-        $data['cuenta']=$cuenta;
-        $data['pedido']=$pedido;
-        foreach ($pedido as $item) {
-            $itemPedido=Item::find($item->idItem)->get();
+        try {
+            $cliente = Cliente::where('idUser',Auth::user()->id)->first();
+            $cuenta=Cuenta::where('idCliente',$cliente->id)->first();
+            $pedido=Pedido::where('idCuenta',$cuenta->id)->get();
+            $data=array();
+            $data['cuenta']=$cuenta;
+            $data['pedido']=$pedido;
+            foreach ($pedido as $item) {
+                $itemPedido=Item::find($item->idItem)->get();
+            }
+            $data['itemPedido']=$itemPedido;
+            $data['respuesta'] = $this->respuesta;
+            return view ('dashboard.dashCliente.verCuenta')->with('data',$data);
+        } catch (\Throwable $th) {
+            return view('dashboard.dashCliente')->with('data',Local_comercial::all());
         }
-        //return $itemPedido;
-        $data['itemPedido']=$itemPedido;
-        $data['respuesta'] = $this->respuesta;
-        return view ('dashboard.dashCliente.verCuenta')->with('data',$data);
+        
     }
 
     public function hacerPedido(Request $request)
@@ -137,8 +144,6 @@ class ClienteController extends Controller
             $data['respuesta'] = $this->respuesta = 0;
             return view ('dashboard.dashCliente.verCuenta')->with('data',$data);
         }
-        
-
     }
 
     public function perfil()
