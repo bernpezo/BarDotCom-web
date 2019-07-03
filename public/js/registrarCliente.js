@@ -1,4 +1,12 @@
 $(document).ready(function() {
+    /* Llamar método nfc en android */
+    if(respuesta == -1){
+        try {
+            Android.revisarNFC();
+        } catch (error) {
+            
+        }
+    }
     /* Mensaje respuesta */
     if(respuesta == 1){
         Swal.fire(
