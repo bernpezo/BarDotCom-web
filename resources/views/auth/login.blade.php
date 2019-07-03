@@ -9,55 +9,62 @@
 Ingreso
 @endsection
 @section('contenido')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card cuerpo">
-                    <div class="card-body">
-                        <!-- Inicio formulario de Log-in -->
-                        <form action="{{ route('login') }}" method="POST">
-                            @csrf
-                            <h1 class="text-center">Bienvenido</h1>
-                            <div class="form-group margen-control">
-                                <input type="text" name="email" id="email" placeholder="Correo electrónico" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                <input type="password" name="password" id="password" placeholder="Contraseña" class="form-control @error('password') is-invalid @enderror" required autocomplete="current-password">
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-check form-group">
-                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="remember">Mantener sesión iniciada</label>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-success btn-block">Ingresar</button>
-                                    </div>
+    <div class="container ">
+        <div class="centrar1">
+            <div class="centrar2">
+                <div class="centrar3">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card cuerpo">
+                                <div class="card-body">
+                                    <!-- Inicio formulario de Log-in -->
+                                    <form action="{{ route('login') }}" method="POST">
+                                        @csrf
+                                        <h1 class="text-center">Bienvenido</h1>
+                                        <div class="form-group margen-control">
+                                            <input type="text" name="email" id="email" placeholder="Correo electrónico" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                            @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                            <input type="password" name="password" id="password" placeholder="Contraseña" class="form-control @error('password') is-invalid @enderror" required autocomplete="current-password">
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-check form-group">
+                                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="remember">Mantener sesión iniciada</label>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-success btn-block">Ingresar</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <a href="{{ route('home') }}" name="btnVolver" id="btnVolver" class="btn btn-secondary btn-block">Volver</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            @if (Route::has('password.request'))
+                                                <a class="btn btn-link" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
+                                            @endif
+                                        </div>
+                                    </form>
+                                    <!-- Fin formulario de Log-in -->
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <a href="{{ route('home') }}" name="btnVolver" id="btnVolver" class="btn btn-secondary btn-block">Volver</a>
-                                    </div>
-                                </div>
                             </div>
-                            <div class="row justify-content-center">
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
-                                @endif
-                            </div>
-                        </form>
-                        <!-- Fin formulario de Log-in -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
 @endsection

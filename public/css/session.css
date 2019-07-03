@@ -5,3 +5,20 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.centrar1 {
+    display: table;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}  
+.centrar2 {
+    display: table-cell;
+    vertical-align: middle;
+}  
+.centrar3 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
