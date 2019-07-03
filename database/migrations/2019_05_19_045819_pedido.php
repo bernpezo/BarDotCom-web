@@ -22,7 +22,7 @@ class Pedido extends Migration
             $table->unsignedBigInteger('idMesa')->nullable();
             $table->unsignedBigInteger('idItem')->nullable();
             $table->integer('cantidadItem');
-            $table->boolean('estado');
+            $table->integer('estado');
             $table->timestamp('fecha');
             $table->timestamps();
             $table->foreign('idLocal')->references('id')->on('local_comercials')->onDelete('cascade');

@@ -65,7 +65,12 @@ class ClienteController extends Controller
     {
         $data=array();
         $data['item'] = Item::find($request->id);
-        $data['respuesta'] = $this->respuesta;
+        $cuenta = Cuenta::where([['estado',2],['idLocal',$request->idLocal]])->first();
+        if($cuenta==null){
+            $data['respuesta'] = $this->respuesta = 2;
+        }else{
+            $data['respuesta'] = $this->respuesta = 3;
+        }
         return view('dashboard.dashCliente.detalleItem')->with('data',$data);
     }
 
@@ -74,7 +79,7 @@ class ClienteController extends Controller
         try {
             $cliente = Cliente::where('idUser',Auth::user()->id)->first();
             $cuenta=Cuenta::where('idCliente',$cliente->id)->first();
-            $pedido=Pedido::where('idCuenta',$cuenta->id)->get();
+            $pedido=Pedido::where([['idCuenta',$cuenta->id],['estado','>',0]])->get();
             $data=array();
             $data['cuenta']=$cuenta;
             $data['pedido']=$pedido;
@@ -97,7 +102,7 @@ class ClienteController extends Controller
         try {
             $cliente = Cliente::where('idUser',Auth::user()->id)->first();
             $cuenta = Cuenta::where('idCliente',$cliente->id)->first();
-            $request->request->add(['idItem' => $request->idItem,'idCuenta' => $cuenta->id,'idLocal' => $request->idLocal,'idUsuario' => $cuenta->idUsuario,'idCliente' => $cliente->id,'idMesa' => $cuenta->idMesa,'cantidadItem' => $request->cantidad,'estado' => 1]);
+            $request->request->add(['idItem' => $request->idItem,'idCuenta' => $cuenta->id,'idLocal' => $request->idLocal,'idUsuario' => $cuenta->idUsuario,'idCliente' => $cliente->id,'idMesa' => $cuenta->idMesa,'cantidadItem' => $request->cantidad,'estado' => 2]);
             $validar = $request->validate([// Validar datos provenientes del formulario
                 'idLocal' => 'required',
                 'idUsuario' => 'required',
@@ -126,7 +131,7 @@ class ClienteController extends Controller
     {
         $cliente = Cliente::where('idUser',Auth::user()->id)->first();
         $cuenta=Cuenta::where('idCliente',$cliente->id)->first();
-        $pedido=Pedido::where('idCuenta',$cuenta->id)->get();
+        $pedido=Pedido::where([['idCuenta',$cuenta->id],['estado','>',0]])->get();
         $data=array();
         $data['cuenta']=$cuenta;
         $data['pedido']=$pedido;

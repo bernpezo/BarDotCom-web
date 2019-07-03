@@ -130,25 +130,25 @@ class UsuarioLocalController extends Controller
                //si vienen criterios de busqueda
                if(!empty($request->search['value'])){
                     $totalRegistros = Pedido::where('idLocal','like','%'.$usuario->idLocal.'%')// Mostrar solo los pertenecientes al local
-                                                ->where('estado','like','1')// Mostrar solo los pedido con estado 1 (pendiente)
+                                                ->where('estado','like','2')// Mostrar solo los pedido con estado 2 (pendiente)
                                                 ->where('idItem','like','%'.$request->search['value'].'%')
                                                 ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                                 ->count();
                     $registros = Pedido::latest('created_at')
                                                 ->where('idLocal','like','%'.$usuario->idLocal.'%')	
-                                                ->where('estado','like','1')
+                                                ->where('estado','like','2')
                                                 ->where('idItem','like','%'.$request->search['value'].'%')
                                                 ->offset($start)
                                                 ->limit($length)
                                                 ->get();
                }else{
                     $totalRegistros = Pedido::where('idLocal','like','%'.$usuario->idLocal.'%')
-                                                    ->where('estado','like','1')
+                                                    ->where('estado','like','2')
                                                     ->orderBy($columns[$order[0]['column']],$order[0]['dir'])
                                                     ->count();
                     $registros = Pedido::latest('created_at')     
                                                     ->where('idLocal','like','%'.$usuario->idLocal.'%')
-                                                    ->where('estado','like','1')
+                                                    ->where('estado','like','2')
                                                     ->offset($start)
                                                     ->limit($length)
                                                     ->get();
@@ -394,7 +394,7 @@ class UsuarioLocalController extends Controller
     {
         try {
             $pedido=Pedido::find(base64_decode($request->id64));
-            $pedido->estado=0;// Cambiar estado a entregado
+            $pedido->estado=1;// Cambiar estado a entregado
             $pedido->update();
             $item=Item::find($pedido->idItem);
             if($pedido->cantidadItem > $item->stock)// Revisar stock disponible
@@ -421,7 +421,12 @@ class UsuarioLocalController extends Controller
     {
         try {
             $cuenta=Cuenta::find(base64_decode($request->id64));
+            $pedido=Pedido::where('idCuenta',base64_decode($request->id64))->get();
             $cuenta->estado=0;// Cambiar estado a entregada
+            foreach ($pedido as $ped) {
+                $ped->estado=0;// cambiar estado a producto
+                $ped->update();
+            }
             $cuenta->update();
             $respuesta = 1;
             return view('dashboard.dashUsuarioLocal')->with('respuesta',$respuesta);

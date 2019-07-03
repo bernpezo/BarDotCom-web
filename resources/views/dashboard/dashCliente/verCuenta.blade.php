@@ -29,10 +29,11 @@ Pedir cuenta
                     <tbody>
                         @foreach($data['pedido'] as $pedido)
                             <tr>
-                                @if ($pedido->estado == 0)
-                                    <td>Si</td>
-                                @else
+                                @if ($pedido->estado == 2)
                                     <td>No</td>
+                                @endif
+                                @if ($pedido->estado == 1)
+                                    <td>Si</td>
                                 @endif
                                 <td>{{ $pedido->cantidadItem }}</td>
                                 @foreach ($data['itemPedido'] as $item)

@@ -37,7 +37,12 @@ Detalle ítem
                     </div>
                 </div>
                 <div class="col-md-6 offset-md-3">
-                    <button type="submit" class="btn btn-success btn-block">Solicitar</button>
+                    @if ($data['respuesta'] == 2)
+                        <button disabled class="btn btn-success btn-block disabled">Solicitar</button>
+                    @endif
+                    @if ($data['respuesta'] == 3)
+                        <button type="submit" class="btn btn-success btn-block">Solicitar</button>
+                    @endif
                     <br>
                     <a href="{{ route('dashCliente') }}" class="btn btn-secondary btn-block">Volver</a>
                 </div>
