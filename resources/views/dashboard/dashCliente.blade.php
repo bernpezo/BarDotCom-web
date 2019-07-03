@@ -4,7 +4,14 @@
 Buscar local
 @endsection
 @section('contenidodash')
-    <div class="container cuerpo">
+    <div class="container cuerpo d-none d-lg-block">
+        <h4 class="text-center">Bienvenido a <strong>BarDotCom</strong></h4>
+        <div class="row justify-content-center">
+            <img src="{{ asset('images/home/google.png') }}" alt="">
+        </div>
+        <h5 class="text-center">¡Descarga la aplicación!</h5>
+    </div>
+    <div class="container cuerpo d-lg-none">
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link active" href="{{ route('dashCliente') }}">Buscar locales</a>

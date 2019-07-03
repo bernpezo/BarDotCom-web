@@ -4,7 +4,14 @@
 Detalle local
 @endsection
 @section('contenidodash')
-    <div class="container cuerpo">
+    <div class="container cuerpo d-none d-lg-block">
+        <h4 class="text-center">Bienvenido a <strong>BarDotCom</strong></h4>
+        <div class="row justify-content-center">
+            <img src="{{ asset('images/home/google.png') }}" alt="">
+        </div>
+        <h5 class="text-center">¡Descarga la aplicación!</h5>
+    </div>
+    <div class="container cuerpo d-lg-none">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="card mb-3" style="max-width: 540px;">
