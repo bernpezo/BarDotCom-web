@@ -14,7 +14,7 @@ Pedir cuenta
     <div class="container cuerpo d-lg-none">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashCliente') }}">Buscar locales</a>
+                <a class="nav-link" href="{{ route('dashCliente') }}" style="color: black;">Buscar locales</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="{{ route('verCuenta') }}" style="color: black;">Pedir cuenta</a>
@@ -53,11 +53,11 @@ Pedir cuenta
                         @endforeach
                     </tbody>
                 </table>
-                <span>* Solo los pedidos entregados se suman a tu cuenta</span>
+                <span>* Solo los pedidos listos se suman a tu cuenta</span>
             </div>
             <div class="col-md-8 offset-md-2">
                 <br>
-                @if ($data['cuenta']->estado != 2)
+                @if ($data['cuenta']->total==0 || $data['cuenta']->estado==1)
                     <h6>Total: $0</h6>
                     <br>
                     <a href="{{ route('pedirCuenta', ['id'=>$data['cuenta']->id]) }}" class="btn btn-success btn-block disabled">Pedir cuenta</a>

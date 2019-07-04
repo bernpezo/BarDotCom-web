@@ -63,10 +63,16 @@ class ClienteController extends Controller
 
     public function detalleItem(Request $request)
     {
+        $cliente = Cliente::where('idUser',Auth::user()->id)->first();
         $data=array();
-        $data['item'] = Item::find($request->id);
-        $cuenta = Cuenta::where([['estado',2],['idLocal',$request->idLocal]])->first();
-        if($cuenta==null){
+        $item = Item::find($request->id);
+        $data['item'] = $item;
+        $cuentas = Cuenta::where('estado','>',0)->where('idCliente',$cliente->id)->where('idLocal',$item->idLocal)->get();
+        $cuentaUna = new Cuenta;
+        foreach ($cuentas as $cuenta) {
+            $cuentaUna = $cuenta;
+        }
+        if($cuentaUna=='[]'){
             $data['respuesta'] = $this->respuesta = 2;
         }else{
             $data['respuesta'] = $this->respuesta = 3;
@@ -78,15 +84,19 @@ class ClienteController extends Controller
     {
         try {
             $cliente = Cliente::where('idUser',Auth::user()->id)->first();
-            $cuenta=Cuenta::where('idCliente',$cliente->id)->first();
-            $pedido=Pedido::where([['idCuenta',$cuenta->id],['estado','>',0]])->get();
+            $cuentas = Cuenta::where('idCliente',$cliente->id)->where('estado','>',0)->get();
+            $cuentaUna = new Cuenta;
+            foreach ($cuentas as $cuenta) {
+                $cuentaUna = $cuenta;
+            }
+            $pedido = Pedido::where('idCuenta',$cuentaUna->id)->where('estado','>',0)->get();
             $data=array();
-            $data['cuenta']=$cuenta;
+            $data['cuenta']=$cuentaUna;
             $data['pedido']=$pedido;
             foreach ($pedido as $item) {
                 $itemPedido=Item::find($item->idItem)->get();
             }
-            $data['itemPedido']=$itemPedido;
+            $data['itemPedido']=$itemPedido;    
             $data['respuesta'] = $this->respuesta;
             return view ('dashboard.dashCliente.verCuenta')->with('data',$data);
         } catch (\Throwable $th) {
@@ -101,8 +111,12 @@ class ClienteController extends Controller
         $data['item'] = Item::find($request->idItem);
         try {
             $cliente = Cliente::where('idUser',Auth::user()->id)->first();
-            $cuenta = Cuenta::where('idCliente',$cliente->id)->first();
-            $request->request->add(['idItem' => $request->idItem,'idCuenta' => $cuenta->id,'idLocal' => $request->idLocal,'idUsuario' => $cuenta->idUsuario,'idCliente' => $cliente->id,'idMesa' => $cuenta->idMesa,'cantidadItem' => $request->cantidad,'estado' => 2]);
+            $cuentas = Cuenta::where('idCliente',$cliente->id)->where('estado','>',0)->get();
+            $cuentaUna = new Cuenta;
+            foreach ($cuentas as $cuenta) {
+                $cuentaUna = $cuenta;
+            }
+            $request->request->add(['idItem' => $request->idItem,'idCuenta' => $cuentaUna->id,'idLocal' => $request->idLocal,'idUsuario' => $cuentaUna->idUsuario,'idCliente' => $cliente->id,'idMesa' => $cuentaUna->idMesa,'cantidadItem' => $request->cantidad,'estado' => 2]);
             $validar = $request->validate([// Validar datos provenientes del formulario
                 'idLocal' => 'required',
                 'idUsuario' => 'required',
@@ -130,10 +144,14 @@ class ClienteController extends Controller
     public function pedirCuenta(Request $request)
     {
         $cliente = Cliente::where('idUser',Auth::user()->id)->first();
-        $cuenta=Cuenta::where('idCliente',$cliente->id)->first();
-        $pedido=Pedido::where([['idCuenta',$cuenta->id],['estado','>',0]])->get();
+        $cuentas = Cuenta::where('idCliente',$cliente->id)->where('estado','>',0)->get();
+        $cuentaUna = new Cuenta;
+        foreach ($cuentas as $cuenta) {
+            $cuentaUna = $cuenta;
+        }
+        $pedido = Pedido::where('idCuenta',$cuentaUna->id)->where('estado','>',0)->get();
         $data=array();
-        $data['cuenta']=$cuenta;
+        $data['cuenta']=$cuentaUna;
         $data['pedido']=$pedido;
         foreach ($pedido as $item) {
             $itemPedido=Item::find($item->idItem)->get();
