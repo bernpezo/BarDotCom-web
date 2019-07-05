@@ -10,7 +10,7 @@
         }
     }
     window.onload = revisarCliente;
-    </script>
+</script>
 @endsection
 <!-- Título -->
 @section('titulo')
