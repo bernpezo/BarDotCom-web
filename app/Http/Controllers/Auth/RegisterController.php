@@ -92,7 +92,7 @@ class RegisterController extends Controller
             $clientes->save();
             return $users;
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
         
     }

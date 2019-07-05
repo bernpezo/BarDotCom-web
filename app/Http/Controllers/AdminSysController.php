@@ -67,10 +67,14 @@ class AdminSysController extends Controller
 
     public function perfil()
     {
-        $data=array();
-        $data['user']=Auth::user();
-        $data['respuesta'] = $this->respuesta;
-        return view ('dashboard.dashAdminSys.perfil')->with('data',$data);
+        try {
+            $data=array();
+            $data['user']=Auth::user();
+            $data['respuesta'] = $this->respuesta;
+            return view ('dashboard.dashAdminSys.perfil')->with('data',$data);
+        } catch (\Throwable $th) {
+            return view('layouts.error')->with('th',$th);
+        }
     }
     /*
      * Crear local
@@ -218,7 +222,7 @@ class AdminSysController extends Controller
             //se retorna en formato JSON
             return json_encode($json_data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -285,7 +289,7 @@ class AdminSysController extends Controller
             //se retorna en formato JSON
             return json_encode($json_data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -300,7 +304,7 @@ class AdminSysController extends Controller
             $data['respuesta'] = $this->respuesta;
             return view('dashboard.dashAdminSys.localesEditar')->with('data',$data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -315,7 +319,7 @@ class AdminSysController extends Controller
             $data['respuesta'] = $this->respuesta;
             return view('dashboard.dashAdminSys.avisosEditar')->with('data',$data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -323,31 +327,35 @@ class AdminSysController extends Controller
      */
     public function editLocalComercial(Request $request)
     {
-        $local_comercial=Local_comercial::find($request->id);
-        $data=array();
-        $data['local_comercial'] = $local_comercial;
         try {
-            $Admin = Administrador_sistema::where('id',Auth::user()->id)->first();
-            $request->request->add(['idAdmin' => $Admin->idAdmin]);
-            $validar = $request->validate([
-                'idAdmin' => 'required',
-                'rut' => 'required|string|max:50',
-                'nombre' => 'required|string|max:50',
-                'direccion' => 'required|string|max:100',
-                'comuna' => 'required|integer',
-                'rubro' => 'required|integer',
-                'logo' => 'required',
-                'logo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'email' => 'required|string|email|max:50|unique:local_comercials,email,'.$local_comercial->id,
-                'telefono' => 'required|integer',
-                'descripcion' => 'required|string|max:500',
-            ]);
-            $local_comercial->update($validar);
-            $data['respuesta'] = $this->respuesta = 1;
-            return view('dashboard.dashAdminSys.localesEditar')->with('data',$data);
+            $local_comercial=Local_comercial::find($request->id);
+            $data=array();
+            $data['local_comercial'] = $local_comercial;
+            try {
+                $Admin = Administrador_sistema::where('id',Auth::user()->id)->first();
+                $request->request->add(['idAdmin' => $Admin->idAdmin]);
+                $validar = $request->validate([
+                    'idAdmin' => 'required',
+                    'rut' => 'required|string|max:50',
+                    'nombre' => 'required|string|max:50',
+                    'direccion' => 'required|string|max:100',
+                    'comuna' => 'required|integer',
+                    'rubro' => 'required|integer',
+                    'logo' => 'required',
+                    'logo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'email' => 'required|string|email|max:50|unique:local_comercials,email,'.$local_comercial->id,
+                    'telefono' => 'required|integer',
+                    'descripcion' => 'required|string|max:500',
+                ]);
+                $local_comercial->update($validar);
+                $data['respuesta'] = $this->respuesta = 1;
+                return view('dashboard.dashAdminSys.localesEditar')->with('data',$data);
+            } catch (\Throwable $th) {
+                $data['respuesta'] = $this->respuesta = 0;
+                return view('dashboard.dashAdminSys.localesEditar')->with('data',$data);
+            }
         } catch (\Throwable $th) {
-            $data['respuesta'] = $this->respuesta = 0;
-            return view('dashboard.dashAdminSys.localesEditar')->with('data',$data);
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -355,23 +363,27 @@ class AdminSysController extends Controller
      */
     public function editAviso(Request $request)
     {
-        $avisos=Aviso::find($request->id);
-        $data=array();
-        $data['avisos'] = $avisos;
         try {
-            $Admin = Administrador_sistema::where('id',Auth::user()->id)->first();
-            $request->request->add(['idAdmin' => $Admin->idAdmin]);
-            $validar = $request->validate([
-                'idAdmin' => 'required',
-                'nombre' => 'required|string|max:50',
-                'descripcion' => 'required|string|max:500',
-            ]);
-            $avisos->update($validar);
-            $data['respuesta'] = $this->respuesta = 1;
-            return view('dashboard.dashAdminSys.avisosEditar')->with('data',$data);
+            $avisos=Aviso::find($request->id);
+            $data=array();
+            $data['avisos'] = $avisos;
+            try {
+                $Admin = Administrador_sistema::where('id',Auth::user()->id)->first();
+                $request->request->add(['idAdmin' => $Admin->idAdmin]);
+                $validar = $request->validate([
+                    'idAdmin' => 'required',
+                    'nombre' => 'required|string|max:50',
+                    'descripcion' => 'required|string|max:500',
+                ]);
+                $avisos->update($validar);
+                $data['respuesta'] = $this->respuesta = 1;
+                return view('dashboard.dashAdminSys.avisosEditar')->with('data',$data);
+            } catch (\Throwable $th) {
+                $data['respuesta'] = $this->respuesta = 0;
+                return view('dashboard.dashAdminSys.avisosEditar')->with('data',$data);
+            }
         } catch (\Throwable $th) {
-            $data['respuesta'] = $this->respuesta = 0;
-            return view('dashboard.dashAdminSys.avisosEditar')->with('data',$data);
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -388,7 +400,7 @@ class AdminSysController extends Controller
             $userAdmin=User::where('id',$administrador_local->id)->delete();
             $local_comercial=Local_comercial::where('id',base64_decode($request->id))->delete();
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -400,7 +412,7 @@ class AdminSysController extends Controller
             $avisos=Aviso::find(base64_decode($request->id));
             $avisos->delete();
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -408,34 +420,38 @@ class AdminSysController extends Controller
      */
     public function editPerfil(Request $request)
     {
-        $user=User::find($request->id);
-        $data=array();
-        $data['user'] = $user;
         try {
-            $validar = $request->validate([
-                'nombre' => 'required|string|max:50',
-                'apellido' => 'required|string|max:50',
-                'comuna' => 'required|integer',
-                'fechaNacimiento' => 'required|date',
-                'telefono' => 'required|integer',
-                'email' => 'required|string|email|max:50|unique:users,email,'.$user->id,
-                'passwordActual' => 'required|string|min:8|max:50',
-            ]);
-            if((Hash::check($request->passwordActual, $user->password))){// Validar contraseña
-                $user->update($validar);
-                if($request->password!=''){
-                    $user->password=Hash::make($request->password);
-                    $user->update();
+            $user=User::find($request->id);
+            $data=array();
+            $data['user'] = $user;
+            try {
+                $validar = $request->validate([
+                    'nombre' => 'required|string|max:50',
+                    'apellido' => 'required|string|max:50',
+                    'comuna' => 'required|integer',
+                    'fechaNacimiento' => 'required|date',
+                    'telefono' => 'required|integer',
+                    'email' => 'required|string|email|max:50|unique:users,email,'.$user->id,
+                    'passwordActual' => 'required|string|min:8|max:50',
+                ]);
+                if((Hash::check($request->passwordActual, $user->password))){// Validar contraseña
+                    $user->update($validar);
+                    if($request->password!=''){
+                        $user->password=Hash::make($request->password);
+                        $user->update();
+                    }
+                    $data['respuesta'] = $this->respuesta = 1;
+                    return view('dashboard.dashAdminSys.perfil')->with('data',$data);
+                }else{
+                    $data['respuesta'] = $this->respuesta = 2;
+                    return view('dashboard.dashAdminSys.perfil')->with('data',$data);
                 }
-                $data['respuesta'] = $this->respuesta = 1;
-                return view('dashboard.dashAdminSys.perfil')->with('data',$data);
-            }else{
-                $data['respuesta'] = $this->respuesta = 2;
+            } catch (\Throwable $th) {
+                $data['respuesta'] = $this->respuesta = 0;
                 return view('dashboard.dashAdminSys.perfil')->with('data',$data);
             }
         } catch (\Throwable $th) {
-            $data['respuesta'] = $this->respuesta = 0;
-            return view('dashboard.dashAdminSys.perfil')->with('data',$data);
+            return view('layouts.error')->with('th',$th);
         }
     }
 }

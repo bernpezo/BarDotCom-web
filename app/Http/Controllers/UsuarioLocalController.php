@@ -56,10 +56,14 @@ class UsuarioLocalController extends Controller
 
     public function perfil()
     {
-        $data=array();
-        $data['user']=Auth::user();
-        $data['respuesta'] = $this->respuesta;
-        return view ('dashboard.dashUsuarioLocal.perfil')->with('data',$data);
+        try {
+            $data=array();
+            $data['user']=Auth::user();
+            $data['respuesta'] = $this->respuesta;
+            return view ('dashboard.dashUsuarioLocal.perfil')->with('data',$data);
+        } catch (\Throwable $th) {
+            return view('layouts.error')->with('th',$th);
+        }
     }
     /*
      * Registrar cliente
@@ -99,7 +103,6 @@ class UsuarioLocalController extends Controller
             $respuesta = 0;
             return view('dashboard.dashUsuarioLocal.registrarCliente')->with('respuesta',$respuesta);
         }
-        
     }
     /*
      * Mostrar pedidos pendientes de entregar
@@ -170,7 +173,7 @@ class UsuarioLocalController extends Controller
             //se retorna en formato JSON
             return json_encode($json_data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -241,7 +244,7 @@ class UsuarioLocalController extends Controller
             //se retorna en formato JSON
             return json_encode($json_data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -313,7 +316,7 @@ class UsuarioLocalController extends Controller
             //se retorna en formato JSON
             return json_encode($json_data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -384,7 +387,7 @@ class UsuarioLocalController extends Controller
             //se retorna en formato JSON
             return json_encode($json_data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -444,7 +447,7 @@ class UsuarioLocalController extends Controller
             $pedido=Pedido::find(base64_decode($request->id));
             $pedido->delete();
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -456,7 +459,7 @@ class UsuarioLocalController extends Controller
             $cuenta=Cuenta::find(base64_decode($request->id));
             $cuenta->delete();
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -464,34 +467,38 @@ class UsuarioLocalController extends Controller
      */
     public function editPerfil(Request $request)
     {
-        $user=User::find($request->id);
-        $data=array();
-        $data['user'] = $user;
         try {
-            $validar = $request->validate([
-                'nombre' => 'required|string|max:50',
-                'apellido' => 'required|string|max:50',
-                'comuna' => 'required|integer',
-                'fechaNacimiento' => 'required|date',
-                'telefono' => 'required|integer',
-                'email' => 'required|string|email|max:50|unique:users,email,'.$user->id,
-                'passwordActual' => 'required|string|min:8',
-            ]);
-            if((Hash::check($request->passwordActual, $user->password))){
-                $user->update($validar);
-                if($request->password!=''){
-                    $user->password=Hash::make($request->password);
-                    $user->update();
+            $user=User::find($request->id);
+            $data=array();
+            $data['user'] = $user;
+            try {
+                $validar = $request->validate([
+                    'nombre' => 'required|string|max:50',
+                    'apellido' => 'required|string|max:50',
+                    'comuna' => 'required|integer',
+                    'fechaNacimiento' => 'required|date',
+                    'telefono' => 'required|integer',
+                    'email' => 'required|string|email|max:50|unique:users,email,'.$user->id,
+                    'passwordActual' => 'required|string|min:8',
+                ]);
+                if((Hash::check($request->passwordActual, $user->password))){
+                    $user->update($validar);
+                    if($request->password!=''){
+                        $user->password=Hash::make($request->password);
+                        $user->update();
+                    }
+                    $data['respuesta'] = $this->respuesta = 1;
+                    return view('dashboard.dashUsuarioLocal.perfil')->with('data',$data);
+                }else{
+                    $data['respuesta'] = $this->respuesta = 2;
+                    return view('dashboard.dashUsuarioLocal.perfil')->with('data',$data);
                 }
-                $data['respuesta'] = $this->respuesta = 1;
-                return view('dashboard.dashUsuarioLocal.perfil')->with('data',$data);
-            }else{
-                $data['respuesta'] = $this->respuesta = 2;
+            } catch (\Throwable $th) {
+                $data['respuesta'] = $this->respuesta = 0;
                 return view('dashboard.dashUsuarioLocal.perfil')->with('data',$data);
             }
         } catch (\Throwable $th) {
-            $data['respuesta'] = $this->respuesta = 0;
-            return view('dashboard.dashUsuarioLocal.perfil')->with('data',$data);
+            return view('layouts.error')->with('th',$th);
         }
     }
 }

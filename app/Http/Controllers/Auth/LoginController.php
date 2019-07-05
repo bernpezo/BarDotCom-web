@@ -53,7 +53,7 @@ class LoginController extends Controller
                 return '/dashCliente';
             }
         } catch (\Throwable $th) {
-            return "error";
+            return view('home');
         }
     }
 

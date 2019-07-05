@@ -44,7 +44,11 @@ class AdminLocalController extends Controller
      */
     public function index()
     {
-        return view('dashboard.dashAdminLocal')->with('data',Aviso::all());// Mostrar avisos de sistema
+        try {
+            return view('dashboard.dashAdminLocal')->with('data',Aviso::all());// Mostrar avisos de sistema
+        } catch (\Throwable $th) {
+            return view('layouts.error')->with('th',$th);
+        }
     }
 
     public function promociones()
@@ -104,10 +108,14 @@ class AdminLocalController extends Controller
 
     public function perfil()
     {
-        $data=array();
-        $data['user']=Auth::user();
-        $data['respuesta'] = $this->respuesta;
-        return view ('dashboard.dashAdminLocal.perfil')->with('data',$data);
+        try {
+            $data=array();
+            $data['user']=Auth::user();
+            $data['respuesta'] = $this->respuesta;
+            return view ('dashboard.dashAdminLocal.perfil')->with('data',$data);
+        } catch (\Throwable $th) {
+            return view('layouts.error')->with('th',$th);
+        }
     }
     /*
      * Crear promoción
@@ -252,7 +260,7 @@ class AdminLocalController extends Controller
             //se retorna en formato JSON
             return json_encode($json_data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -320,7 +328,7 @@ class AdminLocalController extends Controller
             //se retorna en formato JSON
             return json_encode($json_data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -388,7 +396,7 @@ class AdminLocalController extends Controller
             //se retorna en formato JSON
             return json_encode($json_data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -453,9 +461,8 @@ class AdminLocalController extends Controller
             //se retorna en formato JSON
             return json_encode($json_data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
-        
     }
     /*
      * Reporte semanal
@@ -525,7 +532,7 @@ class AdminLocalController extends Controller
             //se retorna en formato JSON
             return json_encode($json_data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -596,7 +603,7 @@ class AdminLocalController extends Controller
             //se retorna en formato JSON
             return json_encode($json_data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -682,7 +689,7 @@ class AdminLocalController extends Controller
             $data['respuesta'] = $this->respuesta;
             return view('dashboard.dashAdminLocal.promocionesEditar')->with('data',$data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -697,7 +704,7 @@ class AdminLocalController extends Controller
             $data['respuesta'] = $this->respuesta;
             return view('dashboard.dashAdminLocal.mesasEditar')->with('data',$data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -712,7 +719,7 @@ class AdminLocalController extends Controller
             $data['respuesta'] = $this->respuesta;
             return view('dashboard.dashAdminLocal.itemsEditar')->with('data',$data);
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -720,24 +727,28 @@ class AdminLocalController extends Controller
      */
     public function editPromocion(Request $request)
     {
-        $promocion=Promocion::find($request->id);
-        $data=array();
-        $data['promocion'] = $promocion;
         try {
-            $Admin = Administrador_Local::where('id',Auth::user()->id)->first();
-            $request->request->add(['idLocal' => $Admin->idLocal]);
-            $validar = $request->validate([
-                'idLocal' => 'required',
-                'imagen' => 'required',
-                'nombre' => 'required|string|max:50',
-                'descripcion' => 'required|string|max:500',
-            ]);
-            $promocion->update($validar);
-            $data['respuesta'] = $this->respuesta = 1;
-            return view('dashboard.dashAdminLocal.promocionesEditar')->with('data',$data);
+            $promocion=Promocion::find($request->id);
+            $data=array();
+            $data['promocion'] = $promocion;
+            try {
+                $Admin = Administrador_Local::where('id',Auth::user()->id)->first();
+                $request->request->add(['idLocal' => $Admin->idLocal]);
+                $validar = $request->validate([
+                    'idLocal' => 'required',
+                    'imagen' => 'required',
+                    'nombre' => 'required|string|max:50',
+                    'descripcion' => 'required|string|max:500',
+                ]);
+                $promocion->update($validar);
+                $data['respuesta'] = $this->respuesta = 1;
+                return view('dashboard.dashAdminLocal.promocionesEditar')->with('data',$data);
+            } catch (\Throwable $th) {
+                $data['respuesta'] = $this->respuesta = 0;
+                return view('dashboard.dashAdminLocal.promocionesEditar')->with('data',$data);
+            }
         } catch (\Throwable $th) {
-            $data['respuesta'] = $this->respuesta = 0;
-            return view('dashboard.dashAdminLocal.promocionesEditar')->with('data',$data);
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -745,22 +756,26 @@ class AdminLocalController extends Controller
      */
     public function editMesa(Request $request)
     {
-        $mesa=Mesa::find($request->id);
-        $data=array();
-        $data['mesa'] = $mesa;
         try {
-            $Admin = Administrador_Local::where('id',Auth::user()->id)->first();
-            $request->request->add(['idLocal' => $Admin->idLocal]);
-            $validar = $request->validate([
-                'idLocal' => 'required',
-                'numero' => 'required',
-            ]);
-            $mesa->update($validar);
-            $data['respuesta'] = $this->respuesta = 1;
-            return view('dashboard.dashAdminLocal.mesasEditar')->with('data',$data);
+            $mesa=Mesa::find($request->id);
+            $data=array();
+            $data['mesa'] = $mesa;
+            try {
+                $Admin = Administrador_Local::where('id',Auth::user()->id)->first();
+                $request->request->add(['idLocal' => $Admin->idLocal]);
+                $validar = $request->validate([
+                    'idLocal' => 'required',
+                    'numero' => 'required',
+                ]);
+                $mesa->update($validar);
+                $data['respuesta'] = $this->respuesta = 1;
+                return view('dashboard.dashAdminLocal.mesasEditar')->with('data',$data);
+            } catch (\Throwable $th) {
+                $data['respuesta'] = $this->respuesta = 0;
+                return view('dashboard.dashAdminLocal.mesasEditar')->with('data',$data);
+            }
         } catch (\Throwable $th) {
-            $data['respuesta'] = $this->respuesta = 0;
-            return view('dashboard.dashAdminLocal.mesasEditar')->with('data',$data);
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -768,28 +783,32 @@ class AdminLocalController extends Controller
      */
     public function editItem(Request $request)
     {
-        $item=Item::find($request->id);
-        $data=array();
-        $data['item'] = $item;
         try {
-            $Admin = Administrador_Local::where('id',Auth::user()->id)->first();
-            $request->request->add(['idLocal' => $Admin->idLocal]);
-            $validar = $request->validate([
-                'idLocal' => 'required',
-                'nombre' => 'required|string|max:50',
-                'imagen' => 'required',
-                'imagen.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'precio' => 'required|integer',
-                'stock' => 'required|integer',
-                'estado' => 'required|integer',
-                'descripcion' => 'required|string|max:500',
-            ]);
-            $item->update($validar);
-            $data['respuesta'] = $this->respuesta = 1;
-            return view('dashboard.dashAdminLocal.itemsEditar')->with('data',$data);
+            $item=Item::find($request->id);
+            $data=array();
+            $data['item'] = $item;
+            try {
+                $Admin = Administrador_Local::where('id',Auth::user()->id)->first();
+                $request->request->add(['idLocal' => $Admin->idLocal]);
+                $validar = $request->validate([
+                    'idLocal' => 'required',
+                    'nombre' => 'required|string|max:50',
+                    'imagen' => 'required',
+                    'imagen.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'precio' => 'required|integer',
+                    'stock' => 'required|integer',
+                    'estado' => 'required|integer',
+                    'descripcion' => 'required|string|max:500',
+                ]);
+                $item->update($validar);
+                $data['respuesta'] = $this->respuesta = 1;
+                return view('dashboard.dashAdminLocal.itemsEditar')->with('data',$data);
+            } catch (\Throwable $th) {
+                $data['respuesta'] = $this->respuesta = 0;
+                return view('dashboard.dashAdminLocal.itemsEditar')->with('data',$data);
+            }
         } catch (\Throwable $th) {
-            $data['respuesta'] = $this->respuesta = 0;
-            return view('dashboard.dashAdminLocal.itemsEditar')->with('data',$data);
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -801,7 +820,7 @@ class AdminLocalController extends Controller
             $promocion=Promocion::find(base64_decode($request->id));
             $promocion->delete();
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -813,7 +832,7 @@ class AdminLocalController extends Controller
             $mesa=Mesa::find(base64_decode($request->id));
             $mesa->delete();
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -825,7 +844,7 @@ class AdminLocalController extends Controller
             $item=Item::find(base64_decode($request->id));
             $item->delete();
         } catch (\Throwable $th) {
-            return "error";
+            return view('layouts.error')->with('th',$th);
         }
     }
     /*
@@ -833,34 +852,38 @@ class AdminLocalController extends Controller
      */
     public function editPerfil(Request $request)
     {
-        $user=User::find($request->id);
-        $data=array();
-        $data['user'] = $user;
         try {
-            $validar = $request->validate([
-                'nombre' => 'required|string|max:50',
-                'apellido' => 'required|string|max:50',
-                'comuna' => 'required|integer',
-                'fechaNacimiento' => 'required|date',
-                'telefono' => 'required|integer',
-                'email' => 'required|string|email|max:50|unique:users,email,'.$user->id,
-                'passwordActual' => 'required|string|min:8',
-            ]);
-            if((Hash::check($request->passwordActual, $user->password))){// Validar contraseña
-                $user->update($validar);
-                if($request->password!=''){
-                    $user->password=Hash::make($request->password);
-                    $user->update();
+            $user=User::find($request->id);
+            $data=array();
+            $data['user'] = $user;
+            try {
+                $validar = $request->validate([
+                    'nombre' => 'required|string|max:50',
+                    'apellido' => 'required|string|max:50',
+                    'comuna' => 'required|integer',
+                    'fechaNacimiento' => 'required|date',
+                    'telefono' => 'required|integer',
+                    'email' => 'required|string|email|max:50|unique:users,email,'.$user->id,
+                    'passwordActual' => 'required|string|min:8',
+                ]);
+                if((Hash::check($request->passwordActual, $user->password))){// Validar contraseña
+                    $user->update($validar);
+                    if($request->password!=''){
+                        $user->password=Hash::make($request->password);
+                        $user->update();
+                    }
+                    $data['respuesta'] = $this->respuesta = 1;
+                    return view('dashboard.dashAdminLocal.perfil')->with('data',$data);
+                }else{
+                    $data['respuesta'] = $this->respuesta = 2;
+                    return view('dashboard.dashAdminLocal.perfil')->with('data',$data);
                 }
-                $data['respuesta'] = $this->respuesta = 1;
-                return view('dashboard.dashAdminLocal.perfil')->with('data',$data);
-            }else{
-                $data['respuesta'] = $this->respuesta = 2;
+            } catch (\Throwable $th) {
+                $data['respuesta'] = $this->respuesta = 0;
                 return view('dashboard.dashAdminLocal.perfil')->with('data',$data);
             }
         } catch (\Throwable $th) {
-            $data['respuesta'] = $this->respuesta = 0;
-            return view('dashboard.dashAdminLocal.perfil')->with('data',$data);
+            return view('layouts.error')->with('th',$th);
         }
     }
 }
