@@ -1,12 +1,8 @@
 $(document).ready(function() {
-    /* Llamar método nfc en android */
-    if(respuesta == -1){
-        try {
-            Android.revisarNFC();
-        } catch (error) {
-            
-        }
-    }
+    /* Recargar para cargar NFC */
+    setTimeout(function(){
+        window.location.reload(1);
+     }, 5000);
     /* Mensaje respuesta */
     if(respuesta == 1){
         Swal.fire(

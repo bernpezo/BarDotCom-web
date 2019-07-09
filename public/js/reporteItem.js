@@ -64,8 +64,8 @@ $(document).ready( function () {
                 extend: 'pdfHtml5',
                 pageSize: 'LETTER',
 				customize: function(doc) {
-					//márgenes [left, top, right, bottom] 
-					doc.pageMargins = [ 150, 20, 150, 20 ];
+					// usar la hoja completa
+					doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
 				}
             }
         ]
