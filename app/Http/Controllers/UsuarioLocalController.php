@@ -457,7 +457,8 @@ class UsuarioLocalController extends Controller
     {
         try {
             $cuenta=Cuenta::find(base64_decode($request->id));
-            $cuenta->delete();
+            $cuenta->estado=2;
+            $cuenta->update();
         } catch (\Throwable $th) {
             return view('layouts.error')->with('th',$th);
         }
